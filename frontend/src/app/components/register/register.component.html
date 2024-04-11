@@ -1,67 +1,68 @@
-<form [formGroup]="registerForm">
-  <div class="label-container">
-    <label class="form-label" >Nombre</label>
-    <input type="text" class="form-control" formControlName="firstName">
-    <div class="text-danger" *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].touched || registerForm.controls['firstName'].dirty)">
-      <span *ngIf="registerForm.controls['firstName'].errors?.['required']">This is required</span>
-      <span *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched || 
-      registerForm.get('firstName')?.hasError('maxlength') && registerForm.get('firstName')?.touched">
-      Utiliza entre 3 y 24 caracteres.
-      </span>
+<div class="container">
+  <form [formGroup]="registerForm">
+    <div class="label-container">
+      <label class="form-label" >Nombre</label>
+      <input type="text" class="form-control" formControlName="firstName">
+      <div class="text-danger" *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].touched || registerForm.controls['firstName'].dirty)">
+        <span *ngIf="registerForm.controls['firstName'].errors?.['required']">This is required</span>
+        <span *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched || 
+        registerForm.get('firstName')?.hasError('maxlength') && registerForm.get('firstName')?.touched">
+        Utiliza entre 3 y 24 caracteres.
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Apellido</label>
-    <input type="text" class="form-control" formControlName="lastName">
-    <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
-      <span *ngIf="registerForm.controls['lastName'].errors?.['required']">This is required</span>
+    <div class="label-container">
+      <label class="form-label" >Apellido</label>
+      <input type="text" class="form-control" formControlName="lastName">
+      <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
+        <span *ngIf="registerForm.controls['lastName'].errors?.['required']">This is required</span>
+      </div>
     </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Email</label>
-    <input type="text" class="form-control" formControlName="email">
-    <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
-      <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        Es necesario completar el email
-      </span>
-      <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        Utilice un correo valido!
-      </span>
+    <div class="label-container">
+      <label class="form-label" >Email</label>
+      <input type="text" class="form-control" formControlName="email">
+      <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
+        <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+          Es necesario completar el email
+        </span>
+        <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+          Utilice un correo valido!
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Contraseña</label>
-    <input type="password" class="form-control" formControlName="password">
-    <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
-      <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        Es necesario completar la contraseña!
-      </span>
-      <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
-      registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
-      Utiliza entre 8 y 24 caracteres.
-    </span>        
-  </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Confirmar Contraseña</label>
-    <input type="password" class="form-control" formControlName="password">
-    <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
-      <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        Es necesario completar la contraseña!
-      </span>
-      <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
-      registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
-      Utiliza entre 8 y 24 caracteres.
-    </span>    
+    <div class="label-container">
+      <label class="form-label" >Contraseña</label>
+      <input type="password" class="form-control" formControlName="password">
+      <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
+        <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+          Es necesario completar la contraseña!
+        </span>
+        <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
+        registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
+        Utiliza entre 8 y 24 caracteres.
+      </span>        
     </div>
+    </div>
+    <div class="label-container">
+      <label class="form-label" >Confirmar Contraseña</label>
+      <input type="password" class="form-control" formControlName="confirmPassword">
+      <div class="text-danger" *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
+        <span *ngIf="registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched">
+          Es necesario confirmar la contraseña.
+        </span>
+        <span *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
+          Las contraseñas no coinciden.
+        </span>
+      </div>
+    </div>
+    <div class="label-container"> 
+      <input type="checkbox" class="form-control" formControlName="isAgree">
+      <label class="form-label" >Aceptar los terminos y condiciones</label>
+      <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
+        <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">This is required</span>
+      </div>  
+    </div>
+    
+    <button type="button" (click)="onSubmit()">Registrarse</button>
+  </form>
   </div>
-  <div class="label-container"> 
-    <input type="checkbox" class="form-control" formControlName="isAgree">
-    <label class="form-label" >Aceptar los terminos y condiciones</label>
-    <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
-      <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">This is required</span>
-    </div>  
-  </div>
-  
-  <button type="button" (click)="onSubmit()">Registrarse</button>
-</form>

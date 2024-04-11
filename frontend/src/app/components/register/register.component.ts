@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ClienteService } from '../../services/cliente.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,HttpClientModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -20,6 +21,7 @@ export class RegisterComponent {
       lastName: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
       email: ["",[Validators.required,Validators.email,Validators.min(5)]],
       password: ["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
+      confirmPassword:["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
       isAgree: [false,[Validators.requiredTrue]]
     })
   }
