@@ -12,10 +12,13 @@ export class ClienteService {
 
   constructor(private http:HttpClient) { }
 
-  getClientes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`).pipe()
+  getClientes(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${this.apiUrl}`);
   }
   agregarCliente(cliente: Client): Observable<any> {
     return this.http.post<Client>(this.apiUrl, cliente);
+  }
+  autenticarUsuario(email: string, password: string): Observable<Client[]> {
+    return this.http.get<Client[]>(`${this.apiUrl}?email=${email}&password=${password}`);
   }
 }

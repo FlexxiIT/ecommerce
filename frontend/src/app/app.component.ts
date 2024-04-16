@@ -3,11 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { RegisterComponent } from './components/register/register.component';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ColorPickerModule,RegisterComponent],
+  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

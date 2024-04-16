@@ -1,0 +1,30 @@
+<div class="container">
+    <form class="form-login" [formGroup]="loginForm">
+        <div class="label-container">
+            <label class="form-label" >Email</label>
+            <input type="text" class="form-control" formControlName="email">
+            <div class="text-danger" *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)">
+              <span *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+                Es necesario completar el email
+              </span>
+              <span *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+                Utilice un correo valido!
+              </span>
+            </div>
+          </div>
+          <div class="label-container">
+            <label class="form-label" >Contraseña</label>
+            <input type="password" class="form-control" formControlName="password">
+            <div class="text-danger" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)">
+              <span *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                Es necesario completar la contraseña!
+              </span>
+              <span *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched || 
+              loginForm.get('password')?.hasError('maxlength') && loginForm.get('password')?.touched">
+              Utiliza entre 8 y 24 caracteres.
+            </span>        
+          </div>
+        </div>
+        <button type="button" (click)="onSubmit()">Iniciar sesion</button>
+    </form>
+</div>
