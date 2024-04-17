@@ -28,7 +28,7 @@ export class AuthService {
                     password: hashedPassword,
                     name: registerClientDto.name,
                     surname: registerClientDto.surname,
-                    phoneNumber: registerClientDto.password,
+                    phoneNumber: registerClientDto.phoneNumber,
                     DNI: registerClientDto.DNI
                 },
             });

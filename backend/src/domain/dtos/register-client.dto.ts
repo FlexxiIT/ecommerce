@@ -24,9 +24,10 @@ export class RegisterClientDto {
         if (!password) return ['Missing password'];
         if (!confirmPassword) return ['Missing confirm password'];
 
+        if (password.length < 8 || password.length > 20) return ['The password must have at least 8 minimum caracters and 20 maximum caracters'];
+        
         if(password !== confirmPassword) return ['The password must be equal to the confirm password']
 
-        if (password.length < 8 && password.length > 20) return ['The password must have at least 8 minimum caracters and 20 maximum caracters'];
         if (!name) return ['Missing name'];
         if (!surname) return ['Missing surname'];
         if (!phoneNumber) return ['Missing phone number'];

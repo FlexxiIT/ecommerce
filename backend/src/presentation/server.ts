@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import cors from 'cors';
 
 interface Options {
   port: number;
@@ -19,22 +20,22 @@ export class Server {
     this.routes = routes;
   }
 
-  
-  
+
+
   async start() {
-    
+
 
     //* Middlewares
-    this.app.use( express.json() ); // raw
-    this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
-
+    this.app.use(express.json()); // raw
+    this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+    this.app.use(cors());
 
     //* Routes
-    this.app.use( this.routes );
+    this.app.use(this.routes);
 
 
     this.serverListener = this.app.listen(this.port, () => {
-      console.log(`Server running on port ${ this.port }`);
+      console.log(`Server running on port ${this.port}`);
     });
 
   }
