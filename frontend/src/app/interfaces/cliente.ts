@@ -1,7 +1,9 @@
 export interface Client {
-    id:number;
-    firstname:string,
-    surname:string,
+    name:string,
     email:string,
-    password:string
+    password:string,
+    confirmPassword:string,
+    surname:string,
+    phoneNumber:string
+    DNI:string
 }

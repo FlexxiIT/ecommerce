@@ -8,17 +8,16 @@ import { Client } from '../interfaces/cliente';
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl= 'http://localhost:3000/posts'
+  private apiUrl= 'https://1gtvc2c2-3000.brs.devtunnels.ms'
+  
 
   constructor(private http:HttpClient) { }
 
-  getClientes(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.apiUrl}`);
+  registerClient(cliente: Client): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/auth/register`,cliente);
   }
-  agregarCliente(cliente: Client): Observable<any> {
-    return this.http.post<Client>(this.apiUrl, cliente);
+  loginCLient(emailClient:string,passwordClient:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/auth/login`,{email:emailClient,password:passwordClient})
   }
-  autenticarUsuario(email: string, password: string): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.apiUrl}?email=${email}&password=${password}`);
-  }
+
 }

@@ -55,6 +55,21 @@
         </span>
       </div>
     </div>
+    <div class="label-container">
+      <label class="form-label" >Telefono</label>
+      <input type="text" class="form-control" formControlName="phonenumber">
+      <div class="text-danger" *ngIf="registerForm.controls['phonenumber'].invalid && (registerForm.controls['phonenumber'].touched || registerForm.controls['phonenumber'].dirty)">
+        <span *ngIf="registerForm.controls['phonenumber'].errors?.['required']">This is required</span>
+      </div>
+    </div>
+    <div class="label-container">
+      <label class="form-label" >DNI</label>
+      <input type="text" class="form-control" formControlName="DNI">
+      <div class="text-danger" *ngIf="registerForm.controls['DNI'].invalid && (registerForm.controls['DNI'].touched || registerForm.controls['DNI'].dirty)">
+        <span *ngIf="registerForm.controls['DNI'].errors?.['required']">This is required</span>
+        <span *ngIf="registerForm.controls['DNI'].errors?.['minlength']">Minimo 5 caracteres</span>
+      </div>
+    </div>
     <div class="label-container"> 
       <input type="checkbox" class="form-control" formControlName="isAgree">
       <label class="form-label" >Aceptar los terminos y condiciones</label>

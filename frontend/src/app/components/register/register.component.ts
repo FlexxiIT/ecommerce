@@ -22,6 +22,8 @@ export class RegisterComponent {
       email: ["",[Validators.required,Validators.email,Validators.min(5)]],
       password: ["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
       confirmPassword:["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
+      phonenumber:["",[Validators.required]],
+      DNI:["",[Validators.required,Validators.minLength(5)]],
       isAgree: [false,[Validators.requiredTrue]]
     })
   }
@@ -31,30 +33,26 @@ export class RegisterComponent {
     console.log(isFormValid);
 
     if (this.registerForm.valid) {
-      let idClient= Math.floor(Math.random() * (100 - 5 + 1)) + 5;
       let nameClient = this.registerForm.value.firstName;
       let surnameClient = this.registerForm.value.lastName;
       let passwordClient = this.registerForm.value.password;
+      let confirmPasswordClient = this.registerForm.value.confirmPassword;
       let emailClient = this.registerForm.value.email;
+      let phoneNumberClient= this.registerForm.value.phonenumber;
+      let DNIClient = this.registerForm.value.DNI;
       const newClient = {
-        id: idClient,
-        firstname:nameClient,
-        surname: surnameClient,
+        name:nameClient,
         email:emailClient,
-        password: passwordClient
+        password: passwordClient,
+        confirmPassword:confirmPasswordClient,
+        surname: surnameClient,
+        phoneNumber: phoneNumberClient,
+        DNI: DNIClient
       };
 
-      // Verificar si el email ya existe en la lista de clientes
-      this.cService.getClientes().subscribe((clientes) => {
-        if (clientes.some(cliente => cliente.email === newClient.email)) {
-          alert('El correo electrónico ya está registrado');
-        } else {
-          // Agregar el nuevo cliente al servidor JSON si el email no existe
-          this.cService.agregarCliente(newClient).subscribe(() => {
-            alert('Cliente registrado exitosamente');
-            this.registerForm.reset(); // Reiniciar el formulario después de agregar el cliente
-          });
-        }
+      this.cService.registerClient(newClient).subscribe((data)=>{
+        console.log(data);
+        console.log("Registrado pa");
       });
     }
   }

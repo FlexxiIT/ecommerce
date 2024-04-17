@@ -27,16 +27,11 @@ export class LoginComponent {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
 
-      // Llamar al método de autenticación del servicio
-      this.cService.autenticarUsuario(email, password).subscribe((clientes) => {
-        if (clientes.length > 0) {
-          // Autenticación exitosa, redirigir a otra página o realizar otras acciones
-          console.log('Autenticación exitosa');
-        } else {
-          // Autenticación fallida, mostrar un mensaje de error o realizar otras acciones
-          console.log('Autenticación fallida');
-        }
-      });
+      this.cService.loginCLient(email,password).subscribe((data)=>{
+        localStorage.setItem('token',data.user.token)
+        localStorage.getItem('token');
+        console.log("logueado");
+      })
     }
   }
 }
