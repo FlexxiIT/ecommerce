@@ -48,7 +48,7 @@ form .user-details .input-box{
     height: 45px;
     width: 100%;
     outline: none;
-    padding-left: 15px;
+    padding-left: 25px;
     font-size: 16px;
     border-bottom-width: 2px;
     border-bottom: 2px solid #ccc;
@@ -78,16 +78,52 @@ form .gender-details .gender-title{
     transition: all 0.3s ease;
   }
 
-  .input-container {
-    display: flex; /* Utiliza flexbox para alinear el input y el icono */
-    align-items: center; /* Centra verticalmente el input y el icono */
-  }
-  
-  .input-container input {
-    flex-grow: 1; /* Permite que el input ocupe el espacio disponible */
-  }
-  
-  .input-container i {
-    padding-left: 10px; /* Espacio entre el input y el icono */
-  }
-  
+  .error-container {
+    height: 20px; /* Altura fija del contenedor de mensajes de error */
+    margin-top: 5px; /* Espacio superior para separar del campo de entrada */
+    color: red;
+    font-size: 15px;
+}
+
+@media (max-width: 600px) {
+    /* Ajusta los estilos para pantallas de dispositivos móviles */
+    .body{
+        height: 100%;
+    }
+
+    /* Aumenta la anchura de la contenedor para que ocupe todo el ancho de la pantalla */
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Ajusta la anchura de los input-box para que sean más estrechos */
+    form .user-details .input-box {
+        width: 100%; /* Los input-box ocuparán todo el ancho */
+        margin-bottom: 10px; /* Espacio inferior para separar los campos */
+    }
+
+    /* Ajusta el tamaño de fuente para que sea más legible en pantallas pequeñas */
+    .container .title, form .gender-details .gender-title {
+        font-size: 20px;
+    }
+
+    /* Ajusta el tamaño de los campos de entrada */
+    .user-details .input-box input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Ajusta el estilo del botón para pantallas más pequeñas */
+    .register-button {
+        padding: 8px;
+        font-size: 15px;
+    }
+
+    /* Ajusta el estilo de los mensajes de error para pantallas pequeñas */
+    .error-container {
+        font-size: 13px;
+        height: 20px;
+        margin-top: 5px;
+    }
+}

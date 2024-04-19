@@ -129,3 +129,47 @@
     margin-top: 30px;
     text-align: center;
 }
+
+@media (max-width: 600px) {
+    /* Ajusta los estilos para pantallas de dispositivos móviles */
+
+    /* Ajusta la anchura de la contenedor para que ocupe todo el ancho de la pantalla */
+    .container {
+        width: 100%; /* Ocupa todo el ancho de la pantalla */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    /* Ajusta la anchura de los input-box para que sean más estrechos */
+    .form .input-field {
+        width: 100%; /* Los input-field ocuparán todo el ancho */
+    }
+
+    /* Ajusta la anchura de los campos de entrada */
+    .input-field input {
+        font-size: 14px; /* Ajusta el tamaño de la fuente */
+        padding: 0 20px; /* Ajusta el relleno */
+    }
+
+    /* Ajusta la posición de los iconos */
+    .input-field i.icon {
+        margin-right: 5px; /* Ajusta la distancia del icono al campo */
+    }
+
+    /* Ajusta el estilo del botón para pantallas más pequeñas */
+    .form .button {
+        width: 100%; /* El botón ocupa todo el ancho */
+        margin-top: 20px; /* Ajusta el margen superior */
+    }
+
+    /* Ajusta el tamaño del texto */
+    .form .text {
+        font-size: 12px; /* Ajusta el tamaño de la fuente */
+    }
+
+    /* Ajusta el estilo de los mensajes de error */
+    .error-container {
+        font-size: 12px; /* Tamaño de fuente más pequeño */
+        height: 15px; /* Altura ajustada */
+    }
+}

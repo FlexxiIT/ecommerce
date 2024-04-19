@@ -6,9 +6,9 @@
 
         <div class="input-box">
           <span class="details">Nombre</span>
+
           <div class="input-container">
             <input type="text" placeholder=" Ingrese su nombre" formControlName="firstName">
-            <i class="fa-solid fa-user"></i>        
           </div>
   
           <div class="error-container">
@@ -28,7 +28,6 @@
           <span class="details">Apellido</span>
           <div class="input-container">
             <input type="text" placeholder=" Ingrese su nombre" formControlName="lastName">
-            <i class="fa-solid fa-user"></i>        
           </div>      
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
@@ -46,7 +45,6 @@
         <div class="input-box">
           <span class="details">Email</span>
           <input type="text" placeholder=" Ingrese su Email" formControlName="email">
-          <i class="fa-regular fa-envelope icon"></i>
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
               <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
@@ -61,7 +59,6 @@
         <div class="input-box">
           <span class="details">Telefono</span>
           <input type="text" placeholder=" Ingrese su Telefono" formControlName="phonenumber">
-          <i class="fa-solid fa-phone"></i>          
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['phonenumber'].invalid && (registerForm.controls['phonenumber'].touched || registerForm.controls['phonenumber'].dirty)">
               <span *ngIf="registerForm.get('phonenumber')?.hasError('required') && registerForm.get('phonenumber')?.touched">
@@ -73,12 +70,11 @@
         <div class="input-box">
           <span class="details">Contraseña</span>
           <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="password" >
-          <i class="fa-solid fa-lock icon"></i>
           <i class="fa-solid fa-eye-slash showHidePw " [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility"></i>
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
               <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-                Es necesario completar la contraseña!
+                Este campo es obligatorio.
               </span>
               <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
                 registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
@@ -90,12 +86,11 @@
         <div class="input-box">
           <span class="details">Confirmar Contraseña</span>
           <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Confirmar Contraseña" formControlName="confirmPassword" >
-          <i class="fa-solid fa-lock icon"></i>
           <i class="fa-solid fa-eye-slash showHidePw " [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility"></i>
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
               <span *ngIf="registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched">
-                Es necesario confirmar la contraseña.
+                Este campo es obligatorio.
               </span><br>
               <span *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
                Las contraseñas no coinciden.
@@ -109,7 +104,7 @@
         <span class="gender-title"> Aceptar terminos y condiciones</span>
       </div>
       <div class="button">
-        <input type="button" value="Iniciar sesion" class="register-button" (click)="onSubmit()">   
+        <input type="button" value="Registrarse" class="register-button" (click)="onSubmit()">   
       </div>
     </form>
   </div>
