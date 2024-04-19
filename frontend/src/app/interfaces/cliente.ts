@@ -5,5 +5,5 @@ export interface Client {
     confirmPassword:string,
     surname:string,
     phoneNumber:string
-    DNI:string
+    DNI?:string
 }

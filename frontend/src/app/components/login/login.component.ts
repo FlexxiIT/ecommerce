@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  showPassword: boolean= false;
 
   constructor(private formBuilder:FormBuilder, private router:Router, private cService:ClienteService){
     this.loginForm = this.formBuilder.group({
@@ -33,5 +34,9 @@ export class LoginComponent {
         console.log("logueado");
       })
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

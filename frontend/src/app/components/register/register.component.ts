@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  showPassword:any;
+  showConfirmPassword:any;
 
   constructor(private formBuilder:FormBuilder, private router:Router, private cService:ClienteService){
     this.registerForm = this.formBuilder.group({
@@ -56,4 +58,12 @@ export class RegisterComponent {
       });
     }
   }
+
+  togglePasswordVisibility(field: string) {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }  }
+  
 }

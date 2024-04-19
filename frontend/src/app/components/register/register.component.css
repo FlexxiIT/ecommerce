@@ -1,60 +1,93 @@
-.container {
+.body{
     display: flex;
+    height: 100vh;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Esto asegura que el contenedor ocupe toda la altura de la pantalla */
-    position: relative; /* Establecemos la posición relativa para que los mensajes de error sean relativos a este contenedor */
-  }
-  
-  .form-container {
-    width: 300px; /* Ancho del formulario */
-    padding: 20px; /* Espacio alrededor del formulario */
-    border: 1px solid #ccc; /* Borde alrededor del formulario */
-    border-radius: 2rem; /* Borde redondeado */
-    position: relative; /* Establecemos la posición relativa para que los mensajes de error sean relativos a este formulario */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Agregamos una sombra */
+    padding: 10px;
+    background: #84e1e7;
+}
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+}
+.container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+.container .title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: #84e1e7;
+}
+
+.container form .user-details{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
 
-  }
-  
-  .label-container {
-    margin-bottom: 20px; /* Espacio entre cada campo de formulario */
-    position: relative; /* Establecemos la posición relativa para que los mensajes de error sean relativos a este contenedor */
-  }
-  .form-control {
-    border-radius: 1rem; /* Borde redondeado */
-    border-width: 2px; /* Ancho del borde */
-    padding: 0.5rem; /* Espacio interno */
-    font-size: 1rem; /* Tamaño de la fuente */
-  }
-  
-  
-  .form-label {
-    margin-bottom: 4px; /* Espacio entre la etiqueta y el campo de formulario */
-    display: block; /* Para que cada etiqueta esté en una línea separada */
-    font-size: 0.8rem;
-  }
-  .text-danger {
-    position: absolute; /* Establecemos la posición absoluta para los mensajes de error */
-    bottom: -19px; /* Ajustamos la posición vertical del mensaje de error */
-    left: 0; /* Alineamos los mensajes de error a la izquierda del formulario */
-    width: 100%; /* Hacemos que los mensajes de error ocupen todo el ancho del formulario */
-    font-size: 12px; /* Tamaño de fuente para los mensajes de error */
-    color: rgb(255, 96, 96);
-  }
-  button {
-    padding: 1rem 5rem; /* Ajusta el padding para hacer el botón más grande */
-    font-size: 1rem; /* Tamaño del texto */
-    text-align: center; /* Centra el texto */
-    border-radius: 2rem; /* Borde redondeado */
-    border: none; /* Quita el borde */
-    background-color: #007bff; /* Color de fondo */
-    color: #fff; /* Color del texto */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  }
-  
+form .user-details .input-box{
+    margin: 20px 0 12px 0;
+    width: calc(100% / 2 - 20px);
+}
+.user-details .input-box .details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.user-details .input-box input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    border-bottom: 2px solid #ccc;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transition: all 0.3 ease;
+}
 
+
+form .gender-details .gender-title{
+    font-size: 15px;
+    font-weight: 500;
+}
+.register-button {
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    background-color: #4070f4;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .input-container {
+    display: flex; /* Utiliza flexbox para alinear el input y el icono */
+    align-items: center; /* Centra verticalmente el input y el icono */
+  }
+  
+  .input-container input {
+    flex-grow: 1; /* Permite que el input ocupe el espacio disponible */
+  }
+  
+  .input-container i {
+    padding-left: 10px; /* Espacio entre el input y el icono */
+  }
   
