@@ -9,7 +9,6 @@ export class RegisterClientDto {
         public email: string,
         public password: string,
         public confirmPassword: string,
-        public DNI: string,
         public name: string,
         public surname: string,
         public phoneNumber: string,
@@ -17,7 +16,7 @@ export class RegisterClientDto {
 
     static create(object: { [key: string]: any }): [string?, RegisterClientDto?] {
 
-        const { email, password, confirmPassword, DNI, name, surname, phoneNumber } = object;
+        const { email, password, confirmPassword, name, surname, phoneNumber } = object;
 
         if (!email) return ['Missing email'];
         if (!regularExps.email.test(email)) return ['Email is not valid'];
@@ -32,7 +31,7 @@ export class RegisterClientDto {
         if (!surname) return ['Missing surname'];
         if (!phoneNumber) return ['Missing phone number'];
 
-        return [undefined, new RegisterClientDto(email, password, confirmPassword, DNI, name, surname, phoneNumber)];
+        return [undefined, new RegisterClientDto(email, password, confirmPassword, name, surname, phoneNumber)];
 
     };
 

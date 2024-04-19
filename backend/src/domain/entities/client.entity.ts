@@ -10,28 +10,27 @@ export class ClientEntity {
         public email: string,
         public emailValidated: boolean,
         public password: string,
-        public DNI: string,
         public name: string,
         public surname: string,
         public phoneNumber: string,
+        public DNI?: string,
         
     ) { }
 
     static fromObject(object: { [key: string]: any }): ClientEntity {
 
-        const { id, email, emailValidated, password, DNI, name, surname, phoneNumber } = object;
+        const { id, email, emailValidated, password, name, surname, phoneNumber, DNI } = object;
 
         
         if (!id) throw CustomError.badRequest('Missing id');
         if (!email) throw CustomError.badRequest('Missing email');
         if (emailValidated === undefined) throw CustomError.badRequest('Missing emailValidated');
         if (!password) throw CustomError.badRequest('Missing password');
-        if (!DNI) throw CustomError.badRequest('Missing DNI');
         if (!name) throw CustomError.badRequest('Missing name');
         if (!surname) throw CustomError.badRequest('Missing surname');
         if (!phoneNumber) throw CustomError.badRequest('Missing phoneNumber');
 
-        return new ClientEntity(id, email, emailValidated, password, DNI, name, surname, phoneNumber);
+        return new ClientEntity(id, email, emailValidated, password, name, surname, phoneNumber, DNI);
 
     };
 

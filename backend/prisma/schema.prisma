@@ -18,8 +18,8 @@ model Client {
   email          String  @unique
   emailValidated Boolean @default(false)
   password       String
-  DNI            String
   name           String
   surname        String
   phoneNumber    String
+  DNI            String?
 }

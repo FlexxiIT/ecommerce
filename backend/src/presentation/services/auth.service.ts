@@ -24,12 +24,8 @@ export class AuthService {
             // Crear el usuario en la base de datos
             const newUser = await prisma.client.create({
                 data: {
-                    email: registerClientDto.email,
+                    ...registerClientDto,
                     password: hashedPassword,
-                    name: registerClientDto.name,
-                    surname: registerClientDto.surname,
-                    phoneNumber: registerClientDto.phoneNumber,
-                    DNI: registerClientDto.DNI
                 },
             });
 
