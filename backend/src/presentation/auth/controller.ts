@@ -10,7 +10,7 @@ export class AuthController {
     //DI
     constructor(
         public readonly authService: AuthService,
-    ) {}
+    ) { }
 
     private handleError = (res: Response, error: unknown) => {
 
@@ -40,14 +40,18 @@ export class AuthController {
         if (error) return res.status(400).json({ error });
 
         this.authService.loginUser(loginDto!)
-            .then(user => res.json({user}))
+            .then(user => res.json({ user }))
             .catch(error => this.handleError(res, error));
 
     };
 
     validateEmail = (req: Request, res: Response) => {
 
-        res.json('validate');
+        const { token } = req.params;
+
+        this.authService.validateEmail(token)
+            .then(() => res.json('Email was validated properly'))
+            .catch(error => this.handleError(res, error));
 
     };
 

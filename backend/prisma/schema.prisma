@@ -21,5 +21,4 @@ model Client {
   name           String
   surname        String
   phoneNumber    String
-  DNI            String?
 }
