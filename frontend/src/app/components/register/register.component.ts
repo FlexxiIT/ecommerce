@@ -25,7 +25,6 @@ export class RegisterComponent {
       password: ["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
       confirmPassword:["",[Validators.required,Validators.minLength(8),Validators.maxLength(24)]],
       phonenumber:["",[Validators.required]],
-      DNI:["",[Validators.required,Validators.minLength(5)]],
       isAgree: [false,[Validators.requiredTrue]]
     })
   }
@@ -41,15 +40,13 @@ export class RegisterComponent {
       let confirmPasswordClient = this.registerForm.value.confirmPassword;
       let emailClient = this.registerForm.value.email;
       let phoneNumberClient= this.registerForm.value.phonenumber;
-      let DNIClient = this.registerForm.value.DNI;
       const newClient = {
         name:nameClient,
         email:emailClient,
         password: passwordClient,
         confirmPassword:confirmPasswordClient,
         surname: surnameClient,
-        phoneNumber: phoneNumberClient,
-        DNI: DNIClient
+        phoneNumber: phoneNumberClient
       };
 
       this.cService.registerClient(newClient).subscribe((data)=>{
@@ -61,9 +58,10 @@ export class RegisterComponent {
 
   togglePasswordVisibility(field: string) {
     if (field === 'password') {
-      this.showPassword = !this.showPassword;
+        this.showPassword = !this.showPassword;
     } else if (field === 'confirmPassword') {
-      this.showConfirmPassword = !this.showConfirmPassword;
-    }  }
+        this.showConfirmPassword = !this.showConfirmPassword;
+    }
+}
   
 }

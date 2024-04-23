@@ -17,10 +17,9 @@
     display: flex;
     align-items: center;
     width: 200%;
-    /*background-color: red;*/
 }
 .container .form{
-    width: 50%;
+    width: 100%;
     padding: 30px;
 }
 .container .form .title{
@@ -135,7 +134,7 @@
 
     /* Ajusta la anchura de la contenedor para que ocupe todo el ancho de la pantalla */
     .container {
-        width: 100%; /* Ocupa todo el ancho de la pantalla */
+        width: 90%; /* Ocupa todo el ancho de la pantalla */
         padding: 10px;
         border-radius: 5px;
     }
@@ -149,6 +148,9 @@
     .input-field input {
         font-size: 14px; /* Ajusta el tamaño de la fuente */
         padding: 0 20px; /* Ajusta el relleno */
+    }
+    .input-field input::placeholder{
+        padding: 0 20px;
     }
 
     /* Ajusta la posición de los iconos */

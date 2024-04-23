@@ -19,5 +19,8 @@ export class ClienteService {
   loginCLient(emailClient:string,passwordClient:string):Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/api/auth/login`,{email:emailClient,password:passwordClient})
   }
+  validateEmail(token:string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/auth/validate-email/${token}`);
+  }
 
 }

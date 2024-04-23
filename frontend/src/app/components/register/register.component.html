@@ -69,8 +69,10 @@
         </div>
         <div class="input-box">
           <span class="details">Contraseña</span>
-          <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="password" >
-          <i class="fa-solid fa-eye-slash showHidePw " [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility"></i>
+          <div class="input-group">
+            <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="password">
+            <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('password')"></i>
+          </div>
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
               <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
@@ -85,8 +87,10 @@
         </div>
         <div class="input-box">
           <span class="details">Confirmar Contraseña</span>
-          <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Confirmar Contraseña" formControlName="confirmPassword" >
-          <i class="fa-solid fa-eye-slash showHidePw " [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility"></i>
+          <div class="input-group">
+            <input type="{{ showConfirmPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="confirmPassword">
+            <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('confirmPassword')"></i>
+          </div>
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
               <span *ngIf="registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched">
@@ -99,9 +103,13 @@
           </div>
         </div>
       </div>
+      
       <div class="gender-details">
-        <input type="checkbox">
+        <input type="checkbox" formControlName="isAgree">
         <span class="gender-title"> Aceptar terminos y condiciones</span>
+        <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
+          <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">This is required</span>
+        </div>  
       </div>
       <div class="button">
         <input type="button" value="Registrarse" class="register-button" (click)="onSubmit()">   
