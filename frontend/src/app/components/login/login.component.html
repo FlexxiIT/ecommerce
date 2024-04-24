@@ -1,0 +1,63 @@
+<div class="body">
+  <div class="container">
+    
+      <div class="form login">
+        <span class="title">Login</span>
+
+        <form action="#" [formGroup]="loginForm">
+
+
+          <div class="input-field">
+            <input type="text" placeholder="Ingresa tu email" formControlName="email">
+            <i class="fa-regular fa-envelope icon"></i>
+          </div>
+          <div class="error-container">
+            <div class="text-danger" *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)">
+              <span *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+               Es necesario completar el email
+              </span>
+              <span *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+               Utilice un correo valido!
+              </span>
+            </div>
+          </div>
+
+          <div class="input-field">
+            <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Ingresa tu contraseña" formControlName="password">
+            <i class="fa-solid fa-lock icon"></i>
+            <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+          </div>
+
+          <div class="error-container">
+            <div class="text-danger" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)">
+              <span *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+               Es necesario completar la contraseña!
+              </span>
+              <span *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched || 
+                  loginForm.get('password')?.hasError('maxlength') && loginForm.get('password')?.touched">
+                Utiliza entre 8 y 20 caracteres.
+              </span>        
+            </div> 
+          </div>
+          <div class="checkbox-text">
+            <div class="checkbox-content">
+              <input type="checkbox" id="logCheck">
+              <label for="logCheck" class="text">Recuerdame</label>
+            </div>
+
+            <a href="#" class="text">Olvidaste tu contraseña?</a>
+          </div>
+
+          <div class="input-field button">
+            <input [disabled]="!loginForm.valid" type="button" value="Iniciar sesion" (click)="onSubmit()">   
+          </div>
+        </form>
+
+        <div class="login-signup">
+          <span class="text">No tienes una cuenta? </span>
+          <a href="#" class="text signup-text">Registrarse</a>
+        </div>
+      </div>
+    
+  </div>
+</div>

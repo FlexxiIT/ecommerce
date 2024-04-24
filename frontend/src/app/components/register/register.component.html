@@ -1,67 +1,114 @@
-<form [formGroup]="registerForm">
-  <div class="label-container">
-    <label class="form-label" >Nombre</label>
-    <input type="text" class="form-control" formControlName="firstName">
-    <div class="text-danger" *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].touched || registerForm.controls['firstName'].dirty)">
-      <span *ngIf="registerForm.controls['firstName'].errors?.['required']">This is required</span>
-      <span *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched || 
-      registerForm.get('firstName')?.hasError('maxlength') && registerForm.get('firstName')?.touched">
-      Utiliza entre 3 y 24 caracteres.
-      </span>
-    </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Apellido</label>
-    <input type="text" class="form-control" formControlName="lastName">
-    <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
-      <span *ngIf="registerForm.controls['lastName'].errors?.['required']">This is required</span>
-    </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Email</label>
-    <input type="text" class="form-control" formControlName="email">
-    <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
-      <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-        Es necesario completar el email
-      </span>
-      <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-        Utilice un correo valido!
-      </span>
-    </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Contraseña</label>
-    <input type="password" class="form-control" formControlName="password">
-    <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
-      <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        Es necesario completar la contraseña!
-      </span>
-      <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
-      registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
-      Utiliza entre 8 y 24 caracteres.
-    </span>        
-  </div>
-  </div>
-  <div class="label-container">
-    <label class="form-label" >Confirmar Contraseña</label>
-    <input type="password" class="form-control" formControlName="password">
-    <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
-      <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        Es necesario completar la contraseña!
-      </span>
-      <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
-      registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
-      Utiliza entre 8 y 24 caracteres.
-    </span>    
-    </div>
-  </div>
-  <div class="label-container"> 
-    <input type="checkbox" class="form-control" formControlName="isAgree">
-    <label class="form-label" >Aceptar los terminos y condiciones</label>
-    <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
-      <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">This is required</span>
-    </div>  
-  </div>
+<div class="body">
+  <div class="container">
+    <div class="title">Registrarse</div>
+    <form  [formGroup]="registerForm">
+      <div class="user-details">
+
+        <div class="input-box">
+
+          <div class="input-container">
+            <input type="text" placeholder=" Ingrese su nombre" formControlName="firstName">
+          </div>
   
-  <button type="button" (click)="onSubmit()">Registrarse</button>
-</form>
+          <div class="error-container">
+            <div class="text-danger" *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].touched || registerForm.controls['firstName'].dirty)">
+              <span *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
+                Es necesario completar el nombre
+              </span>
+              <span *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched || 
+              registerForm.get('firstName')?.hasError('maxlength') && registerForm.get('firstName')?.touched">
+              Utiliza entre 3 y 20 caracteres.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-box">
+          <div class="input-container">
+            <input type="text" placeholder=" Ingrese su apellido" formControlName="lastName">
+          </div>      
+          <div class="error-container">
+            <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
+              <span *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
+                Es necesario completar el apellido
+              </span>
+              <span *ngIf="registerForm.get('lastName')?.hasError('minlength') && registerForm.get('lastName')?.touched || 
+              registerForm.get('lastName')?.hasError('maxlength') && registerForm.get('lastName')?.touched">
+              Utiliza entre 3 y 20 caracteres.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-box">
+          <input type="text" placeholder=" Ingrese su Email" formControlName="email">
+          <div class="error-container">
+            <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
+              <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+                Es necesario completar el email
+              </span>
+              <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+                Utilice un correo valido!
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder=" Ingrese su Telefono" formControlName="phonenumber">
+          <div class="error-container">
+            <div class="text-danger" *ngIf="registerForm.controls['phonenumber'].invalid && (registerForm.controls['phonenumber'].touched || registerForm.controls['phonenumber'].dirty)">
+              <span *ngIf="registerForm.get('phonenumber')?.hasError('required') && registerForm.get('phonenumber')?.touched">
+                Es necesario completar el telefono
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-box">
+          <div class="input-group">
+            <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="password">
+            <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('password')"></i>
+          </div>
+          <div class="error-container">
+            <div class="text-danger" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)">
+              <span *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+                Este campo es obligatorio.
+              </span>
+              <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
+                registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
+                Utiliza entre 8 y 20 caracteres.
+              </span> 
+            </div>
+          </div>
+        </div>
+        <div class="input-box">
+          <div class="input-group">
+            <input type="{{ showConfirmPassword ? 'text' : 'password' }}" placeholder="Confirmar Contraseña" formControlName="confirmPassword">
+            <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('confirmPassword')"></i>
+          </div>
+          <div class="error-container">
+            <div class="text-danger">
+              <span *ngIf="registerForm?.errors?.['mismatch'] && registerForm?.touched && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
+                Las contraseñas no coinciden.
+              </span>
+            </div> 
+          </div>
+        </div>
+      </div>
+      
+      <div class="gender-details">
+        <input type="checkbox" formControlName="isAgree">
+        <span class="gender-title"> Aceptar terminos y condiciones</span>
+        <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
+          <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">Este campo es obligatorio</span>
+      </div>      
+      </div>
+      <div class="button">
+        <input [disabled]="!registerForm.valid" type="button" value="Registrarse" class="register-button" (click)="onSubmit()">   
+      </div>
+    </form>
+    <div class="login">
+      <span class="text">Ya tienes una cuenta? </span>
+      <a href="/login" class="text signup-text">Iniciar sesion</a>
+    </div>
+  </div>
+</div>
