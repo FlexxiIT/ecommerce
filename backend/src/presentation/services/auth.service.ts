@@ -117,6 +117,8 @@ export class AuthService {
         const user = await prisma.client.findFirst({ where: { email } });
         if (!user) throw CustomError.internalServer('Email not exists');
 
+        if(user.emailValidated === true) throw CustomError.badRequest('The email was already validated');
+
         // Actualizar el campo emailValidated a true
         await prisma.client.update({
             where: { id: user.id },
