@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.message-container {
+    width: 80%; /* Ajusta el ancho según sea necesario */
+    max-width: 500px; /* Establece un ancho máximo para el cuadro del mensaje */
+    padding: 20px; /* Agrega espacio alrededor del contenido */
+    background-color: #f9f9f9; /* Establece el color de fondo del cuadro */
+    border: 1px solid #ccc; /* Establece un borde */
+    border-radius: 8px; /* Establece esquinas redondeadas */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra para dar profundidad */
+    text-align: center; /* Centra el texto */
+}
+
+.message {
+    font-size: 16px; /* Tamaño de fuente del mensaje */
+    color: #333; /* Color del texto */
+    margin-bottom: 10px; /* Espacio inferior para separar el mensaje de otros elementos */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+}
+
+.button-container button {
+    margin: 0 10px; /* Espacio entre los botones */
+    padding: 10px 20px; /* Relleno interno de los botones */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    background-color: #4070f4; /* Color de fondo de los botones */
+    color: #fff; /* Color de texto de los botones */
+    font-size: 16px; /* Tamaño de fuente de los botones */
+    cursor: pointer; /* Cambia el cursor a mano cuando se pasa por encima */
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+
+.button-container button:hover {
+    background-color: #265df2; /* Color de fondo al pasar el cursor */
+}
+

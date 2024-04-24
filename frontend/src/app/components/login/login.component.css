@@ -121,7 +121,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.form .button input:hover{
+.form .button input:disabled{
+    background-color: grey;
+    cursor: not-allowed;
+}
+.form .button input:enabled:hover{
     background-color: #265df2;
 }
 .form .login-signup{
@@ -148,6 +152,7 @@
     .input-field input {
         font-size: 14px; /* Ajusta el tamaño de la fuente */
         padding: 0 20px; /* Ajusta el relleno */
+        padding-left: 40px;
     }
     .input-field input::placeholder{
         padding: 0 20px;

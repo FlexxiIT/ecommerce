@@ -77,6 +77,10 @@ form .gender-details .gender-title{
     margin-top: 15px;
     transition: all 0.3s ease;
   }
+  .register-button:disabled{
+    background-color: grey;
+    cursor: not-allowed;
+  }
 
   .error-container {
     height: 20px; /* Altura fija del contenedor de mensajes de error */
@@ -104,11 +108,21 @@ form .gender-details .gender-title{
     color: #ccc;
 }
 
+.login{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login a{
+    color: #4070f4;
+    text-decoration: none;
+}
+
+
+
 @media (max-width: 600px) {
     /* Ajusta los estilos para pantallas de dispositivos móviles */
-    .body{
-        height: 100%;
-    }
+    
 
     /* Aumenta la anchura de la contenedor para que ocupe todo el ancho de la pantalla */
     .container {

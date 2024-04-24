@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
@@ -16,7 +16,7 @@ export class ValidateEmailComponent implements OnInit {
   token: string='';
   message: string='Validando mail...';
 
-  constructor(private route:ActivatedRoute, private cService: ClienteService){ }
+  constructor(private route:ActivatedRoute, private cService: ClienteService, private router:Router){ }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,6 +35,10 @@ export class ValidateEmailComponent implements OnInit {
         }
       });
     });
+  }
+
+  goHome(){
+    this.router.navigate(['/']);
   }
   
 }

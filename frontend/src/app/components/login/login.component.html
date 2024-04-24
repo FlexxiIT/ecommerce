@@ -35,7 +35,7 @@
               </span>
               <span *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched || 
                   loginForm.get('password')?.hasError('maxlength') && loginForm.get('password')?.touched">
-                Utiliza entre 8 y 24 caracteres.
+                Utiliza entre 8 y 20 caracteres.
               </span>        
             </div> 
           </div>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="input-field button">
-            <input type="button" value="Iniciar sesion" (click)="onSubmit()">   
+            <input [disabled]="!loginForm.valid" type="button" value="Iniciar sesion" (click)="onSubmit()">   
           </div>
         </form>
 

@@ -5,7 +5,6 @@
       <div class="user-details">
 
         <div class="input-box">
-          <span class="details">Nombre</span>
 
           <div class="input-container">
             <input type="text" placeholder=" Ingrese su nombre" formControlName="firstName">
@@ -18,16 +17,15 @@
               </span>
               <span *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched || 
               registerForm.get('firstName')?.hasError('maxlength') && registerForm.get('firstName')?.touched">
-              Utiliza entre 3 y 24 caracteres.
+              Utiliza entre 3 y 20 caracteres.
               </span>
             </div>
           </div>
         </div>
 
         <div class="input-box">
-          <span class="details">Apellido</span>
           <div class="input-container">
-            <input type="text" placeholder=" Ingrese su nombre" formControlName="lastName">
+            <input type="text" placeholder=" Ingrese su apellido" formControlName="lastName">
           </div>      
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].touched || registerForm.controls['lastName'].dirty)">
@@ -36,14 +34,13 @@
               </span>
               <span *ngIf="registerForm.get('lastName')?.hasError('minlength') && registerForm.get('lastName')?.touched || 
               registerForm.get('lastName')?.hasError('maxlength') && registerForm.get('lastName')?.touched">
-              Utiliza entre 3 y 24 caracteres.
+              Utiliza entre 3 y 20 caracteres.
               </span>
             </div>
           </div>
         </div>
 
         <div class="input-box">
-          <span class="details">Email</span>
           <input type="text" placeholder=" Ingrese su Email" formControlName="email">
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)">
@@ -57,7 +54,6 @@
           </div>
         </div>
         <div class="input-box">
-          <span class="details">Telefono</span>
           <input type="text" placeholder=" Ingrese su Telefono" formControlName="phonenumber">
           <div class="error-container">
             <div class="text-danger" *ngIf="registerForm.controls['phonenumber'].invalid && (registerForm.controls['phonenumber'].touched || registerForm.controls['phonenumber'].dirty)">
@@ -68,7 +64,6 @@
           </div>
         </div>
         <div class="input-box">
-          <span class="details">Contraseña</span>
           <div class="input-group">
             <input type="{{ showPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="password">
             <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('password')"></i>
@@ -80,25 +75,21 @@
               </span>
               <span *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched || 
                 registerForm.get('password')?.hasError('maxlength') && registerForm.get('password')?.touched">
-                Utiliza entre 8 y 24 caracteres.
+                Utiliza entre 8 y 20 caracteres.
               </span> 
             </div>
           </div>
         </div>
         <div class="input-box">
-          <span class="details">Confirmar Contraseña</span>
           <div class="input-group">
-            <input type="{{ showConfirmPassword ? 'text' : 'password' }}" placeholder=" Ingrese su Contraseña" formControlName="confirmPassword">
+            <input type="{{ showConfirmPassword ? 'text' : 'password' }}" placeholder="Confirmar Contraseña" formControlName="confirmPassword">
             <i class="fa-solid fa-eye-slash showHidePw" [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility('confirmPassword')"></i>
           </div>
           <div class="error-container">
-            <div class="text-danger" *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
-              <span *ngIf="registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched">
-                Este campo es obligatorio.
-              </span><br>
-              <span *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
-               Las contraseñas no coinciden.
-              </span>     
+            <div class="text-danger">
+              <span *ngIf="registerForm?.errors?.['mismatch'] && registerForm?.touched && (registerForm.controls['confirmPassword'].touched || registerForm.controls['confirmPassword'].dirty)">
+                Las contraseñas no coinciden.
+              </span>
             </div> 
           </div>
         </div>
@@ -108,12 +99,16 @@
         <input type="checkbox" formControlName="isAgree">
         <span class="gender-title"> Aceptar terminos y condiciones</span>
         <div class="text-danger" *ngIf="registerForm.controls['isAgree'].invalid && (registerForm.controls['isAgree'].touched || registerForm.controls['isAgree'].dirty)">
-          <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">This is required</span>
-        </div>  
+          <span *ngIf="registerForm.controls['isAgree'].errors?.['requiredTrue']">Este campo es obligatorio</span>
+      </div>      
       </div>
       <div class="button">
-        <input type="button" value="Registrarse" class="register-button" (click)="onSubmit()">   
+        <input [disabled]="!registerForm.valid" type="button" value="Registrarse" class="register-button" (click)="onSubmit()">   
       </div>
     </form>
+    <div class="login">
+      <span class="text">Ya tienes una cuenta? </span>
+      <a href="/login" class="text signup-text">Iniciar sesion</a>
+    </div>
   </div>
 </div>
