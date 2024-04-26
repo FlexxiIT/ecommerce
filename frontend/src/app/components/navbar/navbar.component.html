@@ -1,0 +1,33 @@
+<div class="header">
+    <div class="header-container">
+        <div class="logo-container">
+           <div class="logo"><h3>Tienda</h3></div>
+        </div>
+        <div class="input-container">
+            <input type="text" placeholder="Buscar">
+        </div>
+        <div class="user-links">
+            <i class="fa-solid fa-user icon"></i>
+            <i class="fa-solid fa-cart-shopping icon"></i>
+        </div>
+    </div>
+    <div class="nav-links">
+        <ul>
+            <li>Inicio</li>
+            <li><a routerLink="/productos">Productos</a>
+                <ul class="dropdown">
+                    <li *ngFor="let category of categories">
+                        <a href="">{{ category.nombre }} ></a>
+                        <ul *ngIf="category.subcategorias?.length" class="sub-dropdown">
+                            <li *ngFor="let subcategoria of category.subcategorias">
+                                <a href="">{{ subcategoria.nombre }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Historial</li>
+            <li><a href="">Contacto</a></li>
+        </ul>
+    </div>
+</div>

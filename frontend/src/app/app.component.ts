@@ -5,11 +5,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent],
+  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

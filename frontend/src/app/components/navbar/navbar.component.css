@@ -1,0 +1,137 @@
+.header {
+    background-color: #f8f8f8; /* Color de fondo de la cabecera */
+    padding: 10px; /* Espacio interno alrededor de los elementos */
+}
+
+/* Contenedor principal para la cabecera */
+.header-container {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    align-items: center; /* Alinea los elementos verticalmente en el centro */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+}
+
+/* Estilo para el logo */
+.logo h3 {
+    margin: 0; /* Elimina el margen interno del título */
+}
+
+/* Estilo para el contenedor del input de búsqueda */
+.input-container {
+    flex: 1; /* Permite que el contenedor ocupe todo el espacio necesario */
+    padding-left: 10px; /* Espacio interno a la izquierda del input */
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: center; /* Centra el input de búsqueda en la página */
+}
+
+/* Estilo para el input de búsqueda */
+.input-container input {
+    width: 40%; /* El input ocupa el 80% del ancho del contenedor */
+    padding: 8px; /* Espacio interno del input */
+    border: 1px solid #ccc; /* Borde del input */
+    border-radius: 4px; /* Bordes redondeados del input */
+}
+
+/* Estilo para el bloque de enlaces de navegación */
+.nav-links {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: center; /* Centra los elementos de navegación */
+    align-items: center; /* Alinea verticalmente los elementos */
+    margin-top: 10px; /* Espacio superior entre los bloques */
+    border-top: 1px solid #ccc; /* Borde superior */
+}
+
+/* Estilo general para los ul y li */
+.nav-links ul {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: center; /* Centra los elementos de la lista */
+    list-style-type: none; /* Elimina las viñetas de la lista */
+    padding: 0; /* Elimina el espacio interno */
+    margin: 0; /* Elimina el margen externo */
+    position: relative; /* Necesario para posicionar los submenús */
+}
+
+/* Estilo para los li que contienen el menú desplegable */
+.nav-links ul li {
+    position: relative; /* Necesario para posicionar los submenús */
+    padding: 10px; /* Espacio interno alrededor del texto */
+    transition: color 0.3s ease; /* Transición suave en el color durante 0.3 segundos */
+}
+
+/* Efecto de hover para los li */
+.nav-links ul li:hover {
+    color: #4070f4; /* Cambia el color de los li al hacer hover */
+    cursor: pointer;
+}
+
+/* Estilo para los enlaces en los li */
+.nav-links ul li a {
+    color: #333; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina la subrayación de los enlaces */
+    padding: 10px; /* Espacio interno alrededor del texto */
+}
+
+/* Estilo para los dropdowns ocultos */
+.nav-links ul ul {
+    display: none; /* Oculta el submenú por defecto */
+    position: absolute; /* Posiciona el submenú de forma absoluta */
+    top: 100%; /* Coloca el submenú debajo del elemento padre */
+    left: 0; /* Coloca el submenú alineado con el elemento padre */
+    background-color: #f8f8f8; /* Color de fondo del submenú */
+    border: 1px solid #ccc; /* Borde del submenú */
+    border-radius: 4px; /* Bordes redondeados del submenú */
+    width: 200px; /* Ancho del submenú */
+}
+
+/* Muestra el submenú cuando se pone el mouse encima del elemento padre */
+.nav-links ul li:hover > ul {
+    display: block; /* Muestra el submenú */
+}
+
+/* Estilo para los submenús de las subcategorías */
+.nav-links ul ul ul {
+    left: 100%; /* Coloca el submenú de la subcategoría a la derecha */
+    top: 0; /* Coloca el submenú de la subcategoría al mismo nivel que su elemento padre */
+    background-color: #f8f8f8; /* Color de fondo del submenú */
+}
+
+/* Estilo para los elementos de la lista en los submenús */
+.nav-links ul ul li {
+    width: 100%; /* Los elementos de la lista ocupan todo el ancho del submenú */
+}
+
+/* Estilo para los enlaces de los submenús */
+.nav-links ul ul li a {
+    display: block; /* Cada enlace ocupa toda una línea */
+    padding: 10px; /* Espacio interno alrededor del texto */
+}
+
+/* Efecto de hover para los enlaces de los submenús */
+.nav-links ul ul li a:hover {
+    background-color: #4070f4; /* Color de fondo cuando se hace hover */
+    color: #fff; /* Color del texto cuando se hace hover */
+}
+
+
+
+/* Estilo para el contenedor de enlaces de usuario y carrito */
+.user-links {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    align-items: center; /* Alinea verticalmente los íconos en el centro */
+    justify-content: flex-end; /* Alinea los íconos a la derecha del contenedor */
+    margin-left: auto; /* Empuja el contenedor de íconos hacia el final de la cabecera */
+    gap: 50px; /* Espacio entre los íconos */
+    margin-right: 50px;
+}
+
+/* Estilo para los íconos */
+.user-links .icon {
+    color: grey; /* Color de los íconos */
+    font-size: 20px; /* Tamaño de los íconos */
+    cursor: pointer; /* Cursor de puntero para indicar interactividad */
+    transition: color 0.3s ease; /* Transición suave en el color durante 0.3 segundos */
+}
+
+/* Efecto de hover para los íconos */
+.user-links .icon:hover {
+    color: #4070f4; /* Color de los íconos cuando se realiza hover */
+}

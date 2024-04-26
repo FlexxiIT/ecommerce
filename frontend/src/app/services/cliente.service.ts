@@ -9,6 +9,7 @@ import { Client } from '../interfaces/cliente';
 })
 export class ClienteService {
   private apiUrl= 'https://1gtvc2c2-3000.brs.devtunnels.ms'
+  private JSONServer = 'http://localhost:3000'
   
 
   constructor(private http:HttpClient) { }
@@ -22,5 +23,12 @@ export class ClienteService {
   validateEmail(token:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/api/auth/validate-email/${token}`);
   }
+  getCategories(): Observable<any> {
+    return this.http.get<any>(`${this.JSONServer}/categorias`);
+  }
+  getProducts(): Observable<any>{
+    return this.http.get<any>(`${this.JSONServer}`);
+  }
+
 
 }
