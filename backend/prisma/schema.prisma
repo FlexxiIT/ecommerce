@@ -22,3 +22,29 @@ model Client {
   surname        String
   phoneNumber    String
 }
+
+model Category {
+  id          String        @id @default(uuid())
+  name        String
+  SubCategory SubCategory[]
+  Producto    Producto[]
+}
+
+model SubCategory {
+  id         String   @id @default(uuid())
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+}
+
+model Producto {
+  id            String   @id @default(uuid())
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  name          String
+  description   String
+  price         Float
+  stock         Int
+  discount      Int      @default(0)
+  image         String
+  lowStockLimit Int
+}
