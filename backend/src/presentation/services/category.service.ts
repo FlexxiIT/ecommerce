@@ -38,7 +38,11 @@ export class CategoryService {
 
         try {
 
-          const categories = await prisma.category.findMany();
+          const categories = await prisma.category.findMany({
+            include: {
+                SubCategory: true,
+            }
+          });
 
           const categoriesEntity = categories.map(category => CategoryEntity.fromObject(category));
 

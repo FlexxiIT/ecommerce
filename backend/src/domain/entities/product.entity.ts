@@ -22,9 +22,9 @@ export class ProductEntity {
         const { id, categoryId, name, description, price, stock, discount, image, lowStockLimit } = object;
 
         if (!id) throw CustomError.badRequest('Missing id');
-        if (!isUUID(id)) throw CustomError.badRequest('Product Id is not a valid UUID');
+        if (!isUUID(id)) throw CustomError.badRequest('Product Id is not a valid Id');
         if (!categoryId) throw CustomError.badRequest('Missing category id');
-        if (!isUUID(categoryId)) throw CustomError.badRequest('Category Id is not a valid UUID');
+        if (!isUUID(categoryId)) throw CustomError.badRequest('Category Id is not a valid Id');
         if (!name) throw CustomError.badRequest('Missing name');
         if (!description) throw CustomError.badRequest('Missing description');
         if (!price) throw CustomError.badRequest('Missing price');
