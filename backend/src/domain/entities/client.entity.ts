@@ -1,3 +1,4 @@
+import { isUUID } from "../../config";
 import { CustomError } from "../errors/custom-error";
 
 
@@ -22,6 +23,7 @@ export class ClientEntity {
 
 
         if (!id) throw CustomError.badRequest('Missing id');
+        if (!isUUID(id)) throw CustomError.badRequest('Client Id is not a valid UUID');
         if (!email) throw CustomError.badRequest('Missing email');
         if (emailValidated === undefined) throw CustomError.badRequest('Missing emailValidated');
         if (!password) throw CustomError.badRequest('Missing password');
