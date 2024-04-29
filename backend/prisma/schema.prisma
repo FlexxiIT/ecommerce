@@ -27,16 +27,17 @@ model Category {
   id          String        @id @default(uuid())
   name        String
   SubCategory SubCategory[]
-  Producto    Producto[]
+  Product     Product[]
 }
 
 model SubCategory {
   id         String   @id @default(uuid())
+  name       String
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 }
 
-model Producto {
+model Product {
   id            String   @id @default(uuid())
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
