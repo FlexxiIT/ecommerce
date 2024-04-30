@@ -130,8 +130,48 @@
     cursor: pointer; /* Cursor de puntero para indicar interactividad */
     transition: color 0.3s ease; /* Transición suave en el color durante 0.3 segundos */
 }
+.cell{
+    display: none;
+}
 
 /* Efecto de hover para los íconos */
 .user-links .icon:hover {
     color: #4070f4; /* Color de los íconos cuando se realiza hover */
+}
+
+@media screen and (min-width:128px) and (max-width:900px){
+    .cell{
+        display: block;
+    }
+    .nav-links{
+        position: fixed;
+        transition: 0.2s ease-in-out;
+        right: -50rem;
+        background: red;
+        width: 70%;
+        height: 100%;
+        z-index: 900;
+        opacity: 80%;
+        flex-direction: column;
+    }
+    .nav-links ul{
+        display: block;
+        flex-direction: column;
+        height: 100%;
+    }
+    .nav-links ul li{
+        width: 100%; /* Ocupa el ancho completo */
+        padding: 10px 50px 0 50px;
+        text-align: center; /* Centra el texto de los elementos */
+        box-sizing: border-box;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .nav-links ul ul li {
+        width: 100%; /* Ancho completo de los submenús */
+    }
+    .mobile_menu{
+        right: 0;
+        transition: 0.35s ease-in-out;
+    }
 }

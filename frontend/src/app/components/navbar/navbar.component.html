@@ -7,11 +7,14 @@
             <input type="text" placeholder="Buscar">
         </div>
         <div class="user-links">
+            <div class="menu-icons" (click)="openMenu()">
+                <i class="{{menuIcon}} icon cell"></i>
+            </div>
             <i class="fa-solid fa-user icon"></i>
             <i class="fa-solid fa-cart-shopping icon"></i>
         </div>
     </div>
-    <div class="nav-links">
+    <nav class="nav-links" [class.mobile_menu]="menuValue">
         <ul>
             <li>Inicio</li>
             <li><a routerLink="/productos">Productos</a>
@@ -29,5 +32,5 @@
             <li>Historial</li>
             <li><a href="">Contacto</a></li>
         </ul>
-    </div>
+    </nav>
 </div>

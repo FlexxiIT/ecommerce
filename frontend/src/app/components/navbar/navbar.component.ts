@@ -11,6 +11,8 @@ import { ClienteService } from '../../services/cliente.service';
 })
 export class NavbarComponent implements OnInit{
   categories: any[]=[];
+  menuValue: boolean = false;
+  menuIcon : string = 'fa-solid fa-bars'
 
   constructor(private catService: ClienteService){ }
 
@@ -19,5 +21,15 @@ export class NavbarComponent implements OnInit{
       this.categories = data;
     })
   }
+
+  openMenu(){
+    this.menuValue = !this.menuValue
+    this.menuIcon = this.menuValue ? 'fa-solid fa-x' : 'fa-solid fa-bars'
+  }
+
+  toggleDropdown(category: any) {
+    // Alternar el estado del submenú
+    category.isExpanded = !category.isExpanded;
+}
  
 }
