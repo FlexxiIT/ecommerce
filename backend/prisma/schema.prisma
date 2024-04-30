@@ -41,11 +41,12 @@ model Product {
   id            String   @id @default(uuid())
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
+  available     Boolean  @default(false)
   name          String
   description   String
-  price         Float
-  stock         Int
+  price         Float   
+  stock         Int      @default(0)
   discount      Int      @default(0)
-  image         String
+  image         String   @default("")
   lowStockLimit Int
 }
