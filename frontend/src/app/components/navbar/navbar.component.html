@@ -1,36 +1,53 @@
-<div class="header">
-    <div class="header-container">
-        <div class="logo-container">
-           <div class="logo"><h3>Tienda</h3></div>
-        </div>
-        <div class="input-container">
-            <input type="text" placeholder="Buscar">
-        </div>
-        <div class="user-links">
-            <div class="menu-icons" (click)="openMenu()">
-                <i class="{{menuIcon}} icon cell"></i>
+<header class="header">
+    <nav class="nav container">
+        <div class="nav__data">
+            <a href="#" class="nav__logo">
+                <i class="fa-solid fa-earth-africa"></i>Company
+            </a>
+
+            <div class="nav__search">
+                <input type="search" class="nav__input" placeholder="Buscar...">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
             </div>
-            <i class="fa-solid fa-user icon"></i>
-            <i class="fa-solid fa-cart-shopping icon"></i>
+
+            <div class="nav__toggle" id="nav__toggle" (click)="showMenu()">
+                <i class="fa-solid fa-bars nav__burguer"></i>
+                <i class="fa-solid fa-x nav__close"></i>
+            </div>
         </div>
-    </div>
-    <nav class="nav-links" [class.mobile_menu]="menuValue">
-        <ul>
-            <li>Inicio</li>
-            <li><a routerLink="/productos">Productos</a>
-                <ul class="dropdown">
-                    <li *ngFor="let category of categories">
-                        <a href="">{{ category.nombre }} ></a>
-                        <ul *ngIf="category.subcategorias?.length" class="sub-dropdown">
-                            <li *ngFor="let subcategoria of category.subcategorias">
-                                <a href="">{{ subcategoria.nombre }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>Historial</li>
-            <li><a href="">Contacto</a></li>
-        </ul>
+
+        <div class="nav__menu" id="nav-menu" >
+            <ul class="nav__list">
+                <li><a href="" class="nav__link">Inicio</a></li>
+
+                <!--DROPDOWN 1-->
+                <li class="dropdown__item">
+                    <div class="nav__link">
+                       Productos <i class="fa-solid fa-caret-down" id="arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                        <li class="dropdown__subitem" *ngFor="let category of categories">
+                            <a href="#" class="dropdown__link">
+                                {{category.name}} <i class="fa-solid fa-plus dropdown__add" *ngIf="category.SubCategory && category.SubCategory.length > 0"></i>
+                            </a>
+                            <ul class="dropdown__submenu" *ngIf="category.SubCategory && category.SubCategory.length > 0">
+                                <li *ngFor="let subcategory of category.SubCategory">
+                                    <a href="#" class="dropdown__sublink">
+                                     {{subcategory.name}}
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li><a href="" class="nav__link">Contacto</a></li>
+
+                <li><a href="" class="nav__link"> Historial</a></li>
+            </ul>
+        </div>
     </nav>
-</div>
+</header>

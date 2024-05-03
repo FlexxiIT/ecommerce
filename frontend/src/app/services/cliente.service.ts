@@ -24,7 +24,7 @@ export class ClienteService {
     return this.http.get<any>(`${this.apiUrl}/api/auth/validate-email/${token}`);
   }
   getCategories(): Observable<any> {
-    return this.http.get<any>(`${this.JSONServer}/categorias`);
+    return this.http.get<any>(`${this.JSONServer}/categories`);
   }
   getProducts(): Observable<any>{
     return this.http.get<any>(`${this.JSONServer}`);

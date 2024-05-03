@@ -16,6 +16,21 @@ export class NavbarComponent implements OnInit{
 
   constructor(private catService: ClienteService){ }
 
+  showMenu() {
+    // Get the elements from the DOM
+    const toggle = document.getElementById('nav__toggle');
+    const nav = document.getElementById('nav-menu');
+
+    // Alterna las clases de los elementos
+    if (nav) {
+      nav.classList.toggle('show-menu');
+  }
+
+  if (toggle) {
+      toggle.classList.toggle('show-icon');
+  }
+}
+
   ngOnInit(): void {
     this.catService.getCategories().subscribe((data)=>{
       this.categories = data;
@@ -27,9 +42,6 @@ export class NavbarComponent implements OnInit{
     this.menuIcon = this.menuValue ? 'fa-solid fa-x' : 'fa-solid fa-bars'
   }
 
-  toggleDropdown(category: any) {
-    // Alternar el estado del submenú
-    category.isExpanded = !category.isExpanded;
-}
- 
+
+
 }

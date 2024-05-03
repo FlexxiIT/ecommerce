@@ -1,177 +1,272 @@
-.header {
-    background-color: #f8f8f8; /* Color de fondo de la cabecera */
-    padding: 10px; /* Espacio interno alrededor de los elementos */
+.container{
+    max-width: 1120px;
+    margin-inline: 1.5rem;
+}
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
 }
 
-/* Contenedor principal para la cabecera */
-.header-container {
-    display: flex; /* Utiliza flexbox para alinear los elementos */
-    align-items: center; /* Alinea los elementos verticalmente en el centro */
-    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+
+/*NAV*/
+.nav{
+    height: 3.5rem;
+}
+.nav__logo,.nav__burguer,.nav__close{
+    color: white;
+}
+.nav__data{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav__logo{
+    display: inline-flex;
+    align-items: center;
+    column-gap: .25rem;
+    font-weight: 600;
+}
+.nav__logo i{
+    font-weight: initial;
+    font-size: 1.25rem;
+}
+.nav__toggle{
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 20px;
 }
 
-/* Estilo para el logo */
-.logo h3 {
-    margin: 0; /* Elimina el margen interno del título */
+.nav__burguer,.nav__close{
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    inset: 0;
+    margin: auto;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: opacity .1s, transform .4s;
+}
+.nav__close{
+    opacity: 0;
+}
+.nav__search {
+    flex: 1;
+    display: flex; /* Utiliza flexbox para centrar el input */
+    justify-content: center; /* Centra el input de búsqueda */
+    align-items: center;
 }
 
-/* Estilo para el contenedor del input de búsqueda */
-.input-container {
-    flex: 1; /* Permite que el contenedor ocupe todo el espacio necesario */
-    padding-left: 10px; /* Espacio interno a la izquierda del input */
-    display: flex; /* Utiliza flexbox para alinear los elementos */
-    justify-content: center; /* Centra el input de búsqueda en la página */
-}
-
-/* Estilo para el input de búsqueda */
-.input-container input {
-    width: 40%; /* El input ocupa el 80% del ancho del contenedor */
+.nav__input {
+    height: 45%;
+    width: 60%; /* Ajusta el ancho del input según sea necesario */
     padding: 8px; /* Espacio interno del input */
     border: 1px solid #ccc; /* Borde del input */
-    border-radius: 4px; /* Bordes redondeados del input */
+    border-radius: 1rem; /* Bordes redondeados */
 }
 
-/* Estilo para el bloque de enlaces de navegación */
-.nav-links {
-    display: flex; /* Utiliza flexbox para alinear los elementos */
-    justify-content: center; /* Centra los elementos de navegación */
-    align-items: center; /* Alinea verticalmente los elementos */
-    margin-top: 10px; /* Espacio superior entre los bloques */
-    border-top: 1px solid #ccc; /* Borde superior */
+/*Mobile*/
+@media screen and (max-width: 1118px) {
+    .nav__menu{
+        position: absolute;
+        left: 0;
+        top: 2.5rem;
+        width: 100%;
+        background-color: gray;
+        height: calc(100vh - 3.5rem);
+        overflow: auto;
+        pointer-events: none;
+        opacity: 0;
+        transition: top .4s, opacity .3s;
+    }
+    .nav__menu::-webkit-scrollbar{
+        width: 0;
+    }
+    .nav__list{
+        background-color: black;
+        padding-top: 1rem;
+    }
 }
 
-/* Estilo general para los ul y li */
-.nav-links ul {
-    display: flex; /* Utiliza flexbox para alinear los elementos */
-    justify-content: center; /* Centra los elementos de la lista */
-    list-style-type: none; /* Elimina las viñetas de la lista */
-    padding: 0; /* Elimina el espacio interno */
-    margin: 0; /* Elimina el margen externo */
-    position: relative; /* Necesario para posicionar los submenús */
+.nav__link{
+    color: white;
+    background-color: black;
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color .3s;
+}
+.nav__link:hover{
+    background-color: rgb(10, 10, 10);
 }
 
-/* Estilo para los li que contienen el menú desplegable */
-.nav-links ul li {
-    position: relative; /* Necesario para posicionar los submenús */
-    padding: 10px; /* Espacio interno alrededor del texto */
-    transition: color 0.3s ease; /* Transición suave en el color durante 0.3 segundos */
+.show-menu{
+    opacity: 1;
+    top: 3.5rem;
+    pointer-events: initial;
+}
+.show-icon .nav__burguer{
+    opacity: 0;
+    transform: rotate(90deg);
+}
+.show-icon .nav__close{
+    opacity: 1;
+    transform: rotate(90deg);
 }
 
-/* Efecto de hover para los li */
-.nav-links ul li:hover {
-    color: #4070f4; /* Cambia el color de los li al hacer hover */
+/*DROPDOWN*/
+.dropdown__item{
     cursor: pointer;
 }
-
-/* Estilo para los enlaces en los li */
-.nav-links ul li a {
-    color: #333; /* Color del texto de los enlaces */
-    text-decoration: none; /* Elimina la subrayación de los enlaces */
-    padding: 10px; /* Espacio interno alrededor del texto */
+.dropdown__arrow{
+    font-size: 1.25rem;
+    font-weight: initial;
+    transition: transform .4s;
+}
+.dropdown__link,
+.dropdown__sublink{
+    padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+    color: white;
+    background-color: rgb(32, 28, 28);
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    font-weight: 600;
+    transition: background-color .3s;
+}
+.dropdown__link i,
+.dropdown__sublink i{
+    font-size: 1.25rem;
+    font-weight: initial;
+}
+.dropdown__link:hover,
+.dropdown__sublink:hover{
+    background-color: black;
+}
+.dropdown__menu,
+.dropdown__submenu{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease-out;
+}
+/*Show dropdown menu and submenu*/
+.dropdown__item:hover .dropdown__menu,
+.dropdown__subitem:hover > .dropdown__submenu{
+    max-height: 1000px;
+    transition: max-height .4s ease-in;
 }
 
-/* Estilo para los dropdowns ocultos */
-.nav-links ul ul {
-    display: none; /* Oculta el submenú por defecto */
-    position: absolute; /* Posiciona el submenú de forma absoluta */
-    top: 100%; /* Coloca el submenú debajo del elemento padre */
-    left: 0; /* Coloca el submenú alineado con el elemento padre */
-    background-color: #f8f8f8; /* Color de fondo del submenú */
-    border: 1px solid #ccc; /* Borde del submenú */
-    border-radius: 4px; /* Bordes redondeados del submenú */
-    width: 200px; /* Ancho del submenú */
+/*Rotate dropdown icon*/
+.dropdown__item:hover #arrow{
+    transform: rotate(180deg);
 }
 
-/* Muestra el submenú cuando se pone el mouse encima del elemento padre */
-.nav-links ul li:hover > ul {
-    display: block; /* Muestra el submenú */
+/*DROPDOWN SUBMENU*/
+.dropdown__add{
+    margin-left: auto;
+}
+.dropdown__sublink{
+    background-color: rgb(7, 7, 7);
 }
 
-/* Estilo para los submenús de las subcategorías */
-.nav-links ul ul ul {
-    left: 100%; /* Coloca el submenú de la subcategoría a la derecha */
-    top: 0; /* Coloca el submenú de la subcategoría al mismo nivel que su elemento padre */
-    background-color: #f8f8f8; /* Color de fondo del submenú */
-}
-
-/* Estilo para los elementos de la lista en los submenús */
-.nav-links ul ul li {
-    width: 100%; /* Los elementos de la lista ocupan todo el ancho del submenú */
-}
-
-/* Estilo para los enlaces de los submenús */
-.nav-links ul ul li a {
-    display: block; /* Cada enlace ocupa toda una línea */
-    padding: 10px; /* Espacio interno alrededor del texto */
-}
-
-/* Efecto de hover para los enlaces de los submenús */
-.nav-links ul ul li a:hover {
-    background-color: #4070f4; /* Color de fondo cuando se hace hover */
-    color: #fff; /* Color del texto cuando se hace hover */
-}
-
-
-
-/* Estilo para el contenedor de enlaces de usuario y carrito */
-.user-links {
-    display: flex; /* Utiliza flexbox para alinear los elementos */
-    align-items: center; /* Alinea verticalmente los íconos en el centro */
-    justify-content: flex-end; /* Alinea los íconos a la derecha del contenedor */
-    margin-left: auto; /* Empuja el contenedor de íconos hacia el final de la cabecera */
-    gap: 50px; /* Espacio entre los íconos */
-    margin-right: 50px;
-}
-
-/* Estilo para los íconos */
-.user-links .icon {
-    color: grey; /* Color de los íconos */
-    font-size: 20px; /* Tamaño de los íconos */
-    cursor: pointer; /* Cursor de puntero para indicar interactividad */
-    transition: color 0.3s ease; /* Transición suave en el color durante 0.3 segundos */
-}
-.cell{
-    display: none;
-}
-
-/* Efecto de hover para los íconos */
-.user-links .icon:hover {
-    color: #4070f4; /* Color de los íconos cuando se realiza hover */
-}
-
-@media screen and (min-width:128px) and (max-width:900px){
-    .cell{
-        display: block;
+/*BREAKPOINTS*/
+@media screen and (max-width:340px){
+    .container{
+        margin-inline: 1rem;
     }
-    .nav-links{
-        position: fixed;
-        transition: 0.2s ease-in-out;
-        right: -50rem;
-        background: red;
-        width: 70%;
+    .nav__link{
+        padding-inline: 1rem;
+    }
+    
+}
+
+@media screen and (min-width: 1118px) {
+    .container{
+        margin-inline: auto;
+    }
+    .nav{
+        height: calc(3.5rem + 2rem);
+        display: flex;
+        justify-content: space-between;
+    }
+    .nav__data{
+        gap: 8rem;
+    }
+    .nav__toggle{
+        display: none;
+    }
+    .nav__list{
         height: 100%;
-        z-index: 900;
-        opacity: 80%;
-        flex-direction: column;
+        display: flex;
+        column-gap: 3rem;
     }
-    .nav-links ul{
-        display: block;
-        flex-direction: column;
+    .nav__link{
         height: 100%;
+        padding: 0;
+        justify-content: initial;
+        column-gap: .25rem;
     }
-    .nav-links ul li{
-        width: 100%; /* Ocupa el ancho completo */
-        padding: 10px 50px 0 50px;
-        text-align: center; /* Centra el texto de los elementos */
-        box-sizing: border-box;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+    .nav__link:hover{
+        background-color: transparent;
     }
-    .nav-links ul ul li {
-        width: 100%; /* Ancho completo de los submenús */
+
+    .nav__input {
+        width: 20rem; /* Ajusta el ancho del input según sea necesario */
+        padding: 8px; /* Espacio interno del input */
+        border: 1px solid #ccc; /* Borde del input */
+        border-radius: 1rem; /* Bordes redondeados */
     }
-    .mobile_menu{
-        right: 0;
-        transition: 0.35s ease-in-out;
+    .search-icon {
+        /* Estilo para el ícono de búsqueda */
+        padding-left: 25px;
+        margin-left: -50px; /* Ajusta el margen para que se coloque sobre el input */
+        cursor: pointer; /* Cursor de puntero para el ícono */
+    }
+
+    .dropdown__item,
+    .dropdown__subitem{
+        position: relative;
+    }
+    .dropdown__menu,
+    .dropdown__submenu{
+        max-height: initial;
+        overflow: initial;
+        position: absolute;
+        left: 0;
+        top: 6rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s, top .3s;
+    }
+    .dropdown__link,
+    .dropdown__sublink{
+        padding-inline: 1rem 3.5rem;
+    }
+    .dropdown__subitem .dropdown__link{
+        padding-inline: 1rem;
+    }
+    .dropdown__submenu{
+        position: absolute;
+        left: 100%;
+        top: .5rem;
+    }
+
+    .dropdown__item:hover .dropdown__menu{
+        opacity: 1;
+        top: 5.5rem;
+        pointer-events: initial;
+        transition: top .3s;
+    }
+    .dropdown__subitem:hover > .dropdown__submenu{
+        opacity: 1;
+        top: 0;
+        pointer-events: initial;
+        transition: top .3s;
     }
 }
