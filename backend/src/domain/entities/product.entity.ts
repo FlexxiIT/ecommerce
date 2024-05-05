@@ -17,10 +17,11 @@ export class ProductEntity {
         public stock?: number,
         public discount?: number,
         public image?: string,
+        public timesSold?: number,
     ) { }
 
     static fromObject(object: { [key: string]: any }): ProductEntity {
-        const { id, categoryId, available, name, description, price, stock, discount, image, lowStockLimit } = object;
+        const { id, categoryId, available, name, description, price, stock, discount, image, lowStockLimit, timesSold } = object;
 
         if (!id) throw CustomError.badRequest('Missing id');
         if (!isUUID(id)) throw CustomError.badRequest('Product Id is not a valid Id');
@@ -41,7 +42,8 @@ export class ProductEntity {
             available,
             stock,
             discount,
-            image
+            image,
+            timesSold,
         );
     }
 }

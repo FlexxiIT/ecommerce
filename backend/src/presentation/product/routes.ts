@@ -19,6 +19,8 @@ export class ProductRoutes {
         // Definir las rutas
         router.post('/', controller.createProduct);
         router.get('/', controller.getProducts);
+        router.get('/category/:categoryId', controller.getProductsByCategory);
+        router.get('/word/:word', controller.getProductsByWord);
         // todo: update and delete routes / FOR THE ADMIN ROLE
 
         return router;

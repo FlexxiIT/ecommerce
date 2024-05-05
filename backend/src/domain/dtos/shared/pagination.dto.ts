@@ -16,8 +16,6 @@ export class PaginationDto {
         if (page <= 0) return ['Page must be greater than  0'];
         if (limit <= 0) return ['Limit must be greater than 0'];
 
-
-
         return [undefined, new PaginationDto(page, limit)];
     };
 
