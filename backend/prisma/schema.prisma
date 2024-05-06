@@ -31,23 +31,26 @@ model Category {
 }
 
 model SubCategory {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category  @relation(fields: [categoryId], references: [id])
   categoryId String
+  Product    Product[]
 }
 
 model Product {
-  id            String   @id @default(uuid())
-  category      Category @relation(fields: [categoryId], references: [id])
+  id            String      @id @default(uuid())
+  category      Category    @relation(fields: [categoryId], references: [id])
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
   categoryId    String
-  available     Boolean  @default(false)
+  subCategoryId String
+  available     Boolean     @default(false)
   name          String
   description   String
   price         Float
-  stock         Int      @default(0)
-  discount      Int      @default(0)
-  image         String   @default("")
-  lowStockLimit Int
-  timesSold      Int      @default(0)
+  stock         Int         @default(0)
+  discount      Int         @default(0)
+  image         String      @default("")
+  lowStockLimit Int         @default(0)
+  timesSold     Int         @default(0)
 }

@@ -7,6 +7,7 @@ export class CreateProductDto {
 
     private constructor(
         public readonly categoryId: string,
+        public readonly subCategoryId: string,
         public readonly name: string,
         public readonly description: string,
         public readonly price: number,
@@ -20,10 +21,11 @@ export class CreateProductDto {
 
 
     static create(object: { [key: string]: any }): [string?, CreateProductDto?] {
-        const { categoryId, available, name, description, price, stock = 0, discount = 0, image = "", lowStockLimit, timesSold = 0 } = object;
+        const { categoryId, subCategoryId, available, name, description, price, stock = 0, discount = 0, image = "", lowStockLimit = 0, timesSold = 0 } = object;
 
         if (!name) return ['Missing name'];
         if (!categoryId) return ['Missing category Id'];
+        if (!subCategoryId) return ['Missing sub category Id'];
         if (!description) return ['Missing description'];
 
         const parsedPrice = parseFloat(price);
@@ -40,6 +42,7 @@ export class CreateProductDto {
 
         return [undefined, new CreateProductDto(
             categoryId,
+            subCategoryId,
             name,
             description,
             parsedPrice,

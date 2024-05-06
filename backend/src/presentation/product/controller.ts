@@ -81,6 +81,25 @@ export class ProductController {
 
     }
 
+    getProductsBySubCategory = (req: Request, res: Response) => {
+
+        const { page = 1, limit = 10 } = req.query;
+        const [error, paginationDto] = PaginationDto.create(+page, +limit);
+        if (error) return res.status(400).json({ error });
+
+        const { subCategoryId } = req.params;
+        const where: Prisma.ProductWhereInput = { subCategoryId: subCategoryId };
+
+        this.productService.getProductsCommon(
+            paginationDto!,
+            '/sub-category',
+            where
+        )
+            .then(products => res.status(200).json({ products }))
+            .catch(error => this.handleError(error, res));
+
+    }
+
 
 
 }
