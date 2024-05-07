@@ -1,0 +1,20 @@
+<div class="swiper-wrapper">
+    <swiper-container navigation="true"         [slides-per-view]="3"
+    [breakpoints]="breakpoints">
+        <swiper-slide *ngFor="let product of products" lazy="true">
+            <div class="product-container">
+                <div class="product-card">
+                    <div class="img-container">
+                        <img [src]="product.image" alt="">
+                    </div>
+                   <div class="name-container">
+                        <span class="name">{{product.name}}</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="price">{{product.price}}</span>
+                    </div>
+                </div>
+            </div>
+        </swiper-slide>
+    </swiper-container>
+</div>

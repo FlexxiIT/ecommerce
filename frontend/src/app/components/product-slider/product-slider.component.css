@@ -1,0 +1,85 @@
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+swiper-container{
+    width: 78%;
+    height: 100%;
+}
+.product-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px; /* Ancho de la tarjeta */
+    height: 300px;
+    padding: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f9f9f9;
+    margin: 10px; /* Margen alrededor de la tarjeta */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: background-color 0.5s ease-in;
+}
+.product-card:hover{
+    cursor: pointer;
+    background-color: rgb(236, 236, 236);
+}
+
+/* Estilo del contenedor de la imagen */
+.img-container {
+    width: 100%; /* Ancho completo del contenedor */
+    height: 340px; /* Altura del contenedor */
+    overflow: hidden; /* Oculta cualquier contenido desbordado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee; /* Borde inferior */
+}
+
+/* Estilo de la imagen */
+.img-container img {
+    width: 100%; /* Ancho completo de la imagen */
+    height: 100%; /* Altura automática para mantener la proporción */
+    object-fit: cover; /* Ajusta la imagen para que se ajuste dentro del contenedor */
+}
+
+.name-container {
+    margin-top: 8px; /* Espacio superior */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo del nombre del producto */
+.name-container span {
+    font-size: 1rem; /* Tamaño de fuente del nombre */
+    font-weight: 600; /* Peso de la fuente */
+    color: #333; /* Color del texto */
+}
+
+/* Estilo del contenedor del precio */
+.price-container {
+    margin: 8px 0; /* Espacio superior e inferior */
+}
+
+/* Estilo del precio */
+.price-container span {
+    font-size: 1.1rem; /* Tamaño de fuente del precio */
+    font-weight: 600; /* Peso de la fuente */
+    color: #333; /* Color del precio */
+}
+
+/* Estilo del contenedor del botón de orden */
+.order-btn-container {
+    width: 100%; /* Ancho completo */
+    display: flex;
+    justify-content: center; /* Centra el botón horizontalmente */
+}
