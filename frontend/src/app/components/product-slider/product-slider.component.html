@@ -1,5 +1,5 @@
 <div class="swiper-wrapper">
-    <swiper-container navigation="true"         [slides-per-view]="3"
+    <swiper-container navigation="true"  [slides-per-view]="3"
     [breakpoints]="breakpoints">
         <swiper-slide *ngFor="let product of products" lazy="true">
             <div class="product-container">
@@ -11,7 +11,7 @@
                         <span class="name">{{product.name}}</span>
                     </div>
                     <div class="price-container">
-                        <span class="price">{{product.price}}</span>
+                        <span class="price">${{product.price}}</span>
                     </div>
                 </div>
             </div>

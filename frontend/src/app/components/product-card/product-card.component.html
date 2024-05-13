@@ -1,1 +1,60 @@
-<p>product-card works!</p>
+<div class="catalog-container">
+    <div class="options-container">
+        
+            <button class="filter-btn" (click)="toggleFilterModal()">Filtrar <i class="fa-solid fa-sliders"></i></button>
+                    <!-- Dropdown para las opciones de filtrado -->
+        <div class="filter-dropdown" [class.active]="isFilterDropdownOpen">
+            <div class="category-container">
+                <h3>Categorías</h3>
+                <div class="categories" *ngFor="let category of categories">
+                    <h4>{{category.name}}</h4>
+                </div>
+            </div>
+            <form class="form-group">
+                <span class="input-container">
+                    <label class="form-label">Desde</label>
+                    <input type="number" name="min_price" placeholder="0" class="form-input">
+                </span>
+                <span class="input-container">
+                    <label class="form-label">Hasta</label>
+                    <input type="number" name="max_price" placeholder="0" class="form-input">
+                </span>
+                <button type="submit" class="form-btn">Filtrar</button>
+            </form>
+        </div>
+            
+            <select class="order-box">
+                <option *ngFor="let option of options" [value]="option.value">
+                    {{option.label}}
+                </option>
+            </select>
+        
+        <!--Aqui va el historial de como llego el usuario ahi, en este caso seria Inicio/Productos o tambien puede ser Categoria/Subcategoria a la que pertenece-->
+        <!--Y por el lado izquierdo estaria las opciones de filtrado, que seria como un summary de opciones (esto no lo hagas todavia, solo haz lo visual)-->
+
+    </div>
+    <div class="catalog-content">
+       <div class="product-container" >
+           <div class="product-card" *ngFor="let product of products">
+               <div class="img-container">
+                   <img [src]="product.image" alt="">
+                   <div class="discount-tag" *ngIf="product.discount">-{{product.discount}}%</div>
+               </div>
+              <div class="name-container" >
+                   <span class="name">{{product.name}}</span>
+               </div>
+               <div class="price-container">
+                    <span class="original-price" *ngIf="product.discount > 0">
+                        ${{product.price}}
+                    </span>
+                    <span class="price">
+                        ${{product.discount ? product.discountprice : product.price}}
+                    </span>
+               </div>
+               <div class="button-container">
+                <button class="addToCart">Añadir al carrito</button>
+               </div>
+            </div>
+       </div>
+    </div>
+</div>
