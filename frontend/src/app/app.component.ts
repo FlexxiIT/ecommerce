@@ -9,11 +9,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductSliderComponent } from './components/product-slider/product-slider.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,NavbarComponent,ProductSliderComponent,ProductCardComponent,ProductDetailComponent],
+  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,NavbarComponent,ProductSliderComponent,ProductCardComponent,ProductDetailComponent,DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

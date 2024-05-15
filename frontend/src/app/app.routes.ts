@@ -6,12 +6,13 @@ import { ValidateEmailComponent } from './components/validate-email/validate-ema
 import { ProductSliderComponent } from './components/product-slider/product-slider.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {path:'register',component:RegisterComponent},
     {path: 'login',component:LoginComponent},
     {path:'validate-email/:token',component:ValidateEmailComponent},
     {path:'slider',component:ProductSliderComponent},
-    {path:'catalog',component:ProductCardComponent},
+    {path:'catalog',component:DashboardComponent},
     {path:'product',component:ProductDetailComponent}
 ];

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -20,27 +21,27 @@ export class ProductCardComponent implements OnInit{
 
   categories: any [] = [];
   products: any [] = [];
-  isFilterDropdownOpen = false;
+  isFilterMenuOpen = false;
 
-  constructor(private pService: ClienteService){ }
+  constructor(private router:Router,private pService: ClienteService){ }
 
   ngOnInit(): void {
-    this.getProducts();
-    this.getCategories();
-  }
-
-  getProducts(){
     this.pService.getProducts().subscribe((data) =>{
       this.products = data;
     })
-  }
-  getCategories(){
     this.pService.getCategories().subscribe((data) =>{
       this.categories = data;
     })
   }
 
-  toggleFilterModal() {
-      this.isFilterDropdownOpen = !this.isFilterDropdownOpen;
+  toggleFilterMenu() {
+      this.isFilterMenuOpen = !this.isFilterMenuOpen;
+  }
+  onClickProduct(product: any) {
+    // Guardar el producto en el localStorage
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+    // Redirigir al componente Producto-Detallado
+    this.router.navigate(['/product']);
+    console.log(localStorage.getItem('selectedProduct'));
   }
 }

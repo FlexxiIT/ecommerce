@@ -13,21 +13,7 @@ import { ProductSliderComponent } from '../product-slider/product-slider.compone
 })
 export class ProductDetailComponent implements OnInit{
   products : any [] = [];
-
-  breakpoints: Record<number, { slidesPerView: number }> = {
-    320: {
-      slidesPerView: 1, // 1 slide visible for small screens
-    },
-    480: {
-      slidesPerView: 2, // 2 slides visible for medium screens
-    },
-    768: {
-      slidesPerView: 3, // 3 slides visible for larger screens
-    },
-    1024: {
-      slidesPerView: 3, // 4 slides visible for very large screens
-    },
-  };
+  selectedProduct : any;
 
   constructor(private pService: ClienteService){}
 
@@ -35,5 +21,13 @@ export class ProductDetailComponent implements OnInit{
     this.pService.getProducts().subscribe((data)=>{
       this.products = data;
     })
+    const productString = localStorage.getItem('selectedProduct');
+    if (productString) {
+      this.selectedProduct = JSON.parse(productString);
+    }
+  }
+
+  getProduct(){
+
   }
 }

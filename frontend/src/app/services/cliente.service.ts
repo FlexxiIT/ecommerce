@@ -29,6 +29,9 @@ export class ClienteService {
   getProducts(): Observable<any>{
     return this.http.get<any>(`${this.JSONServer}/products`);
   }
+  getProductByID(): Observable<any>{
+    return this.http.get<any>(`${this.JSONServer}/products`);
+  }
 
 
 }

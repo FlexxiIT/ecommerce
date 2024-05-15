@@ -1,92 +1,75 @@
-/* Contenedor principal de la página de catálogo */
-.catalog-container {
-    margin-top: 5rem;
+
+.order-container{
     display: flex;
-    flex-direction: column; /* Para que options esté arriba */
-}
-
-/* Estilos generales para el contenedor de opciones */
-.options-container {
-    display: flex; /* Utiliza flexbox */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Alinea los elementos verticalmente */
-    padding: 4rem 10px 0 10px; /* Espacio interno */
-    gap: 50px;
-}
-
-/* Estilos para el botón de filtro */
-.filter-btn {
-    padding: 8px;
-    border-radius: 5px;
-    background-color: #333;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    border: transparent;
-    margin-right: 10px; /* Ajusta el espacio entre el botón y el selector */
-}
-
-/* Estilos para el dropdown */
-.filter-dropdown {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1000;
-    margin-top: 10px;
-}
-
-/* Mostrar el dropdown cuando esté activo */
-.filter-dropdown.active {
-    display: block;
-}
-
-/* Estilos generales para el dropdown y los elementos del formulario */
-.category-container, .form-group {
-    margin-bottom: 10px;
-}
-
-/* Estilos para el selector de orden */
-.order-box {
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: border 0.5s ease-in;
-}
-
-.order-box:hover {
-    border: black 2px solid;
-}
-
-/* Contenedor para las opciones de filtrado y productos */
-.catalog-content {
-    display: flex;
-    width: 100%;
     align-items: center;
     justify-content: center;
-    
+    padding: 10px 0 10px 10px;
 }
-/* Contenedor de productos */
-.product-container {
+.header{
+    font-size: 1.5rem;
+    color: white;
+    background-color: black;
+    padding: 10px 0;
+    font-weight: 600;
+}
+.filter-container{
+    display: none;
+}
+.filter-container h3{
+    border-radius: 6px;
+    padding: 1px 49px;
+    background-color: gray;
+}
+.filter-menu{
+    display: none;
+    position: fixed; /* Hace que el elemento sea fijo en la pantalla */
+    top: 0; /* Lo posiciona en la parte superior */
+    left: 0; /* Lo posiciona en el lado izquierdo */
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+}
+.order-box{
+    padding: 5px 100px 5px 10px;
+    border-radius: 6px;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.catalog-content{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 90%;
+    padding: 20px 0 20px 0;
+}
+.sidebar-container{
+    display: block;
+    margin-right: 10px;
+    padding-left: 3px;
+    flex: 0 0 15%
+}
+/*PRODUCT*/
+.product-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 1.6rem;
+    width: 90%;
+    gap: 15px;
+    padding: 10px 10px;
+    
 }
-
-/* Estilos generales para los productos */
-.product-card {
+.product-card{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    width: 235px; /* Ancho de la tarjeta */
+    justify-content: center;
+    border: 1px solid gray;
+    width: 235px;
     height: 340px;
-    padding: 10px;
-    border-radius: 8px; /* Bordes redondeados */
-    background-color: #f9f9f9;
-    margin: 0px 10px 10px 10px; /* Margen alrededor de la tarjeta */
+    border-radius: 5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
     transition: all 0.5s ease-in;
 }
@@ -95,20 +78,18 @@
     background-color: rgb(233, 233, 233);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); /* Sombra ligera */
 }
-
-/* Estilo del contenedor de la imagen */
-.img-container {
-    width: 100%; /* Ancho completo del contenedor */
-    height: 340px; /* Altura del contenedor */
-    overflow: hidden; /* Oculta cualquier contenido desbordado */
+.img-container{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
     position: relative;
-    justify-content: center;
-    align-items: center;
-    border-radius: 3px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Sombra ligera */
 }
-
-/* Estilo de la etiqueta de descuento */
+.img-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .discount-tag {
     position: absolute;
     top: 5px; /* Poner en la parte superior */
@@ -116,44 +97,32 @@
     background-color: rgb(51, 51, 51); /* Color de fondo de la etiqueta */
     color: white; /* Color del texto */
     padding: 4px; /* Espacio interno */
-    width: 43px; /* Ancho de la etiqueta */
-    height: 43px; /* Altura de la etiqueta, igual al ancho */
+    width: 45px; /* Ancho de la etiqueta */
+    height: 45px; /* Altura de la etiqueta, igual al ancho */
     border-radius: 50%; /* Convierte el contorno en un círculo */
     font-size: 0.8rem; /* Tamaño de fuente */
     font-weight: 600; /* Peso de la fuente */
     display: flex;
     align-items: center;
 }
-
-
-/* Estilo de la imagen */
-.img-container img {
-    width: 100%; /* Ancho completo de la imagen */
-    height: 100%; /* Altura automática para mantener la proporción */
-    object-fit: cover; /* Ajusta la imagen para que se ajuste dentro del contenedor */
-}
-
 .name-container {
-    margin-top: 8px; /* Espacio superior */
-    text-align: center; /* Centra el texto */
     width: 100%;
     height: 1.8rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.name-container span{
+    max-width: 230px;
 }
 
-/* Estilo del nombre del producto */
-.name-container span {
-    font-size: 1rem; /* Tamaño de fuente del nombre */
-    font-weight: 400; /* Peso de la fuente */
-    color: #333; /* Color del texto */
-}
 
 /* Estilo del contenedor del precio */
 .price-container {
-    margin: 8px 0; /* Espacio superior e inferior */
+    margin: 5px 0; /* Espacio superior e inferior */
 }
 
 /* Estilo del precio */
@@ -167,6 +136,9 @@
     color: #999; /* Color más tenue */
     text-decoration: line-through; /* Tachado */
     margin-right: 5px; /* Espacio entre precios */
+}
+.button-container{
+    margin-bottom: 3px;
 }
 .button-container button{
     padding: 5px 8px;
@@ -182,17 +154,184 @@
     background-color: #474747;
     transition: background-color 0.4s ease-in;
 }
+.title{
+    font-size: 1.5rem;
+}
+.category-container{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+.category-container a {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #333; /* Color normal del texto */
+    transition: all 0.4s ease, text-decoration 0.4s ease; /* Transición de color */
+}
 
-@media screen and (max-width: 1200px) {
+.category-container a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #9b9b9b; /* Color del texto al hacer hover */
+}
+.price-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.input-container input{
+    width: 55px;
+    padding: 3px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #333;
+}
+.price-form button{
+    border: transparent;
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 7px;
+    background-color: #333;
+    color: #eee;
+    font-weight: 500;
+}
+
+/*Laptop*/
+@media screen and (max-width: 1024px) {
     .product-container {
-        grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
+        display: grid;
+        width: 95%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card{
+        width: 350px;
+        height: 420px;
+    }
+    .img-container{
+        width: 100%;
+        height: 100%;
     }
 }
 
-/* Media query para pantallas con ancho máximo de 768px */
-@media screen and (max-width: 500px) {
-    .product-container {
-        grid-template-columns: repeat(1, 1fr); /* 1 producto por fila */
+/*Tablet*/
+@media screen and (max-width: 1017px) {
+    .container{
+        padding: 0;
     }
+    .sidebar-container {
+        display: none;
+    }
+    .order-container{
+        gap: 15px;
+    }
+    .filter-container{
+        display: block;
+    }
+    .filter-container h3{
+        padding: 5.5px 50px;
+    }
+    .order-box{
+        padding: 5px 50px;
+    }
+    .catalog-content{
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .product-container {
+        display: grid;
+        width: 95%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card{
+        width: 350px;
+        height: 420px;
+    }
+    .img-container{
+        width: 100%;
+        height: 100%;
+    }
+    .name-container{
+        margin-top: 7px;
+    }
+    .name-container span{
+        max-width: 350px;
+    }
+    .button-container button{
+        padding: 5px 50px;
+    }
+    
+    /*FILTER MENU*/
+    .price-form{
+        padding-left: 10px;
+        width: 300px;
+    }
+    .filter-container:hover .filter-menu{
+        display: block;
+    }
+    .title{
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+    .category-container a{
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    .price-form label{
+        font-size: 1.3rem;
+    }
+    .price-form input{
+        padding: 6px 40px;
+    }
+    .price-form button{
+        padding: 6px 25px;
+    }
+}
+/*Mobile L*/
+@media screen and (max-width: 430px) {
+    .product-container{
+        width: 95%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card{
+        width: 180px;
+        height: 420px;
+    }
+    .img-container{
+        width: 100%;
+        height: 100%;
+    }
+    .name-container span{
+        max-width: 180px;
+    }
+}
 
+
+/*Mobile M*/
+@media screen and (max-width: 390px) {
+    .product-container{
+        width: 80%;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .product-card{
+        width: 270px;
+    }
+    .name-container span{
+        max-width: 270px;
+    }
+}
+
+
+/*Mobile S*/
+@media screen and (max-width: 320px) {
+    .product-container{
+        width: 80%;
+    }
+    .product-card{
+        width: 250px;
+    }
 }
