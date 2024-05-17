@@ -4,7 +4,12 @@ import { prisma } from "../../data/postgres";
 import { CreateProductDto, CustomError, PaginationDto, ProductEntity } from "../../domain";
 
 
-
+export interface ProductOptions {
+    paginationDto: PaginationDto,
+    urlParameter?: string,
+    where?: Prisma.ProductWhereInput,
+    orderBy?: Prisma.ProductOrderByWithRelationInput[]
+}
 
 export class ProductService {
 
@@ -29,17 +34,19 @@ export class ProductService {
 
     }
 
-    async getProductsCommon(paginationDto: PaginationDto, urlParameter?: string,where?: Prisma.ProductWhereInput) {
+    async getProductsCommon(productOptions: ProductOptions) {
+        const { paginationDto, orderBy, urlParameter, where } = productOptions;
         const { page, limit } = paginationDto;
-    
+
         try {
             const total = await prisma.product.count();
             const products = await prisma.product.findMany({
                 skip: (page - 1) * limit,
                 take: limit,
                 where: where,
+                orderBy: orderBy
             });
-    
+
             return {
                 page,
                 limit,
