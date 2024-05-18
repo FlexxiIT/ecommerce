@@ -21,6 +21,7 @@ model Client {
   name           String
   surname        String
   phoneNumber    String
+  Cart           Cart[]
 }
 
 model Category {
@@ -53,4 +54,21 @@ model Product {
   image         String      @default("")
   lowStockLimit Int         @default(0)
   timesSold     Int         @default(0)
+  CartItem      CartItem[]
+}
+
+model Cart {
+  id       String     @id @default(uuid())
+  client   Client     @relation(fields: [clientId], references: [id])
+  clientId String
+  items    CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
 }

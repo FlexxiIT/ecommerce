@@ -91,7 +91,7 @@ export class ProductController {
         if (error) return res.status(400).json({ error });
 
         const { word } = req.params;
-        const where: Prisma.ProductWhereInput = { name: { contains: word } };
+        const where: Prisma.ProductWhereInput = { name: { contains: word, mode:'insensitive' } };
 
         let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
         if (orderBy) {
