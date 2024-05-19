@@ -1,8 +1,6 @@
 import { JwtAdapter, bcryptAdapter, envs } from "../../config";
 import { prisma } from "../../data/postgres";
-import { ClientEntity, CustomError } from "../../domain";
-import { LoginClientDto } from "../../domain/dtos/login-client.dto";
-import { RegisterClientDto } from "../../domain/dtos/register-client.dto";
+import { ClientEntity, CustomError, LoginClientDto, RegisterClientDto } from "../../domain";
 import { EmailService } from "./email.service";
 
 

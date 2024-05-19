@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Product" ADD COLUMN     "available" BOOLEAN NOT NULL DEFAULT false,
+ALTER COLUMN "stock" SET DEFAULT 0,
+ALTER COLUMN "image" SET DEFAULT '';

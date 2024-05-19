@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import { AuthRoutes } from './auth/routes';
+import { CategoryRoutes } from './category/routes';
+import { SubCategoryRoutes } from './sub-category/routes';
+import { ProductRoutes } from './product/routes';
 
 
 export class AppRoutes {
@@ -11,7 +14,9 @@ export class AppRoutes {
     
     // Definir las rutas
     router.use('/api/auth', AuthRoutes.routes );
-
+    router.use('/api/category', CategoryRoutes.routes);
+    router.use('/api/sub-category', SubCategoryRoutes.routes);
+    router.use('/api/product', ProductRoutes.routes);
 
     return router;
   }
