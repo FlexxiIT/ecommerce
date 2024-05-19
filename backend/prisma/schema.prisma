@@ -14,14 +14,27 @@ datasource db {
 }
 
 model Client {
-  id             String  @id @default(uuid())
-  email          String  @unique
-  emailValidated Boolean @default(false)
+  id             String    @id @default(uuid())
+  email          String    @unique
+  emailValidated Boolean   @default(false)
   password       String
   name           String
   surname        String
   phoneNumber    String
   Cart           Cart[]
+  Order          Order[]
+  Address        Address[]
+}
+
+model Address {
+  id       String  @id @default(uuid())
+  street   String
+  city     String
+  state    String
+  zipCode  String
+  client   Client  @relation(fields: [clientId], references: [id])
+  clientId String
+  Order    Order[]
 }
 
 model Category {
@@ -55,6 +68,7 @@ model Product {
   lowStockLimit Int         @default(0)
   timesSold     Int         @default(0)
   CartItem      CartItem[]
+  OrderItem     OrderItem[]
 }
 
 model Cart {
@@ -62,6 +76,7 @@ model Cart {
   client   Client     @relation(fields: [clientId], references: [id])
   clientId String
   items    CartItem[]
+  status   CartStatus @default(ACTIVE) // Estado del carrito
 }
 
 model CartItem {
@@ -71,4 +86,44 @@ model CartItem {
   product   Product @relation(fields: [productId], references: [id])
   productId String
   quantity  Int
+
+  @@index([cartId])
+  @@index([productId])
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  client          Client      @relation(fields: [clientId], references: [id])
+  clientId        String
+  shippingAddress Address     @relation(fields: [addressId], references: [id])
+  addressId       String
+  items           OrderItem[]
+  status          OrderStatus @default(PENDING)
+  createdAt       DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+enum CartStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
