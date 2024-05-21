@@ -1,0 +1,75 @@
+<div class="order-container">
+    <div class="filter-container">
+        <h3 (click)="toggleFilterMenu()">Filtrar</h3>
+        <div class="filter-menu" [style.display]="isFilterMenuOpen ? 'block' : 'none'">
+            <div class="header" (click)="toggleFilterMenu()"><span><i class="fa-solid fa-xmark"></i> Filtrado</span></div>
+            <span class="title">Categorias</span>
+            <div class="category-container" >
+                <a *ngFor="let category of categories">{{category.name}}</a>
+            </div>
+            <span class="title">Precios</span>
+            <form class="price-form">
+                <div class="input-container">
+                    <label>Desde</label>
+                    <input type="number">
+                </div>
+                <div class="input-container">
+                    <label>Hasta</label>
+                    <input type="number">
+                </div>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+    </div>
+    <select class="order-box">
+        <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+    </select>
+</div>
+<div class="container">
+    <div class="catalog-content">
+        <div class="sidebar-container">
+            <span class="title">Categorias</span>
+            <div class="category-container" >
+                <a *ngFor="let category of categories">{{category.name}}</a>
+            </div>
+            <span class="title">Precios</span>
+            <form class="price-form">
+                <div class="input-container">
+                    <label>Desde</label>
+                    <input type="number">
+                </div>
+                <div class="input-container">
+                    <label>Hasta</label>
+                    <input type="number">
+                </div>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+        <div class="product-container">
+            <div class="product-card" *ngFor="let product of products" (click)="onClickProduct(product)">
+                <div class="img-container">
+                    <img [src]="product.image[0]?.urlImage" alt="">
+                   <div class="discount-tag" *ngIf="product.discount !== 0">-{{product.discount}}%</div>
+                </div>
+                <div class="name-container" >
+                    <span>{{product.name}}</span>
+                </div>
+                <div class="price-container">
+                    <span class="original-price" *ngIf="product.discount > 0">
+                         ${{product.price}}
+                    </span>
+                    <span class="price">
+                       ${{product.discountprice}}
+                    </span>
+                </div>
+                <div class="button-container">
+                 <button class="addToCart">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pag-order">
+    <button (click)="previousPage()" [disabled]="page === 1"><</button>
+    <button (click)="nextPage()">></button>
+</div>

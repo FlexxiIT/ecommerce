@@ -9,6 +9,7 @@ import { Client } from '../interfaces/cliente';
 })
 export class ClienteService {
   private apiUrl= 'https://1gtvc2c2-3000.brs.devtunnels.ms'
+  private JSONServer = 'http://localhost:3000'
   
 
   constructor(private http:HttpClient) { }
@@ -22,5 +23,23 @@ export class ClienteService {
   validateEmail(token:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/api/auth/validate-email/${token}`);
   }
+  getCategories(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/category`);/*
+    return this.http.get<any>(`${this.JSONServer}/categories`);*/
+    
+  }
+  getProducts(): Observable<any>{
+    return this.http.get<any>(`${this.JSONServer}/products`);
+  }
+  getProductsPagination(page:number):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/product/?page=${page}&limit=10`);
+  }
+  getProductByID(): Observable<any>{
+    return this.http.get<any>(`${this.JSONServer}/products`);
+  }
+  getProductBySearch(search:string,page:number): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/product/word/${search}?page=${page}&limit=10`);
+  }
+
 
 }

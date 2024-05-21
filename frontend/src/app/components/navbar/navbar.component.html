@@ -1,0 +1,52 @@
+<header class="header">
+    <nav class="nav container">
+        <div class="nav__data">
+            <a href="#" class="nav__logo">
+                <i class="fa-solid fa-earth-africa"></i>Company
+            </a>
+
+            <form class="nav__search">
+                <input type="search" class="nav__input" placeholder="Buscar...">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </form>
+
+            <div class="nav__toggle" id="nav__toggle" (click)="showMenu()">
+                <i class="fa-solid fa-bars nav__burguer"></i>
+                <i class="fa-solid fa-x nav__close"></i>
+            </div>
+        </div>
+
+        <div class="nav__menu" id="nav-menu" >
+            <ul class="nav__list">
+                <li><a href="/catalog" class="nav__link">Inicio</a></li>
+
+                <!--DROPDOWN 1-->
+                <li class="dropdown__item">
+                    <div class="nav__link">
+                       <a href="#">Productos  <i class="fa-solid fa-caret-down" id="arrow"></i></a>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                        <li class="dropdown__subitem" *ngFor="let category of categories">
+                            <a href="#" class="dropdown__link">
+                                {{category.name}} <i class="fa-solid fa-plus dropdown__add" *ngIf="category.subCategories && category.subCategories.length > 0"></i>
+                            </a>
+                            <ul class="dropdown__submenu" *ngIf="category.subCategories && category.subCategories.length > 0">
+                                <li *ngFor="let subcategory of category.subCategories">
+                                    <a href="#" class="dropdown__sublink">
+                                     {{subcategory.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li><a href="" class="nav__link">Contacto</a></li>
+
+                <li><a href="" class="nav__link"> Historial</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>

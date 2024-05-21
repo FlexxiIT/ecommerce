@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="product-container">
+        <div class="img-container">
+            <div class="sub-image-container">
+                <img  *ngFor="let img of selectedProduct.image" [src]="img.urlImage" alt="" (click)="changeMainImage(img.urlImage)">
+            </div>
+            <div #mainImageContainer class="main-image-container">
+                <img [src]="mainImage" alt="">
+            </div>
+            <div class="swiper-wrapper">
+                <swiper-container navigation="true"  slides-per-view="1">
+                    <swiper-slide *ngFor="let img of selectedProduct.image">
+                        <div class="slider-img-container">
+                           <img [src]="img.urlImage" alt="">
+                        </div>
+                    </swiper-slide>
+                </swiper-container>
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="history-container">Inicio / Remeras / Babytee</div>
+            <div class="title-container"> <h1>{{selectedProduct.name}}</h1></div>
+            <div class="price-container">
+                <span class="original-price" *ngIf="selectedProduct.discount > 0">${{selectedProduct.price}}</span>
+                <span>${{selectedProduct.discountprice}}</span>
+            </div>
+            <div class="shop-container">
+                <form action="" class="stock-cart">
+                    <label>Cantidad</label>
+                    <div class="input-container">
+                        <input type="number">
+                    </div>
+                    <div class="cart-container">
+                        <button type="submit" id="cart">Añadir al carrito</button>
+                        <button id="fav"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="description-container">
+    <h3>Descripcion</h3>
+    <input type="checkbox" id="ch">
+    <p>{{selectedProduct.description}}</p>
+    <label for="ch">Ver Descripcion Completa <i class="fa-solid fa-caret-down"></i></label>
+</div>
+<h3 id="related">Relacionados</h3>
+<app-product-slider></app-product-slider>

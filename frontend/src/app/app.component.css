@@ -1,0 +1,6 @@
+.main-wrapper{
+    margin-top: 4rem; /* Deja espacio para la navbar */
+    padding: 1rem; /* Espacio alrededor de los componentes */
+    overflow: hidden; /* Evita desbordes de contenido */
+    clear: both; /* Evita que los elementos se superpongan */
+}
