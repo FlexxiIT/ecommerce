@@ -11,6 +11,11 @@
     z-index: 999;
 }
 
+a{
+    color: white;
+    text-decoration: none;
+}
+
 /*NAV*/
 .nav{
     height: 3.5rem;

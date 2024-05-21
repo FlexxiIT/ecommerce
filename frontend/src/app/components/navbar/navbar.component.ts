@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from '../../interfaces/category';
 
 @Component({
   selector: 'app-navbar',
@@ -10,11 +12,12 @@ import { ClienteService } from '../../services/cliente.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
-  categories: any[]=[];
+  categories: Category[]=[];
   menuValue: boolean = false;
   menuIcon : string = 'fa-solid fa-bars'
+  searchWord: string = ''
 
-  constructor(private catService: ClienteService){ }
+  constructor(private route:ActivatedRoute, private router: Router, private catService: ClienteService){ }
 
   showMenu() {
     // Get the elements from the DOM
@@ -33,7 +36,8 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.catService.getCategories().subscribe((data)=>{
-      this.categories = data;
+      this.categories = data/*.categories*/;
+      console.log(this.categories)
     })
   }
 
@@ -42,6 +46,11 @@ export class NavbarComponent implements OnInit{
     this.menuIcon = this.menuValue ? 'fa-solid fa-x' : 'fa-solid fa-bars'
   }
 
-
-
+  onSearch(event: Event): void {
+    event.preventDefault();
+    this.router.navigate(['/products'], {
+      queryParams: { search: this.searchWord, page: 1 },
+      queryParamsHandling: 'merge' // Merge with other existing query params
+    });
+  }
 }

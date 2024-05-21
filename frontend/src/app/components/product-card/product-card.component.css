@@ -100,10 +100,11 @@
     width: 45px; /* Ancho de la etiqueta */
     height: 45px; /* Altura de la etiqueta, igual al ancho */
     border-radius: 50%; /* Convierte el contorno en un círculo */
-    font-size: 0.8rem; /* Tamaño de fuente */
+    font-size: 1rem; /* Tamaño de fuente */
     font-weight: 600; /* Peso de la fuente */
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 .name-container {
     width: 100%;
@@ -200,6 +201,44 @@
     font-weight: 500;
 }
 
+.pag-order{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.pag-order button{
+    margin: 0  0 1.5rem 5rem;
+    padding: 2px 40px;
+    border: 1px transparent;
+    background-color: #333;
+    color: white;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.pag-order button:disabled{
+    margin: 0  0 1.5rem 5rem;
+    padding: 2px 40px;
+    border: 1px transparent;
+    background-color: rgb(194, 194, 194);
+    color: white;
+    cursor: not-allowed;
+    border-radius: 4px;
+}
+
+.pag-order button:hover{
+    cursor: pointer;
+    color: white;
+    background-color: #999;
+}
+.pag-order button:disabled:hover{
+    background-color: rgb(225, 225, 225);
+    color: white;
+    cursor: not-allowed;
+}
+
+
 /*Laptop*/
 @media screen and (max-width: 1024px) {
     .product-container {
@@ -235,7 +274,7 @@
         padding: 5.5px 50px;
     }
     .order-box{
-        padding: 5px 50px;
+        padding: 5px 0px;
     }
     .catalog-content{
         align-items: center;

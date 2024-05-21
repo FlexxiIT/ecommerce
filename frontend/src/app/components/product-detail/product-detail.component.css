@@ -40,6 +40,8 @@
 .main-image-container {
     width: 100%; /* Ajusta el ancho del contenedor */
     height: 400px; /* Establece una altura fija para el contenedor */
+    overflow: hidden;
+    position: relative;
 }
 
 .main-image-container img {
@@ -47,6 +49,8 @@
     height: 100%; /* Alto del contenedor */
     object-fit: cover; /* Escala la imagen para cubrir todo el contenedor manteniendo la relación de aspecto */
     border-radius: 10px; /* Borde redondeado */
+    transition: transform 0.3s ease; /* Suaviza la transición de zoom */
+
 }
 
 .info-container {
@@ -68,10 +72,13 @@
     height: 96px;
     width: 100%;
     padding-left: 5px;
+    overflow: hidden;
 }
-.title-container span{
-    height: 100%;
-    width: 100%;
+.title-container h1{
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el texto desbordado */
+    text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto si se desborda */
+    max-width: 100%; /* Asegura que el ancho máximo sea el contenedor */
 }
 .title-container h1{
     font-weight: 200;
@@ -81,6 +88,10 @@
     font-weight: 500;
     height: 50px;
     padding-left: 5px;
+}
+.original-price{
+    text-decoration: line-through;
+    margin-right: 5px;
 }
 .stock-container{
     font-size: 2rem;
@@ -226,7 +237,7 @@
         font-size: 3rem;
     }
     .description-container{
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     .description-container label{
         font-size: 1rem;
@@ -292,7 +303,7 @@
     }
 
     #cart{
-        padding: 18px 50px;
+        padding: 18px 20px;
     }
     #fav{
         padding: 18px;

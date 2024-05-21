@@ -11,10 +11,13 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,NavbarComponent,ProductSliderComponent,ProductCardComponent,ProductDetailComponent,DashboardComponent],
+  imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,
+    NavbarComponent,ProductSliderComponent,ProductCardComponent,
+    ProductDetailComponent,DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

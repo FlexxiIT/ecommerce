@@ -1,6 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-slider',
@@ -28,10 +29,18 @@ export class ProductSliderComponent implements OnInit{
     },
   };
 
-  constructor(private prodService:ClienteService){ }
+  constructor(private router:Router, private prodService:ClienteService){ }
 
   ngOnInit(): void {
     this.getProducts();
+  }
+
+  onClickProduct(product: any) {
+    // Guardar el producto en el localStorage
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+    // Redirigir al componente Producto-Detallado
+    this.router.navigate(['/product']);
+    console.log(localStorage.getItem('selectedProduct'));
   }
 
   getProducts(){

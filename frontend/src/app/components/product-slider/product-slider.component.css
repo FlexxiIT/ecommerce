@@ -57,6 +57,8 @@ swiper-container{
 .name-container {
     margin-top: 8px; /* Espacio superior */
     text-align: center; /* Centra el texto */
+    width: 100%; /* Asegura que el contenedor ocupe el ancho completo de la tarjeta */
+    max-width: 180px; /* Ajusta el ancho máximo según el diseño de tu tarjeta */
 }
 
 /* Estilo del nombre del producto */
@@ -64,6 +66,11 @@ swiper-container{
     font-size: 1rem; /* Tamaño de fuente del nombre */
     font-weight: 600; /* Peso de la fuente */
     color: #333; /* Color del texto */
+    white-space: nowrap; /* No permite que el texto se envuelva a la siguiente línea */
+    overflow: hidden; /* Oculta el desbordamiento del texto */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
+    display: block; /* Asegura que el span se comporte como un bloque para las propiedades anteriores */
+    max-width: 100%; /* Asegura que no se desborde del contenedor */
 }
 
 /* Estilo del contenedor del precio */
