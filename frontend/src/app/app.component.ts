@@ -10,6 +10,7 @@ import { ProductSliderComponent } from './components/product-slider/product-slid
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CartComponent } from './components/cart/cart.component';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   standalone: true,
   imports: [RouterOutlet, ColorPickerModule,HttpClientModule,RegisterComponent,LoginComponent,
     NavbarComponent,ProductSliderComponent,ProductCardComponent,
-    ProductDetailComponent,DashboardComponent],
+    ProductDetailComponent,DashboardComponent, CartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

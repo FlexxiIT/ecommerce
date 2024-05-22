@@ -7,6 +7,7 @@ import { ProductSliderComponent } from './components/product-slider/product-slid
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
     {path:'register',component:RegisterComponent},
@@ -15,5 +16,7 @@ export const routes: Routes = [
     {path:'slider',component:ProductSliderComponent},
     {path:'catalog',component:DashboardComponent},
     {path:'product',component:ProductDetailComponent},
-    {path:'product/search',component:ProductDetailComponent}
+    {path:'product/search',component:ProductDetailComponent},
+    {path:'cart',component:CartComponent}
+
 ];
