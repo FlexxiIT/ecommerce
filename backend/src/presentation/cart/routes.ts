@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CartService } from "../services";
 import { CartController } from "./controller";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
 
 
 
@@ -17,7 +18,8 @@ export class CartRouter {
 
         const controller = new CartController(cartService);
 
-        router.post('/item', controller.addItem);
+        router.get('/', [AuthMiddleware.validateJWT], controller.getCart);
+        router.post('/item', [AuthMiddleware.validateJWT], controller.addItem);
 
         return router;
 

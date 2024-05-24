@@ -9,6 +9,34 @@ export class CartService {
 
     constructor() { }
 
+    async getCart(clientId: string) {
+        try {
+
+            const cart = await prisma.cart.findFirst({
+                where: {
+                    clientId: clientId,
+                },
+                include: {
+                    items: {
+                        include: {
+                            product: true,
+                        }
+                    }
+                }
+            });
+
+            if (!cart) {
+                return CustomError.notFound(`Cart not found on user with id : ${clientId}`);
+            }
+
+            return cart;
+
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`);
+        }
+
+    }
+
     async addToCart(addToCartDto: AddToCartDto) {
 
         const { clientId, productId, quantity } = addToCartDto;
