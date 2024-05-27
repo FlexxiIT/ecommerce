@@ -1,0 +1,90 @@
+.body{
+    margin-top: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: purple;
+    width: 80%;
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    background-color: cyan;
+}
+.info-container form{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    background-color: yellow;
+    margin: 10px 0;
+}
+.info-container input{
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+.button-container{
+    display: flex;
+    justify-content: end;
+}
+.info-container button{
+    padding: 10px 10px;
+    margin-top: 10px;
+    width: 50%;
+}
+
+/*FORM*/
+.info-postal-container{
+    display: flex;
+    padding: 20px;
+    background-color: red;
+    border: 1px solid lightslategray;
+}
+.info-postal-container i{
+    font-size: 1.6rem;
+    margin-right: 1rem;
+}
+.info-postal-container a{
+    font-weight: 500;
+}
+.ubication-container{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.apartment-container{
+    display: flex;
+    justify-content: space-between;
+}
+.apartment-container input{
+    padding: 10px 60px;
+}
+.apartment-container input::placeholder{
+    width: 100%;
+    color: red;
+}
+
+.purchase-summary{
+    position: fixed;
+    right: 11rem;
+    top: 10rem;
+    width: 20%;
+    padding: 20px;
+    background-color: aqua;
+}
+
+.header-container{
+    background-color: yellow;
+}
+.products-container{
+    background-color: yellow;
+}

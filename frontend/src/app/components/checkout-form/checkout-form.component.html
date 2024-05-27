@@ -1,0 +1,45 @@
+<div class="body">
+    <div class="container">
+        <div class="info-container">
+            <div class="zipcode-container">
+                <form [formGroup]="checkoutForm" *ngIf="postalCodeExists == false">
+                    <label for="">Entrega</label>
+                    <input type="text" formControlName="postalCode">
+                    <button type="submit" (click)="onSubmitPostalCode()">Continuar</button>
+                </form>
+            </div>
+            <form  [formGroup]="checkoutForm">
+
+                <div class="info-postal-container">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="ubication-container">
+                        <span>Codigo Postal  {{postalCode}}</span>
+                        <span>{{state}}</span>
+                    </div>
+                    <a (click)="togglePostalCode()">Cambiar</a>
+                </div>
+
+                <input type="text" placeholder="Calle">
+                <div class="apartment-container">
+                    <input type="text" placeholder="Numero">
+                    <input type="text" placeholder="Departamento (opcional)">
+                </div>
+                <input type="text" placeholder="Ciudad">
+
+                <div class="button-container">
+                    <button type="submit">Continuar para el pago</button>
+                </div>
+            </form>
+        </div>
+        <div class="purchase-summary">
+            <div class="header-container"><span>Resumen de compra</span></div>
+            <div class="products-container">
+                <span>Productos(1)</span>
+                <div class="total-container">
+                    <span>Total</span>
+                    <span>32.000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
