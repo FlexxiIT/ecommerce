@@ -19,7 +19,12 @@ export class CartRouter {
         const controller = new CartController(cartService);
 
         router.get('/', [AuthMiddleware.validateJWT], controller.getCart);
-        router.post('/item', [AuthMiddleware.validateJWT], controller.addItem);
+
+        router.post('/item', [AuthMiddleware.validateJWT], controller.addItemToCart);
+        
+        router.put('/', [AuthMiddleware.validateJWT], controller.modifyQuantityFromCart);
+
+        router.delete('/', [AuthMiddleware.validateJWT], controller.deleteItemFromCart)
 
         return router;
 

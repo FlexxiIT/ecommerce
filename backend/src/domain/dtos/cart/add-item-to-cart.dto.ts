@@ -15,7 +15,7 @@ export class AddToCartDto {
 
         const parsedQuantity = parseFloat(quantity);
 
-        if (isNaN(parsedQuantity)) return ['Quantity must be a valid number'];
+        if (isNaN(parsedQuantity) || parsedQuantity < 0) return ['Quantity must be a valid number'];
 
         return [undefined, new AddToCartDto(clientId, productId, parsedQuantity)];
     }

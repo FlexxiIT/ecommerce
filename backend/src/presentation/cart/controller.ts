@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CustomError } from "../../domain";
 import { CartService } from "../services";
 import { AddToCartDto } from "../../domain/dtos/cart/add-item-to-cart.dto";
+import { ModifyCartDto } from "../../domain/dtos/cart/modify-cart.dto";
 
 
 
@@ -32,7 +33,7 @@ export class CartController {
 
     }
 
-    addItem = (req: Request, res: Response) => {
+    addItemToCart = (req: Request, res: Response) => {
         const [error, addItemToCartDto] = AddToCartDto.create({ ...req.body, clientId: req.body.user.id});
         if (error) return res.status(400).json({ error });
 
@@ -40,7 +41,28 @@ export class CartController {
             .then(resp => res.json(resp))
             .catch(error => this.handleError(res, error))
     }
+    
+    modifyQuantityFromCart = (req: Request, res: Response) => {
 
+        const [error, modifyCartDto] = ModifyCartDto.create({...req.body, clientId: req.body.user.id});
+        if (error) return res.status(400).json({ error });
+
+        this.cartService.modifyQuantity(modifyCartDto!)
+            .then(resp => res.json(resp))
+            .catch(error => this.handleError(res, error));
+
+    }
+
+    deleteItemFromCart = (req: Request, res: Response) => {
+
+        const [error, modifyCartDto] = ModifyCartDto.create({...req.body, clientId: req.body.user.id});
+        if (error) return res.status(400).json({ error });
+
+        this.cartService.removeItem(modifyCartDto!)
+            .then(resp => res.json(resp))
+            .catch(error => this.handleError(res, error));
+
+    }
 
 
 
