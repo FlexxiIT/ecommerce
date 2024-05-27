@@ -8,6 +8,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 
 export const routes: Routes = [
     {path:'register',component:RegisterComponent},
@@ -17,6 +18,7 @@ export const routes: Routes = [
     {path:'catalog',component:DashboardComponent},
     {path:'product',component:ProductDetailComponent},
     {path:'product/search',component:ProductDetailComponent},
+    {path:'checkout',component:CheckoutFormComponent},
     {path:'cart',component:CartComponent}
 
 ];
