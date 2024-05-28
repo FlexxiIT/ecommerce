@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: purple;
-    width: 80%;
+    width: 90%;
 }
 .info-container{
     display: flex;
@@ -60,17 +60,36 @@
     flex-direction: column;
     width: 80%;
 }
-
-.apartment-container{
+.street-container{
     display: flex;
     justify-content: space-between;
+    padding: 0 10px;
+}
+.street-container input{
+    width: 48%;
+   
+}
+.apartment-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px;
 }
 .apartment-container input{
-    padding: 10px 60px;
+    width: 100%;
 }
 .apartment-container input::placeholder{
     width: 100%;
     color: red;
+}
+.city-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px;
+}
+.city-container input{
+    width: 100%;
 }
 
 .purchase-summary{
@@ -87,4 +106,10 @@
 }
 .products-container{
     background-color: yellow;
+}
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 1118px){
+    
 }

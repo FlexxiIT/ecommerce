@@ -20,6 +20,10 @@ export class CheckoutFormComponent {
 
   constructor(private formBuilder:FormBuilder, private geoService: GeocodingService){
     this.checkoutForm = this.formBuilder.group({
+      street:['',[Validators.required, Validators.minLength(3),Validators.maxLength(30)]],
+      streetNumber:['',[Validators.required, Validators.minLength(3),Validators.maxLength(10)]],
+      department:['',[Validators.minLength(3),Validators.maxLength(15)]],
+      city:['',[Validators.required, Validators.minLength(3),Validators.maxLength(30)]],
       postalCode:['',[Validators.required]]
     })
   }

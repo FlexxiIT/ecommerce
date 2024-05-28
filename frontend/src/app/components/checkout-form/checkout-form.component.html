@@ -19,12 +19,43 @@
                     <a (click)="togglePostalCode()">Cambiar</a>
                 </div>
 
-                <input type="text" placeholder="Calle">
-                <div class="apartment-container">
-                    <input type="text" placeholder="Numero">
-                    <input type="text" placeholder="Departamento (opcional)">
+                <div class="street-container">
+                    <input type="text" placeholder="Calle" formControlName="street">
+                    <div class="text-danger" *ngIf="checkoutForm.controls['street'].invalid && (checkoutForm.controls['street'].touched || checkoutForm.controls['street'].dirty)">
+                        <span *ngIf="checkoutForm.get('street')?.hasError('required') && checkoutForm.get('street')?.touched">Necesario completar la ciudad</span>
+                        <span *ngIf="checkoutForm.get('street')?.hasError('minlength') && checkoutForm.get('street')?.touched || 
+                        checkoutForm.get('street')?.hasError('maxlength') && checkoutForm.get('street')?.touched">
+                        Utiliza entre 3 y 20 caracteres.
+                        </span>
+                    </div>
+                    <input type="number" placeholder="Numero" formControlName="streetNumber">
+                    <div class="text-danger" *ngIf="checkoutForm.controls['streetNumber'].invalid && (checkoutForm.controls['streetNumber'].touched || checkoutForm.controls['streetNumber'].dirty)">
+                        <span *ngIf="checkoutForm.get('streetNumber')?.hasError('required') && checkoutForm.get('streetNumber')?.touched">Necesario completar la ciudad</span>
+                        <span *ngIf="checkoutForm.get('streetNumber')?.hasError('minlength') && checkoutForm.get('streetNumber')?.touched || 
+                        checkoutForm.get('streetNumber')?.hasError('maxlength') && checkoutForm.get('streetNumber')?.touched">
+                        Utiliza entre 3 y 20 caracteres.
+                        </span>
+                    </div>
                 </div>
-                <input type="text" placeholder="Ciudad">
+                <div class="apartment-container">
+                    <input type="text" placeholder="Departamento (opcional)" formControlName="department">
+                    <div class="text-danger" *ngIf="checkoutForm.controls['department'].invalid && (checkoutForm.controls['department'].touched || checkoutForm.controls['city'].dirty)">
+                        <span *ngIf="checkoutForm.get('department')?.hasError('minlength') && checkoutForm.get('department')?.touched || 
+                        checkoutForm.get('department')?.hasError('maxlength') && checkoutForm.get('department')?.touched">
+                        Utiliza entre 3 y 15 caracteres.
+                        </span>
+                    </div>
+                </div>
+                <div class="city-container">
+                    <input type="text" placeholder="Ciudad" formControlName="city">
+                    <div class="text-danger" *ngIf="checkoutForm.controls['city'].invalid && (checkoutForm.controls['city'].touched || checkoutForm.controls['city'].dirty)">
+                        <span *ngIf="checkoutForm.get('city')?.hasError('required') && checkoutForm.get('city')?.touched">Necesario completar la ciudad</span>
+                        <span *ngIf="checkoutForm.get('city')?.hasError('minlength') && checkoutForm.get('city')?.touched || 
+                        checkoutForm.get('city')?.hasError('maxlength') && checkoutForm.get('city')?.touched">
+                        Utiliza entre 3 y 20 caracteres.
+                        </span>
+                    </div>
+                </div>
 
                 <div class="button-container">
                     <button type="submit">Continuar para el pago</button>
