@@ -1,8 +1,9 @@
-import { CartItem } from "@prisma/client";
 import { prisma } from "../../data/postgres";
-import { CustomError } from "../../domain";
+import { CustomError, ProductEntity } from "../../domain";
 import { AddToCartDto } from "../../domain/dtos/cart/add-item-to-cart.dto";
 import { CartOperation, ModifyCartDto } from "../../domain/dtos/cart/modify-cart.dto";
+import { CartItemEntity } from "../../domain/entities/cart-item.entity";
+import { CartEntity } from "../../domain/entities/cart.entity";
 
 
 
@@ -30,7 +31,7 @@ export class CartService {
                 return CustomError.notFound(`Cart not found on user with id : ${clientId}`);
             }
 
-            return cart;
+            return CartEntity.fromObject(cart);
 
         } catch (error) {
             throw CustomError.internalServer(`${error}`);
@@ -122,7 +123,7 @@ export class CartService {
 
         return {
             message: 'Item updated successfully',
-            updatedCartItem: updatedCartItem,
+            updatedCartItem: CartItemEntity.fromObject(updatedCartItem),
         }
     }
 
@@ -149,7 +150,7 @@ export class CartService {
 
         return {
             message: 'Item deleted successfully',
-            deletedProduct
+            deletedProduct: ProductEntity.fromObject(deletedProduct)
         }
 
     }

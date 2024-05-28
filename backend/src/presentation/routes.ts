@@ -4,6 +4,7 @@ import { CategoryRoutes } from './category/routes';
 import { SubCategoryRoutes } from './sub-category/routes';
 import { ProductRoutes } from './product/routes';
 import { CartRouter } from './cart/routes';
+import { ClientAddressRouter } from './client-address/routes';
 
 
 export class AppRoutes {
@@ -19,6 +20,7 @@ export class AppRoutes {
     router.use('/api/sub-category', SubCategoryRoutes.routes);
     router.use('/api/product', ProductRoutes.routes);
     router.use('/api/cart', CartRouter.routes);
+    router.use('/api/address', ClientAddressRouter.routes);
 
     return router;
   }

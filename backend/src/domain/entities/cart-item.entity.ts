@@ -1,7 +1,5 @@
-import { SubCategoryEntity } from "..";
 import { isUUID } from "../../config";
 import { CustomError } from "../errors/custom-error";
-import { ProductEntity } from "./product.entity";
 
 
 export class CartItemEntity {
