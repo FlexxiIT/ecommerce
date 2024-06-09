@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { OrderService } from "../services/order.service";
 import { ShowCreateOrderDto } from "../../domain/dtos/order/show-create-order.dto";
 import { CustomError } from "../../domain";
+import { ModifyOrderDto } from "../../domain/dtos/order/modify-order.dto";
 
 
 
@@ -63,6 +64,13 @@ export class OrderController {
         this.orderService.createOrder(createOrderDto!)
             .then(resp => res.json(resp))
             .catch(error => this.handleError(res, error));
+    }
+
+    modifyOrder = (req: Request, res: Response) => {
+
+        const [error, modifyOrderDto] = ModifyOrderDto.create({ clientId: req.body.user.id });
+        if (error) res.status(400).json({ error });
+
     }
 
 

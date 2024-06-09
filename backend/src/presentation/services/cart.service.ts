@@ -11,6 +11,27 @@ export class CartService {
 
     constructor() { }
 
+    async checkProductStock(productId: string, quantity: number) {
+
+        const product = await prisma.product.findFirst({
+            where: { id: productId },
+        });
+
+        if(product) {
+
+            if(product.stock < quantity){
+                throw CustomError.badRequest(`The quantity must be equal or lower than the stock.`)
+            }
+
+        } else {
+            throw CustomError.notFound(`Product with id : ${productId} not found`)
+        }
+
+        return true;
+
+    }
+
+
     async getCart(clientId: string) {
         try {
 
@@ -62,6 +83,8 @@ export class CartService {
                 });
             }
 
+            await this.checkProductStock(productId, quantity);
+
             const existingCartItem = await prisma.cartItem.findFirst({
                 where: {
                     cartId: cart!.id,
@@ -103,25 +126,27 @@ export class CartService {
 
         try {
             const { clientId, operation, productId, quantity } = modifyCartDto;
-    
+
             if (operation !== CartOperation.UPDATE) throw CustomError.badRequest(`Operation must be ${CartOperation.UPDATE}`);
-    
+
             const cart = await prisma.cart.findFirst({
                 where: { clientId: clientId },
                 include: { items: true }
             });
-    
+
             if (!cart) throw CustomError.notFound(`Not cart found for the client with id : ${clientId}`);
-    
+
             const cartItem = cart.items.find(item => item.productId === productId);
-    
+
             if (!cartItem) throw CustomError.notFound(`The item with id ${productId} was not found in the cart with id ${cart.id}`);
-    
+
+            await this.checkProductStock(productId, cartItem.quantity);
+
             const updatedCartItem = await prisma.cartItem.update({
                 where: { id: cartItem.id },
                 data: { quantity: quantity }
             })
-    
+
             return {
                 message: 'Item updated successfully',
                 updatedCartItem: CartItemEntity.fromObject(updatedCartItem),
@@ -135,24 +160,24 @@ export class CartService {
 
         try {
             const { clientId, operation, productId, quantity } = modifyCartDto;
-    
+
             if (operation !== CartOperation.REMOVE) throw CustomError.badRequest(`Operation must be ${CartOperation.REMOVE}`);
-    
+
             const cart = await prisma.cart.findFirst({
                 where: { clientId: clientId },
                 include: { items: true }
             });
-    
+
             if (!cart) throw CustomError.notFound(`Not cart found for the client with id : ${clientId}`);
-    
+
             const cartItem = cart.items.find(item => item.productId === productId);
-    
+
             if (!cartItem) throw CustomError.notFound(`The item with id ${productId} was not found in the cart with id ${cart.id}`);
-    
+
             const deletedProduct = await prisma.cartItem.delete({
                 where: { id: cartItem.id },
             });
-    
+
             return {
                 message: 'Item deleted successfully',
                 deletedProduct: ProductEntity.fromObject(deletedProduct)

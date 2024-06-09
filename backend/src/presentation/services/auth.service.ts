@@ -29,7 +29,7 @@ export class AuthService {
                     email: registerClientDto.email,
                     name: registerClientDto.name,
                     surname: registerClientDto.surname,
-                    phoneNumber: registerClientDto.surname,
+                    phoneNumber: registerClientDto.phoneNumber,
                     password: hashedPassword,
                 },
             });

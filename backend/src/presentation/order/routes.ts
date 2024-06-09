@@ -9,7 +9,7 @@ import { OrderController } from "./controller";
 
 export class OrderRoutes {
 
-    constructor() {}
+    constructor() {} 
 
     static get routes() {
 
@@ -21,10 +21,12 @@ export class OrderRoutes {
 
         router.get('/show-initial-order', [AuthMiddleware.validateJWT], controller.showOrder);
         router.get('/actives', [AuthMiddleware.validateJWT], controller.showActiveOrders);
-        router.get('/all-orders', [AuthMiddleware.validateJWT], controller.showOrder);
+        router.get('/all-orders', [AuthMiddleware.validateJWT], controller.showAllOrders);
 
         router.post('/', [AuthMiddleware.validateJWT], controller.createOrder);
-
+        
+        router.put('/modify-order', [AuthMiddleware.validateJWT], controller.modifyOrder);
+        
         return router;
 
     }
