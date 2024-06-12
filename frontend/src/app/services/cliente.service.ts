@@ -27,12 +27,15 @@ export class ClienteService {
     return this.http.get<any>(`${this.apiUrl}/api/category`);/*
     return this.http.get<any>(`${this.JSONServer}/categories`);*/
     
-  }
+  }/*
   getProducts(): Observable<any>{
-    return this.http.get<any>(`${this.JSONServer}/products`);
+    return this.http.get<any>(`${this.apiUrl}/api/product`);
+  }*/
+  getProducts(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/product/`);
   }
-  getProductsPagination(page:number):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/api/product/?page=${page}&limit=10`);
+  getProductsPagination(page:number,category:string,orderBy:string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/product/?page=${page}&limit=10&categoryId=${category}&orderBy=${orderBy}`);
   }
   getProductByID(): Observable<any>{
     return this.http.get<any>(`${this.JSONServer}/products`);

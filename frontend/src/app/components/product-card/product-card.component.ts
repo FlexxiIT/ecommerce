@@ -2,46 +2,52 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '../../interfaces/product';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit{
 
   options = [
-    { value: 'minor-major', label: 'Precio: Menor a Mayor' },
-    { value: 'major-minor', label: 'Precio: Mayor a Menor' },
-    { value: 'a-z', label: 'A-Z' },
-    { value: 'z-a', label: 'Z-A' },
-];
+    { value: '', label: '-' },
+    { value: 'price:desc', label: 'Precio: Mayor a Menor' },
+    { value: 'price:asc', label: 'Precio: Menor a Mayor' },
+    { value: 'name:asc', label: 'A-Z' },
+    { value: 'name:desc', label: 'Z-A' },
+  ];
 
-  categories: any [] = [];
+  categoryId: string = '';
+  orderBy: string = '';
+  categories: Product [] = [];
   products: any [] = [];
   isFilterMenuOpen = false;
   page: number = 1;
-  searchWord: string = '';  
+  searchWord: string = '';
 
   constructor(private route:ActivatedRoute ,private router:Router,private pService: ClienteService){ }
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 1;
-      this.searchWord = params['search'] || '';
+      this.orderBy = params['orderBy'] || '';
+      this.categoryId = params['categoryId'] || '';
       this.fetchProducts();
     })
 
-    /*JSON SERVER
-    this.pService.getProducts().subscribe((data) =>{
-      this.products = data;
-    });*/
-    this.pService.getCategories().subscribe((data) =>{
-      this.categories = data;
-    });
+    this.pService.getCategories().subscribe(
+      (data) => {
+        this.categories = data.categories
+      },
+      (error)=>{
+        console.error(error);
+      }
+    );
   }
 
   toggleFilterMenu() {
@@ -56,24 +62,30 @@ export class ProductCardComponent implements OnInit{
   }
 
   fetchProducts(): void{
-
-    if(this.searchWord){
-      this.pService.getProductBySearch(this.searchWord,this.page).subscribe(response =>{
-        this.products = response.data;
-      }, error =>{
-        console.error('Error fetching products by search', error)
-      });
-    } else {
-      this.pService.getProductsPagination(this.page).subscribe(response => {
-        this.products = response.data
-      }, error => {
+    this.pService.getProductsPagination(this.page,this.categoryId,this.orderBy).subscribe(
+      response => {
+        this.products = response.products.productsEntities
+        console.log(response)
+      },
+      error => {
         console.error('Error fetching products', error);
-      });
-    }
+      }
+    );
+  }
 
-    this.pService.getProductsPagination(this.page).subscribe((data) =>{
-      this.products = data;
-    })
+  onOrderChange(event: Event): void{
+    const selectElement = event.target as HTMLSelectElement;
+    this.orderBy = selectElement.value;
+    this.page = 1;
+    this.updateUrl(this.orderBy === '');
+    this.fetchProducts();
+  }
+
+  onCategoryChange(categoryId: string): void {
+    this.categoryId = categoryId;
+    this.page = 1; 
+    this.updateUrl();
+    this.fetchProducts();
   }
 
   searchProducts():void{
@@ -93,13 +105,23 @@ export class ProductCardComponent implements OnInit{
     }
   }
 
-  private updateUrl():void{
-    this.router.navigate([],{
+  private updateUrl(removeOrderBy: boolean = false): void {
+    let queryParams: any = {
+      page: this.page,
+      categoryId: this.categoryId || null,
+      orderBy: removeOrderBy ? null : this.orderBy || null
+    };
+
+    // Remove empty params
+    Object.keys(queryParams).forEach(key => {
+      if (queryParams[key] === null || queryParams[key] === '') {
+        delete queryParams[key];
+      }
+    });
+
+    this.router.navigate([], {
       relativeTo: this.route,
-      queryParams:{
-        page: this.page,
-        search:this.searchWord || null
-      },
+      queryParams: queryParams,
       queryParamsHandling: 'merge',
     });
   }

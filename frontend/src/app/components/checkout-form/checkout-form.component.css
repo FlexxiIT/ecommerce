@@ -3,13 +3,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: orange;
 }
 .container{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: purple;
     width: 90%;
 }
 .info-container{
@@ -18,14 +16,18 @@
     align-items: center;
     justify-content: center;
     width: 65%;
-    background-color: cyan;
 }
 .info-container form{
     display: flex;
     flex-direction: column;
     width: 90%;
-    background-color: yellow;
+    background-color: #f6f6f6;
+    border-radius: 8px;
     margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.info-postal-container a{
+    cursor: pointer;
 }
 .info-container input{
     margin-top: 10px;
@@ -34,6 +36,36 @@
 .button-container{
     display: flex;
     justify-content: end;
+}
+#continue-button{
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+#continue-button:hover{
+    background-color: #1f1f1f;
+    cursor: pointer;
+}
+.button-container button{
+    padding: 10px 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 10px;
+}
+.button-container button:hover{
+    background-color: #1f1f1f;
+    cursor: pointer;
+}
+.button-container button:disabled{
+    background-color: gray;
+    cursor: not-allowed;
 }
 .info-container button{
     padding: 10px 10px;
@@ -45,8 +77,7 @@
 .info-postal-container{
     display: flex;
     padding: 20px;
-    background-color: red;
-    border: 1px solid lightslategray;
+    border: 0.5px solid #d6d6d6;
 }
 .info-postal-container i{
     font-size: 1.6rem;
@@ -55,20 +86,68 @@
 .info-postal-container a{
     font-weight: 500;
 }
+.zipcode-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.zipcode-container form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.zipcode-container label{
+    font-weight: 500;
+}
+.zipcode-container input{
+    width: 97%;
+    padding: 10px 30px;
+    border-radius: 8px;
+    border: 0.5px solid #616161;
+}
+.zipcode-container button{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: transparent;
+}
+
 .ubication-container{
     display: flex;
     flex-direction: column;
     width: 80%;
 }
-.street-container{
+.error-container{
+    min-height: 18px; /* Ajusta esta altura según tus necesidades */
+    transition: top .3s;
+}
+.text-danger{
+    color: red;
+    font-size: 0.8rem; /* Tamaño de la fuente del mensaje de error */
+}
+.street-number-container{
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
 }
-.street-container input{
+.street-number-container input{
+    width: 100%;
+    border-radius: 8px;
+    border: 0.5px solid #616161;}
+.street-container{
+    display: flex;
+    flex-direction: column;
     width: 48%;
-   
 }
+.number-container{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
 .apartment-container{
     display: flex;
     flex-direction: column;
@@ -77,10 +156,8 @@
 }
 .apartment-container input{
     width: 100%;
-}
-.apartment-container input::placeholder{
-    width: 100%;
-    color: red;
+    border-radius: 8px;
+    border: 0.5px solid #616161;
 }
 .city-container{
     display: flex;
@@ -90,22 +167,39 @@
 }
 .city-container input{
     width: 100%;
-}
+    border-radius: 8px;
+    border: 0.5px solid #616161;}
 
 .purchase-summary{
     position: fixed;
-    right: 11rem;
+    right: 7rem;
     top: 10rem;
-    width: 20%;
+    width: 25%;
     padding: 20px;
-    background-color: aqua;
+    background-color: #f6f6f6;
+    height: fit-content;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
 }
 
-.header-container{
-    background-color: yellow;
+#header-purchase{
+    height: 20%;
+    border-bottom: 0.5px solid gray;
+    font-weight: 700;
 }
-.products-container{
-    background-color: yellow;
+.product-count{
+    margin: 1rem 0;
+    height: 10%;
+    font-size: 0.9rem;
+}
+.total-container{
+    display: flex;
+    justify-content: space-between;
+    height: 15%;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-size: 1.3rem;
 }
 
 /*RESPONSIVE*/

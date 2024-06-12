@@ -21,7 +21,7 @@
             </form>
         </div>
     </div>
-    <select class="order-box">
+    <select class="order-box"  (change)="onOrderChange($event)">
         <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
     </select>
 </div>
@@ -30,7 +30,7 @@
         <div class="sidebar-container">
             <span class="title">Categorias</span>
             <div class="category-container" >
-                <a *ngFor="let category of categories">{{category.name}}</a>
+                <a *ngFor="let category of categories" (click)="onCategoryChange(category.id)">{{category.name}}</a>
             </div>
             <span class="title">Precios</span>
             <form class="price-form">
@@ -51,15 +51,15 @@
                     <img [src]="product.image[0]?.urlImage" alt="">
                    <div class="discount-tag" *ngIf="product.discount !== 0">-{{product.discount}}%</div>
                 </div>
-                <div class="name-container" >
+                <div class="name-container">
                     <span>{{product.name}}</span>
                 </div>
                 <div class="price-container">
-                    <span class="original-price" *ngIf="product.discount > 0">
+                    <span class="original-price" *ngIf="product.discount != 0">
                          ${{product.price}}
                     </span>
                     <span class="price">
-                       ${{product.discountprice}}
+                       ${{product.price}}
                     </span>
                 </div>
                 <div class="button-container">
