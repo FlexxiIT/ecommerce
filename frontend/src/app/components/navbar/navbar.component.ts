@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.catService.getCategories().subscribe((data)=>{
-      this.categories = data/*.categories*/;
+      this.categories = data.categories;
       console.log(this.categories)
     })
   }

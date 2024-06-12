@@ -9,6 +9,9 @@
     font-family: 'Poppins', sans-serif;
     transition: .2s;
 }
+body{
+    background-color: white;
+}
 ul{
     list-style: none;
 }
