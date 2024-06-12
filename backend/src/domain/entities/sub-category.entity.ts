@@ -16,7 +16,7 @@ export class SubCategoryEntity {
     ) { }
 
     static fromObject(object: { [key: string]: any }): SubCategoryEntity {
-        const { id, name, categoryId, Product } = object;
+        const { id, name, categoryId, products } = object;
 
         if (!id) throw CustomError.badRequest('Missing id');
         if (!isUUID(id)) throw CustomError.badRequest('SubCategory Id is not a valid Id');
@@ -25,9 +25,9 @@ export class SubCategoryEntity {
         if (!isUUID(categoryId)) throw CustomError.badRequest('Category Id is not a valid Id');
 
         // Mapear productos desde el objeto si existe
-        const products = Product ? Product.map((productObject: any) => ProductEntity.fromObject(productObject)) : [];
+        const parsedProducts = products ? products.map((productObject: any) => ProductEntity.fromObject(productObject)) : [];
 
-        return new SubCategoryEntity(id, name, categoryId, products);
+        return new SubCategoryEntity(id, name, categoryId, parsedProducts);
     }
 
 }

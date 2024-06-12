@@ -47,13 +47,15 @@ export class ProductService {
                 orderBy: orderBy
             });
 
+            const productsEntities = products.map(product => ProductEntity.fromObject(product));
+
             return {
                 page,
                 limit,
                 total,
                 next: (page * limit < total) ? `/api/product${urlParameter}?page=${page + 1}&limit=${limit}` : null,
                 prev: (page - 1 > 0) ? `/api/product${urlParameter}?page=${page - 1}&limit=${limit}` : null,
-                products,
+                productsEntities,
             };
         } catch (error) {
             throw new Error("Internal server error");
