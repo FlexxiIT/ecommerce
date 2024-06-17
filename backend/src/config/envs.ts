@@ -9,10 +9,14 @@ export const envs = {
   
   WEB_URL: get('WEB_URL').required().asString(),
 
+  BACK_URL: get('BACK_URL').required().asUrlString(),
+
   SEND_EMAIL: get('SEND_EMAIL').default('false').asBool(),
   MAILER_SERVICE: get('MAILER_SERVICE').required().asString(),
   MAILER_EMAIL: get('MAILER_EMAIL').required().asString(),
   MAILER_SERCRET_KEY: get('MAILER_SERCRET_KEY').required().asString(),
+
+  MERCADOPAGO_API_KEY: get('MERCADOPAGO_API_KEY').required().asString(),
 
 }
 

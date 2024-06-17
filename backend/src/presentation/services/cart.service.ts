@@ -17,9 +17,9 @@ export class CartService {
             where: { id: productId },
         });
 
-        if(product) {
+        if (product) {
 
-            if(product.stock < quantity){
+            if (product.stock < quantity) {
                 throw CustomError.badRequest(`The quantity must be equal or lower than the stock.`)
             }
 
@@ -42,7 +42,11 @@ export class CartService {
                 include: {
                     items: {
                         include: {
-                            product: true,
+                            product: {
+                                include: {
+                                    category: true
+                                }
+                            },
                         }
                     }
                 }
@@ -51,7 +55,7 @@ export class CartService {
             if (!cart) {
                 return CustomError.notFound(`Cart not found on user with id : ${clientId}`);
             }
-
+            
             return CartEntity.fromObject(cart);
 
         } catch (error) {
@@ -177,10 +181,10 @@ export class CartService {
             const deletedProduct = await prisma.cartItem.delete({
                 where: { id: cartItem.id },
             });
-
+            console.log(deletedProduct);
             return {
                 message: 'Item deleted successfully',
-                deletedProduct: ProductEntity.fromObject(deletedProduct)
+                deletedProduct: CartItemEntity.fromObject(deletedProduct)
             }
         } catch (error) {
             throw CustomError.internalServer(`${error}`);

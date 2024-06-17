@@ -2,13 +2,16 @@ import { prisma } from "../../data/postgres";
 import { CustomError } from "../../domain";
 import { ShowCreateOrderDto } from "../../domain/dtos/order/show-create-order.dto";
 import { OrderEntity } from "../../domain/entities/order.entity";
+import { PaymentService } from "./payment.service";
 
 
 
 
 export class OrderService {
 
-    constructor() { }
+    constructor(
+        private readonly paymentService: PaymentService,
+    ) { }
 
     async showOrder(showOrderDto: ShowCreateOrderDto) {
 
@@ -101,44 +104,45 @@ export class OrderService {
 
     async createOrder(createOrderDto: ShowCreateOrderDto) {
         const { clientId } = createOrderDto;
-
+    
         try {
-            // Init transaction
+            // Iniciar transacción
             const result = await prisma.$transaction(async (prisma) => {
+                // Obtener el carrito con los productos
                 const cart = await prisma.cart.findFirst({
                     where: { clientId: clientId },
                     include: {
                         items: {
-                            include: { product: true } // Include the products to check the stock
+                            include: { product: true } // Incluir los productos para verificar el stock
                         }
                     }
                 });
-
+    
                 if (!cart || cart.items.length === 0) {
                     throw CustomError.badRequest(`The cart is empty`);
                 }
-
+    
                 const address = await prisma.address.findFirst({
                     where: { clientId: clientId },
                 });
-
+    
                 if (!address) {
                     throw CustomError.notFound(`There is not an address linked to the client with id: ${clientId}`);
                 }
-
-                // Check stock and subtract it
+    
+                // Verificar el stock y restarlo
                 for (const item of cart.items) {
                     if (item.product.stock < item.quantity) {
                         throw CustomError.badRequest(`Insufficient stock for product with id: ${item.productId}`);
                     }
-
+    
                     await prisma.product.update({
                         where: { id: item.productId },
                         data: { stock: item.product.stock - item.quantity }
                     });
                 }
-
-                // Create the order
+    
+                // Crear la orden
                 const order = await prisma.order.create({
                     data: {
                         clientId: clientId,
@@ -151,17 +155,34 @@ export class OrderService {
                             }))
                         }
                     },
-                    include: { items: true }
+                    include: {
+                        items: {
+                            include: { product: true } // Incluir detalles del producto en los OrderItems
+                        }
+                    }
                 });
-
-                // Delete cart items
+    
+                // Eliminar los ítems del carrito
                 await prisma.cartItem.deleteMany({
                     where: { cartId: cart.id }
                 });
-
+    
                 return order;
             });
-
+    
+            if (result) {
+                // Crear ítems de Mercado Pago usando la información del carrito
+                const mpItems = result.items.map(item => ({
+                    id: item.productId,
+                    title: item.product.name,
+                    quantity: item.quantity,
+                    unit_price: item.price,
+                    currency_id: "ARS"
+                }));
+    
+                const paymentResult = await this.paymentService.createOrder(mpItems);
+            }
+    
             return { order: result };
         } catch (error) {
             throw CustomError.internalServer(`${error}`);
