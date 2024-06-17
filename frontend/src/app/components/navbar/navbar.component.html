@@ -6,8 +6,8 @@
             </a>
 
             <form class="nav__search">
-                <input type="search" class="nav__input" placeholder="Buscar...">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="search" class="nav__input" placeholder="Buscar..." [(ngModel)]="searchWord" name="search">
+                <button (click)="onSearch()"><i class="fa-solid fa-magnifying-glass search-icon"></i></button>
             </form>
 
             <div class="nav__toggle" id="nav__toggle" (click)="showMenu()">

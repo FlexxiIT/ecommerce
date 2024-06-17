@@ -17,6 +17,7 @@ export const routes: Routes = [
     {path:'validate-email/:token',component:ValidateEmailComponent},
     {path:'slider',component:ProductSliderComponent},
     {path:'catalog',component:DashboardComponent},
+    {path:'catalog/category/:categoryId',component:DashboardComponent},
     {path:'product',component:ProductDetailComponent},
     {path:'product/search',component:ProductDetailComponent},
     {path:'checkout',component:CheckoutFormComponent},

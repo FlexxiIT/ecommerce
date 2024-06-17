@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../interfaces/product';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -22,7 +23,7 @@ export class ProductCardComponent implements OnInit{
     { value: 'name:desc', label: 'Z-A' },
   ];
 
-  categoryId: string = '';
+  categoryId: string = '908cc3e3-28d3-4176-a55a-7f8e98e7fb4e';
   orderBy: string = '';
   categories: Product [] = [];
   products: any [] = [];
@@ -30,13 +31,14 @@ export class ProductCardComponent implements OnInit{
   page: number = 1;
   searchWord: string = '';
 
-  constructor(private route:ActivatedRoute ,private router:Router,private pService: ClienteService){ }
+  constructor(private route:ActivatedRoute ,private router:Router,private pService: ClienteService, private cService: CartService){ }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 1;
       this.orderBy = params['orderBy'] || '';
       this.categoryId = params['categoryId'] || '';
+      this.searchWord = params['search'] || '';
       this.fetchProducts();
     })
 
@@ -61,16 +63,30 @@ export class ProductCardComponent implements OnInit{
     console.log(localStorage.getItem('selectedProduct'));
   }
 
-  fetchProducts(): void{
-    this.pService.getProductsPagination(this.page,this.categoryId,this.orderBy).subscribe(
-      response => {
-        this.products = response.products.productsEntities
-        console.log(response)
-      },
-      error => {
-        console.error('Error fetching products', error);
-      }
-    );
+  fetchProducts(): void {
+    if (this.searchWord) {
+      // Realiza la búsqueda por palabra clave si searchWord no está vacío
+      this.pService.getProductBySearch(this.searchWord, this.page).subscribe(
+        response => {
+          this.products = response.products.productsEntities;
+          console.log(response);
+        },
+        error => {
+          console.error('Error fetching products', error);
+        }
+      );
+    } else {
+      // Realiza la paginación estándar si searchWord está vacío
+      this.pService.getProductsPagination(this.page, this.categoryId, this.orderBy).subscribe(
+        response => {
+          this.products = response.products.productsEntities;
+          console.log(response);
+        },
+        error => {
+          console.error('Error fetching products', error);
+        }
+      );
+    }
   }
 
   onOrderChange(event: Event): void{
@@ -119,10 +135,33 @@ export class ProductCardComponent implements OnInit{
       }
     });
 
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'merge',
-    });
+    if(this.categoryId){
+      this.router.navigate(
+        ['/catalog/category', this.categoryId],
+        {queryParams: queryParams}
+      );
+    } else {
+      this.router.navigate(
+        ['/catalog'],
+        {queryParams: queryParams}
+      );
+    }
+  }
+
+  addItemtoCart(productId:string):void{
+    const itemDetails: any = {
+      productId: productId,  // Ejemplo de detalles del ítem
+      quantity: 1
+      // Agrega más propiedades según sea necesario para tu aplicación
+    };   
+    this.cService.addItemtoCart(itemDetails).subscribe(
+      response => {
+        console.log(response)
+        console.log('HOLA')
+      },
+      function (error) {
+        console.error('Error fetching products', error);
+      }
+    );
   }
 }
