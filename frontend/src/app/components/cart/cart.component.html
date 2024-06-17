@@ -3,15 +3,15 @@
         <div class="product-container">
             <div class="header"><h3>Productos</h3></div>
                 <div class="product-block-container">
-                    <div class="product-card">
+                    <div class="product-card" *ngFor="let product of products">
                         
                         <div class="info-container">
-                            <div class="img-container"><img src="https://d22fxaf9t8d39k.cloudfront.net/86c0646f96ca584e1386b56e05151cee63f1c0bd7e6326bc5f7c6fa44e1485dc3834.jpg" alt=""></div>
+                            <div class="img-container"><img [src]="product.image" alt=""></div>
                             <div class="detail-options-container">
-                                <div class="name-container"><span>NombreAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div>
+                                <div class="name-container"><span>{{product.name}}</span></div>
                                 <div class="category-container"><span>Categoria</span></div>
                                     <div class="options-container">
-                                        <a class="option">Eliminar</a>
+                                        <a class="option" (click)="deleteItemfromCart(product.id)">Eliminar</a>
                                         <a class="option">Detalles</a>
                                     </div>
                             </div>
@@ -20,127 +20,7 @@
                         <div class="quantity-price-container">
                             <div class="quantity-container">
                                 <button class="quantity-button">-</button>
-                                <span>1</span>
-                                <button class="quantity-button">+</button>
-                            </div>
-                            <div class="price-container">
-                                <div class="discount-container">
-                                    <span id="discount-tag">-20%</span>
-                                    <span id="original-price">$15000</span>
-                                </div>
-                                <span>$12000</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card">
-                        
-                        <div class="info-container">
-                            <div class="img-container"><img src="https://d22fxaf9t8d39k.cloudfront.net/86c0646f96ca584e1386b56e05151cee63f1c0bd7e6326bc5f7c6fa44e1485dc3834.jpg" alt=""></div>
-                            <div class="detail-options-container">
-                                <div class="name-container"><span>NombreAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div>
-                                <div class="category-container"><span>Categoria</span></div>
-                                    <div class="options-container">
-                                        <a class="option">Eliminar</a>
-                                        <a class="option">Detalles</a>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="quantity-price-container">
-                            <div class="quantity-container">
-                                <button class="quantity-button">-</button>
-                                <span>1</span>
-                                <button class="quantity-button">+</button>
-                            </div>
-                            <div class="price-container">
-                                <div class="discount-container">
-                                    <span id="discount-tag">-20%</span>
-                                    <span id="original-price">$15000</span>
-                                </div>
-                                <span>$12000</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card">
-                        
-                        <div class="info-container">
-                            <div class="img-container"><img src="https://d22fxaf9t8d39k.cloudfront.net/86c0646f96ca584e1386b56e05151cee63f1c0bd7e6326bc5f7c6fa44e1485dc3834.jpg" alt=""></div>
-                            <div class="detail-options-container">
-                                <div class="name-container"><span>NombreAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div>
-                                <div class="category-container"><span>Categoria</span></div>
-                                    <div class="options-container">
-                                        <a class="option">Eliminar</a>
-                                        <a class="option">Detalles</a>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="quantity-price-container">
-                            <div class="quantity-container">
-                                <button class="quantity-button">-</button>
-                                <span>1</span>
-                                <button class="quantity-button">+</button>
-                            </div>
-                            <div class="price-container">
-                                <div class="discount-container">
-                                    <span id="discount-tag">-20%</span>
-                                    <span id="original-price">$15000</span>
-                                </div>
-                                <span>$12000</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card">
-                        
-                        <div class="info-container">
-                            <div class="img-container"><img src="https://d22fxaf9t8d39k.cloudfront.net/86c0646f96ca584e1386b56e05151cee63f1c0bd7e6326bc5f7c6fa44e1485dc3834.jpg" alt=""></div>
-                            <div class="detail-options-container">
-                                <div class="name-container"><span>NombreAA</span></div>
-                                <div class="category-container"><span>Categoria</span></div>
-                                    <div class="options-container">
-                                        <a class="option">Eliminar</a>
-                                        <a class="option">Detalles</a>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="quantity-price-container">
-                            <div class="quantity-container">
-                                <button class="quantity-button">-</button>
-                                <span>1</span>
-                                <button class="quantity-button">+</button>
-                            </div>
-                            <div class="price-container">
-                                <div class="discount-container">
-                                    <span id="discount-tag">-20%</span>
-                                    <span id="original-price">$15000</span>
-                                </div>
-                                <span>$12000</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card">
-                        
-                        <div class="info-container">
-                            <div class="img-container"><img src="https://d22fxaf9t8d39k.cloudfront.net/86c0646f96ca584e1386b56e05151cee63f1c0bd7e6326bc5f7c6fa44e1485dc3834.jpg" alt=""></div>
-                            <div class="detail-options-container">
-                                <div class="name-container"><span>NombreAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div>
-                                <div class="category-container"><span>Categoria</span></div>
-                                    <div class="options-container">
-                                        <a class="option">Eliminar</a>
-                                        <a class="option">Detalles</a>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="quantity-price-container">
-                            <div class="quantity-container">
-                                <button class="quantity-button">-</button>
-                                <span>1</span>
+                                <span>{{product.quantity}}</span>
                                 <button class="quantity-button">+</button>
                             </div>
                             <div class="price-container">

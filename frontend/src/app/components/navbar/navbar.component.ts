@@ -3,11 +3,12 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../interfaces/category';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -46,11 +47,9 @@ export class NavbarComponent implements OnInit{
     this.menuIcon = this.menuValue ? 'fa-solid fa-x' : 'fa-solid fa-bars'
   }
 
-  onSearch(event: Event): void {
-    event.preventDefault();
-    this.router.navigate(['/products'], {
-      queryParams: { search: this.searchWord, page: 1 },
-      queryParamsHandling: 'merge' // Merge with other existing query params
-    });
+  onSearch(): void {
+    if (this.searchWord.trim()) {
+      this.router.navigate(['/catalog'], { queryParams: { search: this.searchWord, page: 1 } });
+    }
   }
 }
