@@ -181,10 +181,10 @@ export class CartService {
             const deletedProduct = await prisma.cartItem.delete({
                 where: { id: cartItem.id },
             });
-            console.log(deletedProduct);
+
             return {
                 message: 'Item deleted successfully',
-                deletedProduct: CartItemEntity.fromObject(deletedProduct)
+                deletedProduct: deletedProduct
             }
         } catch (error) {
             throw CustomError.internalServer(`${error}`);

@@ -37,6 +37,9 @@ export class ProductEntity {
         if (!price) throw CustomError.badRequest('Missing price');
         if (typeof lowStockLimit === 'undefined') throw CustomError.badRequest('Missing low stock limit');
 
+        let categoryEntity = undefined;
+        if(!categoryEntity) categoryEntity = CategoryEntity.fromObject(category);
+
         return new ProductEntity(
             id,
             categoryId,
@@ -50,7 +53,7 @@ export class ProductEntity {
             discount,
             image,
             timesSold,
-            CategoryEntity.fromObject(category),
+            categoryEntity
         );
     }
 }

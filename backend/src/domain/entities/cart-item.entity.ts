@@ -22,6 +22,9 @@ export class CartItemEntity {
         if (!isUUID(productId)) throw CustomError.badRequest('Product Id is not a valid Id');
         if (!quantity) throw CustomError.badRequest('Missing quantity');
 
-        return new CartItemEntity(id, productId, quantity, cartId, ProductEntity.fromObject(product));
+        let productEntity = undefined;
+        if (!productEntity) productEntity = ProductEntity.fromObject(product);
+
+        return new CartItemEntity(id, productId, quantity, cartId, productEntity);
     }
 }
