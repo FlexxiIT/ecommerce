@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CustomError, CreateProductDto, PaginationDto } from "../../domain";
 import { ProductService } from "../services";
 import { Prisma } from "@prisma/client";
+import { handleError } from "../../config";
 
 
 
@@ -11,15 +12,6 @@ export class ProductController {
     constructor(
         private readonly productService: ProductService,
     ) { }
-
-    private handleError = (error: unknown, res: Response) => {
-        if (error instanceof CustomError) {
-            return res.status(error.statusCode).json({ error: error.message });
-        }
-
-        console.log(`${error}`);
-        return res.status(500).json({ error: `Internal server error` });
-    };
 
     // Función para parsear el parámetro orderBy
     private parseOrderBy(orderByQuery: string): Prisma.ProductOrderByWithRelationInput[] {
@@ -36,7 +28,7 @@ export class ProductController {
 
         this.productService.createProduct(createProductDto!)
             .then(product => res.status(201).json(product))
-            .catch(error => this.handleError(error, res));
+            .catch(error => handleError(res, error));
 
     };
 
@@ -56,7 +48,7 @@ export class ProductController {
             orderBy: orderByParams,
         })
             .then(products => res.status(200).json({ products }))
-            .catch(error => this.handleError(error, res));
+            .catch(error => handleError(res, error));
     }
 
     getProductsByCategory = (req: Request, res: Response) => {
@@ -80,7 +72,7 @@ export class ProductController {
             orderBy: orderByParams,
         })
             .then(products => res.status(200).json({ products }))
-            .catch(error => this.handleError(error, res));
+            .catch(error => handleError(res, error));
 
     }
 
@@ -91,7 +83,7 @@ export class ProductController {
         if (error) return res.status(400).json({ error });
 
         const { word } = req.params;
-        const where: Prisma.ProductWhereInput = { name: { contains: word, mode:'insensitive' } };
+        const where: Prisma.ProductWhereInput = { name: { contains: word, mode: 'insensitive' } };
 
         let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
         if (orderBy) {
@@ -105,7 +97,7 @@ export class ProductController {
             orderBy: orderByParams,
         })
             .then(products => res.status(200).json({ products }))
-            .catch(error => this.handleError(error, res));
+            .catch(error => handleError(res, error));
 
     }
 
@@ -130,7 +122,7 @@ export class ProductController {
             orderBy: orderByParams,
         })
             .then(products => res.status(200).json({ products }))
-            .catch(error => this.handleError(error, res));
+            .catch(error => handleError(res, error));
 
     }
 
