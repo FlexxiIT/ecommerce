@@ -13,17 +13,24 @@ import { Product } from '../../interfaces/product';
 export class CartComponent implements OnInit{
 
   products : any [] = [];
+  total: number = 0;
 
   constructor(private cService: CartService){ }
 
   ngOnInit(): void {
     this.cService.getCart().subscribe(response => {
       this.products = response.items;
+      this.calculateTotal();
       console.log(response);
     },
     error => {
       console.error('Error fetching products', error);
     })
+  }
+
+  discountProduct(price:number, discount: number):number{
+    const discountDecimal = discount / 100;
+    return parseFloat((price - (price * discountDecimal)).toFixed(2));
   }
 
   deleteItemfromCart(productId: string){
@@ -43,20 +50,41 @@ export class CartComponent implements OnInit{
     );
   }
 
-  modifyQuantity(productId:string){
+  modifyQuantity(productId:string, quantityProduct:number, option:string){
+
+    if(option == '+'){
+      quantityProduct = quantityProduct + 1;
+    } else{
+      quantityProduct = quantityProduct - 1; 
+    }
+
     const itemDetails: any = {
       operation:"UPDATE",
-      productId: productId
+      productId: productId,
+      quantity: quantityProduct
     }
 
     this.cService.updateQuantity(itemDetails).subscribe(
       response => {
         console.log(response)
-        console.log('HOLA')
+        window.location.reload();
       },
       function (error) {
         console.error('Error fetching products', error);
       }
     );
+  }
+
+  calculateTotal(){
+    
+    for(const item of this.products){
+      let finalPrice = item.product.price
+      if(item.product.discount !== 0){
+        
+        finalPrice = this.discountProduct(item.product.price, item.product.discount);
+      }
+
+      this.total += finalPrice * item.quantity;
+    }
   }
 }

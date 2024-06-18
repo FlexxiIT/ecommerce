@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class GeocodingService {
 
-  private apiUrl = `http://api.zippopotam.us/AR/`
+  private apiUrl = `https://api.zippopotam.us/us/`
 
   constructor(private http: HttpClient) {}
 

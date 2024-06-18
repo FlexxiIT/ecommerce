@@ -8,8 +8,8 @@
                         <div class="info-container">
                             <div class="img-container"><img [src]="product.image" alt=""></div>
                             <div class="detail-options-container">
-                                <div class="name-container"><span>{{product.name}}</span></div>
-                                <div class="category-container"><span>Categoria</span></div>
+                                <div class="name-container"><span>{{product.product.name}}</span></div>
+                                <div class="category-container"><span>{{product.product.category.name}}</span></div>
                                     <div class="options-container">
                                         <a class="option" (click)="deleteItemfromCart(product.id)">Eliminar</a>
                                         <a class="option">Detalles</a>
@@ -19,16 +19,16 @@
 
                         <div class="quantity-price-container">
                             <div class="quantity-container">
-                                <button class="quantity-button">-</button>
+                                <button class="quantity-button" (click)="modifyQuantity(product.productId,product.quantity,'-')" [disabled]="product.quantity == 1">-</button>
                                 <span>{{product.quantity}}</span>
-                                <button class="quantity-button">+</button>
+                                <button class="quantity-button" (click)="modifyQuantity(product.productId,product.quantity,'+')">+</button>
                             </div>
                             <div class="price-container">
-                                <div class="discount-container">
-                                    <span id="discount-tag">-20%</span>
-                                    <span id="original-price">$15000</span>
+                                <div class="discount-container" *ngIf="product.product.discount !== 0">
+                                    <span id="discount-tag" >%{{product.product.discount}}</span>
+                                    <span id="original-price">${{product.product.price}}</span>
                                 </div>
-                                <span>$12000</span>
+                                <span>${{discountProduct(product.product.price,product.product.discount)}}</span>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@
             <div class="product-count"><span>Productos</span></div>
             <div class="total-container">
                 <span class="total">Total</span>
-                <span class="total">$20000</span>
+                <span class="total">${{total}}</span>
             </div>
             <div class="button-container"><a href="/checkout">Continuar Compra</a></div>
         </div>

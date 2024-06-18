@@ -9,6 +9,12 @@
     font-family: 'Poppins', sans-serif;
     transition: .2s;
 }
+:root{
+    --primary-color: #1E2022;
+    --second-color: #F0F5F9;
+    --hover-primary-color: #52616B;
+    --hover-second-color: #C9D6DF;
+}
 body{
     background-color: white;
 }

@@ -58,8 +58,8 @@
                     <span class="original-price" *ngIf="product.discount != 0">
                          ${{product.price}}
                     </span>
-                    <span class="price" >
-                       ${{product.price}}
+                    <span class="price">
+                       ${{ discountProduct(product.price, product.discount) }}
                     </span>
                 </div>
                 <div class="button-container" (click)="addItemtoCart(product.id)">
@@ -71,5 +71,5 @@
 </div>
 <div class="pag-order">
     <button (click)="previousPage()" [disabled]="page === 1"><</button>
-    <button (click)="nextPage()">></button>
+    <button (click)="nextPage()" [disabled]="page == totalPages" >></button>
 </div>
