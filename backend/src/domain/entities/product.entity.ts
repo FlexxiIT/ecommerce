@@ -36,9 +36,8 @@ export class ProductEntity {
         if (!description) throw CustomError.badRequest('Missing description');
         if (!price) throw CustomError.badRequest('Missing price');
         if (typeof lowStockLimit === 'undefined') throw CustomError.badRequest('Missing low stock limit');
-
-        let categoryEntity = undefined;
-        if(!categoryEntity) categoryEntity = CategoryEntity.fromObject(category);
+        
+        const categoryEntity = category ? CategoryEntity.fromObject(category) : undefined;
 
         return new ProductEntity(
             id,

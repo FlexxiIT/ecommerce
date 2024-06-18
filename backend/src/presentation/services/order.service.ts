@@ -180,10 +180,13 @@ export class OrderService {
                     currency_id: "ARS"
                 }));
     
-                const paymentResult = await this.paymentService.createOrder(mpItems);
+                const paymentResult = await this.paymentService.createOrder(mpItems, result.id);
+                
+                return { order: result, init_point: paymentResult.init_point };
+            } else {
+                throw CustomError.internalServer('An error was ocurred in the result');
             }
     
-            return { order: result };
         } catch (error) {
             throw CustomError.internalServer(`${error}`);
         }
