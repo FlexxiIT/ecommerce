@@ -9,5 +9,6 @@ import { errorInterceptor } from './interceptors/error.interceptor';
 import { interceptorCart} from './interceptors/cart.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(),provideToastr(), provideAnimations(),provideHttpClient(withInterceptors([interceptorCart,errorInterceptor]))]
+  providers: [provideRouter(routes),provideHttpClient(),provideToastr(), provideAnimations(),
+    provideHttpClient(withInterceptors([interceptorCart,errorInterceptor]))]
 };

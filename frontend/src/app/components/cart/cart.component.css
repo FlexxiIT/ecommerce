@@ -2,7 +2,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    background-color: #393E46;
+    background-color: var(--primary-color);
     margin-top: 6rem;
 }
 .container{
@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     width: 80%;
-    background-color: #393E46;
+    background-color: var(--primary-color);
 }
 
 /*GENERAL CLASSES*/
@@ -22,7 +22,7 @@
     flex-direction: column;
     width: 65%;
     height: 100%;
-    background-color: #EEEEEE;
+    background-color: var(--second-color);
     border-radius: 10px;
     margin: 0 0 2rem 0;
     padding: 5px;
@@ -83,7 +83,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid #222831;
+    border: 1px solid var(--primary-color);
     border-radius: 8px;
     margin-left: 0.5rem;
 }
@@ -94,12 +94,8 @@
     background: transparent;
     border: transparent;
 }
-.quantity-container input{
-    width: 100%;
-    border: none;
-    padding: 3px 0px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+.quantity-container button:disabled:hover{
+    cursor: not-allowed;
 }
 .price-container{
     display: flex;
@@ -111,7 +107,7 @@
 .name-container span{
     font-size: 1.2rem;
     font-weight: 500;
-    color: black;
+    color: var(--primary-color);
     padding-left: 5px;
     overflow: hidden;
     white-space: nowrap;
@@ -120,7 +116,7 @@
 }
 .category-container span{
     font-size: 0.8rem;
-    color: gray;
+    color: var(--hover-primary-color);
     padding-left: 5px;
     overflow: hidden;
     white-space: nowrap;
@@ -156,7 +152,7 @@
 #original-price{
     padding-left: 8px;
     text-decoration: line-through;
-    color: #222831;
+    color: var(--primary-color);
 }
 
 /*SUMMARY*/
@@ -165,7 +161,7 @@
     display: flex;
     flex-direction: column;
     width: 25%;
-    background-color: #ffffff;
+    background-color: var(--second-color);
     height: 315px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -176,7 +172,7 @@
 }
 #header-purchase{
     height: 20%;
-    border-bottom: 0.5px solid gray;
+    border-bottom: 0.5px solid var(--hover-primary-color);
     font-weight: 700;
 }
 .product-count{
@@ -198,22 +194,67 @@
     justify-content: center;
     height: 45%;
     margin-top: 1rem;
-    border-top: 0.5px solid gray;
+    border-top: 0.5px solid var(--hover-primary-color);
 }
 .button-container a{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #222831;
-    color: rgb(255, 255, 255);
+    background-color: var(--primary-color);
+    color: var(--second-color);
     text-decoration: none;
     font-weight: 500;
     padding: 12px 70px;
     border-radius: 5px;
 }
 .button-container a:hover{
-    background-color: #393E46;
+    background-color: var(--primary-color);
 }
+
+.confirm-container{
+    display: flex;
+    justify-content: center;
+}
+.confirm-quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    background: var(--primary-color);
+    color: var(--second-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    z-index: 1000;
+    margin: 1rem 0;
+}
+.confirm-quantity h3{
+    font-weight:350;
+    margin-bottom: 10px;
+}
+.buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.confirm-button-container{
+    margin-left: 2rem;
+}
+.confirm-button-container button{
+    background-color: var(--second-color);
+    padding: 4px 80px;
+    border-radius: 5px;
+    border: transparent;
+    font-size: 1rem;
+}
+.confirm-button-container button:hover{
+    background-color: var(--hover-second-color);
+    cursor: pointer;
+}
+
 
 /*RESPONSIVE*/
 /*MOBILE*/
@@ -257,5 +298,11 @@
     }
     .input-container{
         width: 30%;
+    }
+    .confirm-quantity{
+        width: 90%;
+    }
+    .confirm-button-container button{
+        padding: 4px 20px;
     }
 }

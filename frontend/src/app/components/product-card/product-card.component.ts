@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../interfaces/product';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
@@ -29,7 +30,9 @@ export class ProductCardComponent implements OnInit{
   products: any [] = [];
   isFilterMenuOpen = false;
   page: number = 1;
+  totalPages: number = 0;
   searchWord: string = '';
+  toastr= inject(ToastrService);
 
   constructor(private route:ActivatedRoute ,private router:Router,private pService: ClienteService, private cService: CartService){ }
 
@@ -68,6 +71,7 @@ export class ProductCardComponent implements OnInit{
       // Realiza la búsqueda por palabra clave si searchWord no está vacío
       this.pService.getProductBySearch(this.searchWord, this.page).subscribe(
         response => {
+          this.totalPages = Math.ceil(response.products.total / 10);
           this.products = response.products.productsEntities;
           console.log(response);
         },
@@ -79,6 +83,7 @@ export class ProductCardComponent implements OnInit{
       // Realiza la paginación estándar si searchWord está vacío
       this.pService.getProductsPagination(this.page, this.categoryId, this.orderBy).subscribe(
         response => {
+          this.totalPages = Math.ceil(response.products.total / 10);
           this.products = response.products.productsEntities;
           console.log(response);
         },
@@ -150,18 +155,34 @@ export class ProductCardComponent implements OnInit{
 
   addItemtoCart(productId:string):void{
     const itemDetails: any = {
-      productId: productId,  // Ejemplo de detalles del ítem
+      productId: productId,
       quantity: 1
-      // Agrega más propiedades según sea necesario para tu aplicación
     };   
     this.cService.addItemtoCart(itemDetails).subscribe(
       response => {
         console.log(response)
         console.log('HOLA')
       },
-      function (error) {
-        console.error('Error fetching products', error);
+       error => {
+        if(error.status){
+          switch(error.status){
+            case 401:
+              this.toastr.error("Debe iniciar sesión", "Error de Autenticación");
+              this.router.navigate(['/login']);
+              break;
+            case 500:
+              this.toastr.error("No hay más stock", "Error del Servidor");
+              break;
+            default:
+              this.toastr.error("Ocurrió un error", `Error ${error.status}`);
+          }
+        }
       }
     );
+  }
+
+  discountProduct(price:number, discount: number):number{
+    const discountDecimal = discount / 100;
+    return parseFloat((price - (price * discountDecimal)).toFixed(2));
   }
 }
