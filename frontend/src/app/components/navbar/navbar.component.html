@@ -1,4 +1,56 @@
 <header class="header">
+    <nav class="nav-container">
+        <div class="nav-data">
+            <div class="nav-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="logo-container">
+                <i class='bx bx-rocket'></i>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="/catalog" class="nav-link">Inicio</a></li>
+
+                <li class="dropdown-item" (mouseenter)="menuValue=true" (mouseleave)="menuValue=false">
+                    <a href="/" class="nav-link">Productos <i class="fa-solid fa-caret-down" id="arrow"></i></a>
+
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-subitem" *ngFor="let category of categories">
+                            <a href="#" class="dropdown-link">
+                                {{category.name}} <i class="fa-solid fa-plus dropdown__add" *ngIf="category.subCategories && category.subCategories.length > 0"></i>
+                            </a>
+                            <ul class="dropdown-submenu" *ngIf="category.subCategories && category.subCategories.length > 0">
+                                <li *ngFor="let subcategory of category.subCategories">
+                                    <a href="#" class="dropdown-sublink">
+                                     {{subcategory.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a href="/catalog" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="icon-data">
+            <div class="icon-container" >
+                <input type="text" placeholder="Buscar" [(ngModel)]="searchWord" *ngIf="searchInput">
+                <a ><i class='bx bx-search-alt-2' (click)="toggleInput()" (click)="onSearch()"></i></a>
+            </div>
+            <div class="icon-container">
+                <a href="/cart"><i class='bx bx-cart'></i></a>
+            </div>
+            <div class="icon-container">
+                <a ><i class='bx bx-user'></i></a>
+                <ul class="user-dropdown-menu"></ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--
+<header class="header">
     <nav class="nav container">
         <div class="nav__data">
             <a href="#" class="nav__logo">
@@ -20,7 +72,6 @@
             <ul class="nav__list">
                 <li><a href="/catalog" class="nav__link">Inicio</a></li>
 
-                <!--DROPDOWN 1-->
                 <li class="dropdown__item">
                     <div class="nav__link">
                        <a href="#">Productos  <i class="fa-solid fa-caret-down" id="arrow"></i></a>
@@ -49,4 +100,4 @@
             </ul>
         </div>
     </nav>
-</header>
+</header>-->
