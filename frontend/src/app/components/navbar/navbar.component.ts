@@ -15,8 +15,9 @@ import { FormsModule } from '@angular/forms';
 export class NavbarComponent implements OnInit{
   categories: Category[]=[];
   menuValue: boolean = false;
+  searchInput: boolean = false;
   menuIcon : string = 'fa-solid fa-bars'
-  searchWord: string = ''
+  searchWord: string = '';
 
   constructor(private route:ActivatedRoute, private router: Router, private catService: ClienteService){ }
 
@@ -47,7 +48,15 @@ export class NavbarComponent implements OnInit{
     this.menuIcon = this.menuValue ? 'fa-solid fa-x' : 'fa-solid fa-bars'
   }
 
+  toggleInput(){
+    this.searchInput = !this.searchInput;
+    if(this.searchInput == true){
+      this.onSearch()
+    }
+  }
+
   onSearch(): void {
+    
     if (this.searchWord.trim()) {
       this.router.navigate(['/catalog'], { queryParams: { search: this.searchWord, page: 1 } });
     }
