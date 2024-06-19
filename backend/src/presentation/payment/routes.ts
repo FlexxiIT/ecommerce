@@ -18,10 +18,9 @@ export class PaymentRoutes {
 
         const controller = new PaymentController(paymentService);
 
-        //todo: colocar autenticación
-        router.get('/success', controller.successCase);
-        router.get('/failure', controller.failureCase);
-        router.get('/pending', controller.pendingCase);
+        router.get('/success', [AuthMiddleware.validateJWT], controller.successCase);
+        router.get('/failure', [AuthMiddleware.validateJWT], controller.failureCase);
+        router.get('/pending', [AuthMiddleware.validateJWT], controller.pendingCase);
 
         router.post('/webhook', controller.webhookNotification);
 
