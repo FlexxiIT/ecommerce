@@ -17,9 +17,9 @@ export class CartService {
             where: { id: productId },
         });
 
-        if(product) {
+        if (product) {
 
-            if(product.stock < quantity){
+            if (product.stock < quantity) {
                 throw CustomError.badRequest(`The quantity must be equal or lower than the stock.`)
             }
 
@@ -42,7 +42,11 @@ export class CartService {
                 include: {
                     items: {
                         include: {
-                            product: true,
+                            product: {
+                                include: {
+                                    category: true
+                                }
+                            },
                         }
                     }
                 }
@@ -51,7 +55,7 @@ export class CartService {
             if (!cart) {
                 return CustomError.notFound(`Cart not found on user with id : ${clientId}`);
             }
-
+            
             return CartEntity.fromObject(cart);
 
         } catch (error) {
@@ -180,7 +184,7 @@ export class CartService {
 
             return {
                 message: 'Item deleted successfully',
-                deletedProduct: ProductEntity.fromObject(deletedProduct)
+                deletedProduct: deletedProduct
             }
         } catch (error) {
             throw CustomError.internalServer(`${error}`);

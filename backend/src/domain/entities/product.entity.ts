@@ -1,5 +1,6 @@
 import { isUUID } from "../../config";
 import { CustomError } from "../errors/custom-error";
+import { CategoryEntity } from "./category.entity";
 
 
 
@@ -19,10 +20,11 @@ export class ProductEntity {
         public discount?: number,
         public image?: string,
         public timesSold?: number,
+        public category?: CategoryEntity,
     ) { }
 
     static fromObject(object: { [key: string]: any }): ProductEntity {
-        const { id, categoryId, subCategoryId, available, name, description, price, stock, discount, image, lowStockLimit, timesSold } = object;
+        const { id, categoryId, subCategoryId, available, name, description, price, stock, discount, image, lowStockLimit, timesSold, category } = object;
 
         if (!id) throw CustomError.badRequest('Missing id');
         if (!isUUID(id)) throw CustomError.badRequest('Product Id is not a valid Id');
@@ -34,6 +36,8 @@ export class ProductEntity {
         if (!description) throw CustomError.badRequest('Missing description');
         if (!price) throw CustomError.badRequest('Missing price');
         if (typeof lowStockLimit === 'undefined') throw CustomError.badRequest('Missing low stock limit');
+        
+        const categoryEntity = category ? CategoryEntity.fromObject(category) : undefined;
 
         return new ProductEntity(
             id,
@@ -48,6 +52,7 @@ export class ProductEntity {
             discount,
             image,
             timesSold,
+            categoryEntity
         );
     }
 }

@@ -16,8 +16,9 @@ export class CategoryEntity {
     ) { }
 
     static fromObject(object: { [key: string]: any }): CategoryEntity {
+        
         const { id, name, SubCategory, Product } = object;
-
+        
         if (!id) throw CustomError.badRequest('Missing id');
         if (!isUUID(id)) throw CustomError.badRequest('Category Id is not a valid Id');
         if (!name) throw CustomError.badRequest('Missing name');

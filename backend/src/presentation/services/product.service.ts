@@ -35,7 +35,7 @@ export class ProductService {
     }
 
     async getProductsCommon(productOptions: ProductOptions) {
-        const { paginationDto, orderBy, urlParameter, where } = productOptions;
+        const { paginationDto, orderBy, urlParameter = '/', where } = productOptions;
         const { page, limit } = paginationDto;
 
         try {

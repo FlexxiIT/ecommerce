@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { CreateAddressDto } from "../../domain/dtos/client-adress/create-adress.dto";
 import { AdressService } from "../services/address.service";
-import { CustomError } from "../../domain";
 import { ModifyAddressDto } from "../../domain/dtos/client-adress/modify-adress-dto";
+import { handleError } from "../../config";
 
 
 
@@ -13,22 +13,11 @@ export class ClientAdressController {
         private readonly adressService: AdressService,
     ) { }
 
-    private handleError = (res: Response, error: unknown) => {
-
-        if (error instanceof CustomError) {
-            return res.status(error.statusCode).json({ error: error.message })
-        }
-
-        console.log(`${error}`);
-        return res.status(500).json({ error: 'Internal server error' });
-
-    };
-
     getAddress = (req: Request, res: Response) => {
 
         this.adressService.getClientAddress(req.body.user.id)
             .then(resp => res.json(resp))
-            .catch(error => this.handleError(res, error));
+            .catch(error => handleError(res, error));
 
     };
 
@@ -39,7 +28,7 @@ export class ClientAdressController {
 
         this.adressService.createClientAddress(createAdressDto!)
             .then(resp => res.json(resp))
-            .catch(error => this.handleError(res, error));
+            .catch(error => handleError(res, error));
 
     };
 
@@ -50,7 +39,7 @@ export class ClientAdressController {
 
         this.adressService.modifyClientAddress(modifyAddressDto!)
             .then(resp => res.json(resp))
-            .catch(error => this.handleError(res, error));
+            .catch(error => handleError(res, error));
 
     };
 

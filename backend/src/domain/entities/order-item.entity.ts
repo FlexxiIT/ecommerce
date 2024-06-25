@@ -3,18 +3,19 @@ import { CustomError } from "../errors/custom-error";
 import { ProductEntity } from "./product.entity";
 
 
-export class CartItemEntity {
+export class OrderItemEntity {
 
     constructor(
         public id: string,
         public productId: string,
+        public orderId: string,
         public quantity: number,
-        public cartId: string,
+        public price?: number,
         public product?: ProductEntity,
     ) { }
 
-    static fromObject(object: { [key: string]: any }): CartItemEntity {
-        const { id, cartId, productId, quantity, product } = object;
+    static fromObject(object: { [key: string]: any }): OrderItemEntity {
+        const { id, productId, orderId, quantity, price, product } = object;
 
         if (!id) throw CustomError.badRequest('Missing id');
         if (!isUUID(id)) throw CustomError.badRequest('Category Id is not a valid Id');
@@ -24,6 +25,6 @@ export class CartItemEntity {
 
         const productEntity = product ? ProductEntity.fromObject(product) : undefined;
 
-        return new CartItemEntity(id, productId, quantity, cartId, productEntity);
+        return new OrderItemEntity(id, productId, orderId, quantity, price, productEntity);
     }
 }

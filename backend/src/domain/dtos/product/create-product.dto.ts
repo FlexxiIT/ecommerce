@@ -2,7 +2,6 @@
 
 
 
-
 export class CreateProductDto {
 
     private constructor(

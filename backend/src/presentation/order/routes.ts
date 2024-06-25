@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
 import { OrderService } from "../services/order.service";
 import { OrderController } from "./controller";
+import { PaymentService } from "../services";
 
 
 
@@ -15,7 +16,9 @@ export class OrderRoutes {
 
         const router = Router();
 
-        const orderService = new OrderService();
+        const paymentService = new PaymentService();
+
+        const orderService = new OrderService(paymentService);
 
         const controller = new OrderController(orderService);
 
