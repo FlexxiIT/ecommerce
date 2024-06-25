@@ -24,7 +24,7 @@ export class ProductCardComponent implements OnInit{
     { value: 'name:desc', label: 'Z-A' },
   ];
 
-  categoryId: string = '908cc3e3-28d3-4176-a55a-7f8e98e7fb4e';
+  categoryId: string = '';
   orderBy: string = '';
   categories: Product [] = [];
   products: any [] = [];
@@ -79,8 +79,18 @@ export class ProductCardComponent implements OnInit{
           console.error('Error fetching products', error);
         }
       );
+    } else if (this.categoryId){
+      this.pService.getProductsByCategory(this.page, this.categoryId, this.orderBy).subscribe(
+        response => {
+          this.totalPages = Math.ceil(response.products.total / 10);
+          this.products = response.products.productsEntities;
+          console.log(response);
+        },
+        error => {
+          console.error('Error fetching products', error);
+        }
+      );
     } else {
-      // Realiza la paginación estándar si searchWord está vacío
       this.pService.getProductsPagination(this.page, this.categoryId, this.orderBy).subscribe(
         response => {
           this.totalPages = Math.ceil(response.products.total / 10);
@@ -133,7 +143,6 @@ export class ProductCardComponent implements OnInit{
       orderBy: removeOrderBy ? null : this.orderBy || null
     };
 
-    // Remove empty params
     Object.keys(queryParams).forEach(key => {
       if (queryParams[key] === null || queryParams[key] === '') {
         delete queryParams[key];

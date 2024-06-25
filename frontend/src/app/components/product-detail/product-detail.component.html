@@ -18,11 +18,10 @@
             </div>
         </div>
         <div class="info-container">
-            <div class="history-container">Inicio / Remeras / Babytee</div>
             <div class="title-container"> <h1>{{selectedProduct.name}}</h1></div>
             <div class="price-container">
-                <span class="original-price" *ngIf="selectedProduct.discount > 0">${{selectedProduct.price}}</span>
-                <span>${{selectedProduct.discountprice}}</span>
+                <span class="original-price" *ngIf="selectedProduct.discount !== 0">${{selectedProduct.price}}</span>
+                <span>${{ discountProduct(selectedProduct.price, selectedProduct.discount) }}</span>
             </div>
             <div class="shop-container">
                 <form action="" class="stock-cart">

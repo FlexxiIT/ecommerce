@@ -1,21 +1,24 @@
 <header class="header">
     <nav class="nav-container">
         <div class="nav-data">
-            <div class="nav-toggle">
-                <i class="fa-solid fa-bars"></i>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fa-solid fa-bars" (click)="toggleMenu()"></i>
             </div>
             <div class="logo-container">
                 <i class='bx bx-rocket'></i>
             </div>
         </div>
-        <div class="nav-menu">
+        <div class="nav-menu" id="nav-menu">
             <ul class="nav-list">
                 <li><a href="/catalog" class="nav-link">Inicio</a></li>
 
                 <li class="dropdown-item" (mouseenter)="menuValue=true" (mouseleave)="menuValue=false">
-                    <a href="/" class="nav-link">Productos <i class="fa-solid fa-caret-down" id="arrow"></i></a>
+                    <a class="nav-link">Productos <i class="fa-solid fa-caret-down" id="arrow"></i></a>
 
                     <ul class="dropdown-menu">
+                        <li class="dropdown-subitem">
+                            <a href="/catalog" class="dropdown-link">Ver todos los productos</a>
+                        </li>
                         <li class="dropdown-subitem" *ngFor="let category of categories">
                             <a href="#" class="dropdown-link">
                                 {{category.name}} <i class="fa-solid fa-plus dropdown__add" *ngIf="category.subCategories && category.subCategories.length > 0"></i>
@@ -35,69 +38,21 @@
             </ul>
         </div>
         <div class="icon-data">
-            <div class="icon-container" >
-                <input type="text" placeholder="Buscar" [(ngModel)]="searchWord" *ngIf="searchInput">
-                <a ><i class='bx bx-search-alt-2' (click)="toggleInput()" (click)="onSearch()"></i></a>
-            </div>
-            <div class="icon-container">
-                <a href="/cart"><i class='bx bx-cart'></i></a>
-            </div>
-            <div class="icon-container">
-                <a ><i class='bx bx-user'></i></a>
-                <ul class="user-dropdown-menu"></ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<!--
-<header class="header">
-    <nav class="nav container">
-        <div class="nav__data">
-            <a href="#" class="nav__logo">
-                <i class="fa-solid fa-earth-africa"></i>Company
-            </a>
-
-            <form class="nav__search">
-                <input type="search" class="nav__input" placeholder="Buscar..." [(ngModel)]="searchWord" name="search">
-                <i class="fa-solid fa-magnifying-glass search-icon" (click)="onSearch()"></i>
-            </form>
-
-            <div class="nav__toggle" id="nav__toggle" (click)="showMenu()">
-                <i class="fa-solid fa-bars nav__burguer"></i>
-                <i class="fa-solid fa-x nav__close"></i>
-            </div>
-        </div>
-
-        <div class="nav__menu" id="nav-menu" >
-            <ul class="nav__list">
-                <li><a href="/catalog" class="nav__link">Inicio</a></li>
-
-                <li class="dropdown__item">
-                    <div class="nav__link">
-                       <a href="#">Productos  <i class="fa-solid fa-caret-down" id="arrow"></i></a>
-                    </div>
-
-                    <ul class="dropdown__menu">
-                        <li class="dropdown__subitem" *ngFor="let category of categories">
-                            <a href="#" class="dropdown__link">
-                                {{category.name}} <i class="fa-solid fa-plus dropdown__add" *ngIf="category.subCategories && category.subCategories.length > 0"></i>
-                            </a>
-                            <ul class="dropdown__submenu" *ngIf="category.subCategories && category.subCategories.length > 0">
-                                <li *ngFor="let subcategory of category.subCategories">
-                                    <a href="#" class="dropdown__sublink">
-                                     {{subcategory.name}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+            <input type="search" placeholder="Buscar" [(ngModel)]="searchWord" (keyup.enter)="onSearch()" *ngIf="searchInput">
+            <ul>
+                <li><a (click)="toggleInput()"><i class='bx bx-search-alt-2' ></i></a></li>
+                <li><a href="/cart"><i class='bx bx-cart'></i></a></li>
+                <li>
+                    <a><i class='bx bx-user' (click)="toggleUserMenu()"></i></a>
+                    <ul class="dropdown" *ngIf="userMenuVisible">
+                        <li><a href="">Modificar perfil</a></li>
+                        <li><a href="">Historial</a></li>
+                        <li><a href="/login">Iniciar sesion</a></li> <!--Hacer que varie si esta logueado o no el mensaje-->
+                        <li><a href="/login">Cerrar sesion</a></li>
+                        <li><a href="/register">Registrarse</a></li>
                     </ul>
-
                 </li>
-
-                <li><a href="/cart" class="nav__link">Carrito</a></li>
-
-                <li><a href="/purchasehistory" class="nav__link"> Historial</a></li>
             </ul>
         </div>
     </nav>
-</header>-->
+</header>

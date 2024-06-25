@@ -38,7 +38,7 @@
 }
 
 .main-image-container {
-    width: 100%; /* Ajusta el ancho del contenedor */
+    width: 360px; /* Ajusta el ancho del contenedor */
     height: 400px; /* Establece una altura fija para el contenedor */
     overflow: hidden;
     position: relative;

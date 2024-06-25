@@ -13,11 +13,80 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
-  categories: Category[]=[];
+  //categories: Category[]=[];
   menuValue: boolean = false;
   searchInput: boolean = false;
+  userMenuVisible: boolean = false;
   menuIcon : string = 'fa-solid fa-bars'
   searchWord: string = '';
+  categories = [
+    {
+      name: 'Tecnología',
+      subCategories: [
+        { name: 'Programación' },
+        { name: 'Redes' },
+        { name: 'Ciberseguridad' }
+      ]
+    },
+    {
+      name: 'Ciencia',
+      subCategories: [
+        { name: 'Física' },
+        { name: 'Química' },
+        { name: 'Biología' }
+      ]
+    },
+    {
+      name: 'Salud',
+      subCategories: [
+        { name: 'Medicina' },
+        { name: 'Nutrición' }
+      ]
+    },
+    {
+      name: 'Deportes',
+      subCategories: [
+        { name: 'Fútbol' },
+        { name: 'Baloncesto' }
+      ]
+    },
+    {
+      name: 'Arte',
+      subCategories: [] // Sin subcategorías
+    },
+    {
+      name: 'Literatura',
+      subCategories: [
+        { name: 'Poesía' },
+        { name: 'Narrativa' }
+      ]
+    },
+    {
+      name: 'Historia',
+      subCategories: []
+    },
+    {
+      name: 'Música',
+      subCategories: [
+        { name: 'Clásica' },
+        { name: 'Rock' }
+      ]
+    },
+    {
+      name: 'Cine',
+      subCategories: [
+        { name: 'Drama' },
+        { name: 'Comedia' }
+      ]
+    },
+    {
+      name: 'Negocios',
+      subCategories: [
+        { name: 'Finanzas' },
+        { name: 'Marketing' }
+      ]
+    }
+  ];
 
   constructor(private route:ActivatedRoute, private router: Router, private catService: ClienteService){ }
 
@@ -50,9 +119,23 @@ export class NavbarComponent implements OnInit{
 
   toggleInput(){
     this.searchInput = !this.searchInput;
-    if(this.searchInput == true){
-      this.onSearch()
-    }
+    if (this.searchInput) {
+      setTimeout(() => {
+          const searchBox = document.querySelector('input[placeholder="Buscar"]') as HTMLInputElement;
+          if (searchBox) {
+              searchBox.focus();
+          }
+      }, 0);
+  } else{
+    this.onSearch();
+  }
+  }
+
+  toggleUserMenu() {
+    this.userMenuVisible = !this.userMenuVisible;
+  }
+  toggleMenu(){
+    this.menuValue = !this.menuValue;
   }
 
   onSearch(): void {
