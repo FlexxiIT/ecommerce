@@ -31,10 +31,13 @@ export class ClienteService {
     return this.http.get<any>(`${this.apiUrl}/api/product/`);
   }
   getProductsPagination(page:number,category:string,orderBy:string):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/api/product/?page=${page}&limit=10&categoryId=${category}&orderBy=${orderBy}`);
+    return this.http.get<any>(`${this.apiUrl}/api/product/?page=${page}&limit=10&orderBy=${orderBy}`);
   }
   getProductsByCategory(page:number,category:string,orderBy:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/api/product/category/${category}?page:${page}&limit=10&orderBy=${orderBy}`);
+  }
+  getProductsBySubCategory(page:number,subcategory:string,orderBy:string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/product/sub-category/${subcategory}?page:${page}&limit=10&orderBy=${orderBy}`);
   }
   getProductByID(): Observable<any>{
     return this.http.get<any>(`${this.JSONServer}/products`);

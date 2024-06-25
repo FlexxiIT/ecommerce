@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
+import { PaymentVerificationComponent } from './components/payment-verification/payment-verification.component';
 
 export const routes: Routes = [
     {path:'register',component:RegisterComponent},
@@ -22,6 +23,10 @@ export const routes: Routes = [
     {path:'product/search',component:ProductDetailComponent},
     {path:'checkout',component:CheckoutFormComponent},
     {path:'purchasehistory',component:PurchaseHistoryComponent},
+    {path:'payment',component:PaymentVerificationComponent},
+    {path:'payment/success',component:PaymentVerificationComponent},
+    {path:'payment/failure',component:PaymentVerificationComponent},
+    {path:'payment/pending',component:PaymentVerificationComponent},
     {path:'cart',component:CartComponent}
 
 ];

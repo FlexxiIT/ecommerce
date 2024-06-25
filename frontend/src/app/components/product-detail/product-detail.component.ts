@@ -51,5 +51,9 @@ export class ProductDetailComponent implements OnInit, AfterViewInit{
   changeMainImage(urlImage:string):void{
     this.mainImage = urlImage;
   }
+  discountProduct(price:number, discount: number):number{
+    const discountDecimal = discount / 100;
+    return parseFloat((price - (price * discountDecimal)).toFixed(2));
+  }
 
 }

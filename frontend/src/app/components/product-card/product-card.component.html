@@ -46,7 +46,7 @@
             </form>
         </div>
         <div class="product-container">
-            <div class="product-card" *ngFor="let product of products" >
+            <div class="product-card" *ngFor="let product of products" (click)="onClickProduct(product)">
                 <div class="img-container" >
                     <img [src]="product.image[0]?.urlImage" alt="">
                    <div class="discount-tag" *ngIf="product.discount !== 0">-{{product.discount}}%</div>
@@ -63,7 +63,7 @@
                     </span>
                 </div>
                 <div class="button-container" (click)="addItemtoCart(product.id)">
-                 <button class="addToCart" >Añadir al carrito</button>
+                    <button class="addToCart" >Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -71,5 +71,5 @@
 </div>
 <div class="pag-order">
     <button (click)="previousPage()" [disabled]="page === 1"><</button>
-    <button (click)="nextPage()" [disabled]="page == totalPages" >></button>
+    <button (click)="nextPage()" [disabled]="totalPages == null" >></button>
 </div>
