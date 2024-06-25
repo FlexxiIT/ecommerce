@@ -140,7 +140,10 @@ export class OrderService {
 
                     await prisma.product.update({
                         where: { id: item.productId },
-                        data: { stock: item.product.stock - item.quantity }
+                        data: {
+                            stock: item.product.stock - item.quantity,
+                            timesSold: item.product.timesSold + 1,
+                        }
                     });
                 }
 
@@ -164,6 +167,17 @@ export class OrderService {
                     }
                 });
 
+                // Create the address for the order
+                await prisma.orderAddress.create({
+                    data: {
+                        orderId: order.id,
+                        street: address.street,
+                        city: address.city,
+                        state: address.state,
+                        zipCode: address.zipCode,
+                    }
+                });
+
                 // Eliminar los ítems del carrito
                 await prisma.cartItem.deleteMany({
                     where: { cartId: cart.id }
@@ -175,7 +189,7 @@ export class OrderService {
             if (result) {
                 // Crear ítems de Mercado Pago usando la información del carrito
                 const mpItems = this.mapMercadoPagoItems(result.items);
-                
+
                 const paymentResult = await this.paymentService.createOrder(mpItems, result.id);
 
                 return { order: result, init_point: paymentResult.init_point };
@@ -191,7 +205,7 @@ export class OrderService {
     mapMercadoPagoItems(items: OrderItem[]) {
 
         const orderItemsEntity = items.map(item => OrderItemEntity.fromObject(item));
-        
+
         const mapedItems = orderItemsEntity.map(item => ({
             id: item.productId,
             title: item.product!.name,
