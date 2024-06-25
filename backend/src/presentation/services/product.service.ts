@@ -39,7 +39,7 @@ export class ProductService {
         const { page, limit } = paginationDto;
 
         try {
-            const total = await prisma.product.count();
+            const total = await prisma.product.count({ where: where });
             const products = await prisma.product.findMany({
                 skip: (page - 1) * limit,
                 take: limit,

@@ -14,17 +14,17 @@ export class PaymentController {
 
     successCase = (req: Request, res: Response) => { //todo: Hacer que desde el frontend se maneje cada caso
         console.log({ query_success: req.query });
-        res.redirect(`${envs.WEB_URL}catalog`);
+        res.redirect(`${envs.WEB_URL}payment/success`);
     };
 
     failureCase = (req: Request, res: Response) => {
         console.log(req);
-        res.send('Payment failed');
+        res.redirect(`${envs.WEB_URL}payment/failure`);
     };
 
     pendingCase = (req: Request, res: Response) => {
         console.log(req);
-        res.send('Payment pending');
+        res.redirect(`${envs.WEB_URL}payment/pending`);
     };
 
     webhookNotification = (req: Request, res: Response) => {

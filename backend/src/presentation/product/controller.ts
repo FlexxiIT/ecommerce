@@ -67,7 +67,7 @@ export class ProductController {
 
         this.productService.getProductsCommon({
             paginationDto: paginationDto!,
-            urlParameter: '/category',
+            urlParameter: `/category/${categoryId}`,
             where: where,
             orderBy: orderByParams,
         })
@@ -92,7 +92,7 @@ export class ProductController {
 
         this.productService.getProductsCommon({
             paginationDto: paginationDto!,
-            urlParameter: '/category',
+            urlParameter: `/word/${word}`,
             where: where,
             orderBy: orderByParams,
         })
@@ -117,7 +117,7 @@ export class ProductController {
 
         this.productService.getProductsCommon({
             paginationDto: paginationDto!,
-            urlParameter: '/sub-category',
+            urlParameter: `/sub-category/${subCategoryId}`,
             where: where,
             orderBy: orderByParams,
         })
