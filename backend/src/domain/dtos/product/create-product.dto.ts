@@ -14,13 +14,12 @@ export class CreateProductDto {
         public readonly available?: boolean,
         public readonly stock?: number,
         public readonly discount?: number,
-        public readonly image?: string,
         public readonly timesSold?: number,
     ) { }
 
 
     static create(object: { [key: string]: any }): [string?, CreateProductDto?] {
-        const { categoryId, subCategoryId, available, name, description, price, stock = 0, discount = 0, image = "", lowStockLimit = 0, timesSold = 0 } = object;
+        const { categoryId, subCategoryId, available, name, description, price, stock = 0, discount = 0, lowStockLimit = 0, timesSold = 0 } = object;
 
         if (!name) return ['Missing name'];
         if (!categoryId) return ['Missing category Id'];
@@ -49,7 +48,6 @@ export class CreateProductDto {
             !!available,
             parsedStock,
             parsedDiscount,
-            image,
             timesSold,
         )];
     }

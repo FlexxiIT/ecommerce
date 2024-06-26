@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CustomError } from "../../domain";
 import { PaymentService } from "../services";
 import { envs, handleError } from "../../config";
 

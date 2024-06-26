@@ -3,7 +3,7 @@ import { CustomError, CreateProductDto, PaginationDto } from "../../domain";
 import { ProductService } from "../services";
 import { Prisma } from "@prisma/client";
 import { handleError } from "../../config";
-
+import { UploadedFile } from 'express-fileupload'
 
 
 
@@ -26,7 +26,7 @@ export class ProductController {
         const [error, createProductDto] = CreateProductDto.create(req.body);
         if (error) return res.status(400).json({ error });
 
-        this.productService.createProduct(createProductDto!)
+        this.productService.createProduct(createProductDto!, req.body.files)
             .then(product => res.status(201).json(product))
             .catch(error => handleError(res, error));
 

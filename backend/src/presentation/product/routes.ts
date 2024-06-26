@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { ProductController } from './controller';
 import { ProductService } from '../services';
+import { FileTypeMiddleware } from '../middlewares/file-upload.middleware';
+import { ImageService } from '../services/image.service';
 
 
 
@@ -12,12 +14,13 @@ export class ProductRoutes {
 
         const router = Router();
 
-        const productService = new ProductService();
+        const imageService = new ImageService();
+        const productService = new ProductService(imageService);
 
         const controller = new ProductController(productService);
 
         // Definir las rutas
-        router.post('/', controller.createProduct);
+        router.post('/', [FileTypeMiddleware.validateExtension], controller.createProduct);
         router.get('/', controller.getProducts);
         router.get('/category/:categoryId', controller.getProductsByCategory);
         router.get('/word/:word', controller.getProductsByWord);
