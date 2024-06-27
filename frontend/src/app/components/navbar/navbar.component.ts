@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class NavbarComponent implements OnInit{
   //categories: Category[]=[];
   menuValue: boolean = false;
+  navbarCenterVisible: boolean = false;
   searchInput: boolean = false;
   userMenuVisible: boolean = false;
   menuIcon : string = 'fa-solid fa-bars'
@@ -129,6 +130,10 @@ export class NavbarComponent implements OnInit{
   } else{
     this.onSearch();
   }
+  }
+  toggleNavbarCenter() {
+    this.navbarCenterVisible = !this.navbarCenterVisible;
+    console.log("Hola")
   }
 
   toggleUserMenu() {

@@ -72,7 +72,7 @@ export class ProductCardComponent implements OnInit{
       this.pService.getProductBySearch(this.searchWord, this.page).subscribe(
         response => {
           this.totalPages = Math.ceil(response.products.total / 10);
-          this.products = response.products.productsEntities;
+          this.products = response.products?.productsEntities || [];
           console.log(response);
         },
         error => {
@@ -83,8 +83,9 @@ export class ProductCardComponent implements OnInit{
       this.pService.getProductsByCategory(this.page, this.categoryId, this.orderBy).subscribe(
         response => {
           this.totalPages = Math.ceil(response.products.total / 10);
-          this.products = response.products.productsEntities;
+          this.products = response.products?.productsEntities || [];
           console.log(response);
+          console.log(this.products)
         },
         error => {
           console.error('Error fetching products', error);
@@ -94,7 +95,7 @@ export class ProductCardComponent implements OnInit{
       this.pService.getProductsPagination(this.page, this.categoryId, this.orderBy).subscribe(
         response => {
           this.totalPages = Math.ceil(response.products.total / 10);
-          this.products = response.products.productsEntities;
+          this.products = response.products?.productsEntities || [];
           console.log(response);
         },
         error => {

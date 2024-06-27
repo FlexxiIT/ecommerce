@@ -4,12 +4,12 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background: #84e1e7;
+    background: var(--primary-color);
 }
 .container{
     max-width: 700px;
     width: 100%;
-    background: #fff;
+    background: var(--second-color);
     padding: 25px 30px;
     border-radius: 5px;
 }
@@ -25,7 +25,7 @@
     bottom: 0;
     height: 3px;
     width: 30px;
-    background: #84e1e7;
+    background: var(--primary-color);
 }
 
 .container form .user-details{
@@ -50,6 +50,7 @@ form .user-details .input-box{
     outline: none;
     padding-left: 25px;
     font-size: 16px;
+    background: var(--second-color);
     border-bottom-width: 2px;
     border-bottom: 2px solid #ccc;
     border-top: 2px solid transparent;
@@ -70,7 +71,7 @@ form .gender-details .gender-title{
     font-weight: 500;
     letter-spacing: 1px;
     border-radius: 6px;
-    background-color: #4070f4;
+    background-color: var(--primary-color);
     cursor: pointer;
     width: 100%;
     padding: 10px;
@@ -114,7 +115,7 @@ form .gender-details .gender-title{
 }
 
 .login a{
-    color: #4070f4;
+    color: rgb(92, 92, 92);
     text-decoration: none;
 }
 

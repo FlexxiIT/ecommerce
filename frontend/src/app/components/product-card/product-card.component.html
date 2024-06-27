@@ -46,26 +46,32 @@
             </form>
         </div>
         <div class="product-container">
-            <div class="product-card" *ngFor="let product of products" (click)="onClickProduct(product)">
-                <div class="img-container" >
-                    <img [src]="product.image[0]?.urlImage" alt="">
-                   <div class="discount-tag" *ngIf="product.discount !== 0">-{{product.discount}}%</div>
-                </div>
-                <div class="name-container" >
-                    <span>{{product.name}}</span>
-                </div>
-                <div class="price-container" >
-                    <span class="original-price" *ngIf="product.discount != 0">
-                         ${{product.price}}
-                    </span>
-                    <span class="price">
-                       ${{ discountProduct(product.price, product.discount) }}
-                    </span>
-                </div>
-                <div class="button-container" (click)="addItemtoCart(product.id)">
-                    <button class="addToCart" >Añadir al carrito</button>
+            <div *ngIf="products && products.length > 0; else noProducts">
+                <div class="product-card" *ngFor="let product of products" (click)="onClickProduct(product)">
+                    <div class="img-container" >
+                        <img [src]="product.image[0]?.urlImage" alt="">
+                        <div class="discount-tag" *ngIf="product.discount !== 0">-{{product.discount}}%</div>
+                    </div>
+                    <div class="name-container" >
+                        <span>{{product.name}}</span>
+                    </div>
+                    <div class="price-container" >
+                        <span class="original-price" *ngIf="product.discount != 0">
+                            ${{product.price}}
+                        </span>
+                        <span class="price">
+                            ${{ discountProduct(product.price, product.discount) }}
+                        </span>
+                    </div>
+                    <div class="button-container" (click)="addItemtoCart(product.id)">
+                        <button class="addToCart" >Añadir al carrito</button>
+                    </div>
                 </div>
             </div>
+            <ng-template #noProducts>
+                <!-- Mensaje cuando no hay productos -->
+                <p>No hay productos disponibles.</p>
+              </ng-template>
         </div>
     </div>
 </div>
