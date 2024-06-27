@@ -1,3 +1,4 @@
+import { UploadedFile } from "express-fileupload";
 import { ImageUploader } from "../../config";
 
 
@@ -10,8 +11,12 @@ export class ImageService {
     constructor() { }
 
 
-    async uploadImage(file: any) {
-        const uploadResults = await ImageUploader.uploadFromBuffer(file);
+    async uploadImage(files: UploadedFile[]) {
+        if(files) {
+            const uploadResults = await ImageUploader.uploadFromBuffer(files);
+
+            console.log(uploadResults);
+        }
     }
 
 }
