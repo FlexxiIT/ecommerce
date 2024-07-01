@@ -66,6 +66,7 @@ model Product {
   discount      Int            @default(0)
   lowStockLimit Int            @default(0)
   timesSold     Int            @default(0)
+  primaryImage  String?
   CartItem      CartItem[]
   OrderItem     OrderItem[]
   ProductImage  ProductImage[]
