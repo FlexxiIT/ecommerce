@@ -32,23 +32,30 @@ export class ProductService {
             const uploadImagesResult = await this.imageService.uploadImages(imageFiles);
             let productImages = [];
 
+            const primaryImage = uploadImagesResult[0] ? this.imageService.transformSingleImage(uploadImagesResult[0].public_id) : undefined;
+
             const result = await prisma.$transaction(async (prisma) => {
                 const product = await prisma.product.create({
                     data: {
                         ...createProductDto,
-                        primaryImage: uploadImagesResult[0]?.secure_url
+                        primaryImage: primaryImage
                     }
                 });
 
-                for (const image of uploadImagesResult!) {
-                    const productImage = await prisma.productImage.create({
-                        data: {
-                            url: image.secure_url,
-                            productId: product.id,
-                            isPrimary: image.secure_url === product.primaryImage
-                        }
-                    });
-                    productImages.push(productImage);
+                for (const uploadResult of uploadImagesResult!) {
+                    const urls = this.imageService.transformImagesUrl(uploadResult.public_id);
+                    
+                    for (const [size, url] of Object.entries(urls)) {
+                        const productImage = await prisma.productImage.create({
+                            data: {
+                                url: url,
+                                productId: product.id,
+                                size: size,
+                                isPrimary: uploadResult.secure_url === product.primaryImage
+                            }
+                        });
+                        productImages.push(productImage);
+                    }
                 }
 
                 return { product, productImages };

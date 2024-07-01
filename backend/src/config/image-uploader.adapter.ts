@@ -57,4 +57,41 @@ export class ImageUploader {
     }
   }
 
+  static transformImageUrls(public_id: string): Record<string, string> {
+    const transformations = { // Definition of the image's sizes that we want
+      cart: { width: 64, height: 64 },
+      product_slider: { width: 200, height: 340 },
+      product_detail_main: { width: 360, height: 400 },
+      product_detail_sub: { width: 50, height: 50 },
+      product_card: { width: 235, height: 340 },
+    };
+
+    const urls: Record<string, string> = {};
+    for (const [key, { width, height }] of Object.entries(transformations)) { // Create every url with the given public_id
+      urls[key] = cloudinary.url(public_id, {
+        transformation: [
+          { width, height, crop: 'scale' },
+          { quality: 'auto' },
+          { fetch_format: 'auto' }
+        ]
+      });
+    }
+
+    return urls;
+  }
+
+  static transformSingleImage(public_id: string): string {
+
+    const url = cloudinary.url(public_id, {
+      transformation: [
+        { width: 235, height: 340, crop: 'scale' },
+        { quality: 'auto' },
+        { fetch_format: 'auto' }
+      ]
+    });
+
+    return url;
+
+  }
+
 }

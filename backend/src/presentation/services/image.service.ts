@@ -24,4 +24,19 @@ export class ImageService {
         await ImageUploader.deleteImages(public_id);
     }
 
+    transformImagesUrl(public_id: string): Record<string, string> {
+
+        const transformedUrls = ImageUploader.transformImageUrls(public_id);
+
+        return transformedUrls;
+
+    }
+
+    transformSingleImage(public_id: string): string {
+        
+        const url = ImageUploader.transformSingleImage(public_id);
+
+        return url;
+    }
+
 }
