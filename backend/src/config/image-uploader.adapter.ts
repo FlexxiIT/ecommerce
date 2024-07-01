@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import { envs } from './envs';
 import { UploadedFile } from 'express-fileupload';
 import { CustomError } from '../domain';
@@ -9,14 +9,21 @@ cloudinary.config({
   api_secret: envs.CLOUDINARY_API_SECRET,
 });
 
+export interface CloudinaryUploadResult extends UploadApiResponse {
+  asset_id: string;
+  version_id: string;
+  asset_folder: string;
+  display_name: string;
+  api_key: string;
+}
 
 export class ImageUploader {
 
   constructor() { }
 
-  static async uploadFromBuffer(files: UploadedFile[]) {
+  static async uploadFromBuffer(files: UploadedFile[]): Promise<CloudinaryUploadResult[]> {
     try {
-      const uploadPromises = files.map(file => new Promise((resolve, reject) => {
+      const uploadPromises = files.map(file => new Promise<CloudinaryUploadResult>((resolve, reject) => {
         cloudinary.uploader.upload_stream(
           {
             folder: 'products',
@@ -29,7 +36,7 @@ export class ImageUploader {
             if (error) {
               return reject(error);
             }
-            resolve(result);
+            resolve(result as CloudinaryUploadResult);
           }
         ).end(file.data);
       }));
@@ -39,6 +46,14 @@ export class ImageUploader {
       return uploadResults;
     } catch (error) {
       throw CustomError.internalServer('Internal server error on iu');
+    }
+  }
+
+  static async deleteImages(public_id: string) {
+    try {
+      await cloudinary.uploader.destroy(public_id);
+    } catch (error) {
+      throw CustomError.internalServer('Failed to delete image');
     }
   }
 

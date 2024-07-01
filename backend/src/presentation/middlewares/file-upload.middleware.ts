@@ -13,7 +13,13 @@ export class FileTypeMiddleware {
         let files: UploadedFile[] = [];
 
         if (req.files) {
-            files = req.files.file as UploadedFile[];
+
+            const fileField = req.files.file;
+            if (Array.isArray(fileField)) {
+                files = fileField as UploadedFile[];
+            } else {
+                files = [fileField] as UploadedFile[];
+            }
 
             const fileExtensions = files.map(file => file.mimetype.split('/').at(1)?.toLowerCase() ?? '');
 

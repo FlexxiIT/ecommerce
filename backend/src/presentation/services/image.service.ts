@@ -1,5 +1,5 @@
 import { UploadedFile } from "express-fileupload";
-import { ImageUploader } from "../../config";
+import { CloudinaryUploadResult, ImageUploader } from "../../config";
 
 
 
@@ -11,12 +11,17 @@ export class ImageService {
     constructor() { }
 
 
-    async uploadImage(files: UploadedFile[]) {
-        if(files) {
-            const uploadResults = await ImageUploader.uploadFromBuffer(files);
-
-            console.log(uploadResults);
+    async uploadImages(files: UploadedFile[]) {
+        if (files && files.length > 0) {
+            const uploadResults: CloudinaryUploadResult[] = await ImageUploader.uploadFromBuffer(files);
+            return uploadResults;
+        } else {
+            return [];
         }
+    }
+
+    async deleteImages(public_id: string) {
+        await ImageUploader.deleteImages(public_id);
     }
 
 }

@@ -34,7 +34,7 @@ export class ProductController {
 
     getProducts = (req: Request, res: Response) => {
 
-        const { page = 1, limit = 10, orderBy } = req.query as { page: string; limit: string; orderBy?: string };
+        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
         const [error, paginationDto] = PaginationDto.create(+page, +limit);
         if (error) return res.status(400).json({ error });
 
@@ -46,6 +46,7 @@ export class ProductController {
         this.productService.getProductsCommon({
             paginationDto: paginationDto!,
             orderBy: orderByParams,
+            secImg: secImg,
         })
             .then(products => res.status(200).json({ products }))
             .catch(error => handleError(res, error));
@@ -53,7 +54,7 @@ export class ProductController {
 
     getProductsByCategory = (req: Request, res: Response) => {
 
-        const { page = 1, limit = 10, orderBy } = req.query as { page: string; limit: string; orderBy?: string };
+        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
         const [error, paginationDto] = PaginationDto.create(+page, +limit);
         if (error) return res.status(400).json({ error });
 
@@ -70,6 +71,7 @@ export class ProductController {
             urlParameter: `/category/${categoryId}`,
             where: where,
             orderBy: orderByParams,
+            secImg: secImg,
         })
             .then(products => res.status(200).json({ products }))
             .catch(error => handleError(res, error));
@@ -78,7 +80,7 @@ export class ProductController {
 
     getProductsByWord = (req: Request, res: Response) => {
 
-        const { page = 1, limit = 10, orderBy } = req.query as { page: string; limit: string; orderBy?: string };
+        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
         const [error, paginationDto] = PaginationDto.create(+page, +limit);
         if (error) return res.status(400).json({ error });
 
@@ -95,6 +97,7 @@ export class ProductController {
             urlParameter: `/word/${word}`,
             where: where,
             orderBy: orderByParams,
+            secImg: secImg,
         })
             .then(products => res.status(200).json({ products }))
             .catch(error => handleError(res, error));
@@ -103,7 +106,7 @@ export class ProductController {
 
     getProductsBySubCategory = (req: Request, res: Response) => {
 
-        const { page = 1, limit = 10, orderBy } = req.query as { page: string; limit: string; orderBy?: string };
+        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
         const [error, paginationDto] = PaginationDto.create(+page, +limit);
         if (error) return res.status(400).json({ error });
 
@@ -120,6 +123,7 @@ export class ProductController {
             urlParameter: `/sub-category/${subCategoryId}`,
             where: where,
             orderBy: orderByParams,
+            secImg: secImg
         })
             .then(products => res.status(200).json({ products }))
             .catch(error => handleError(res, error));
