@@ -5,6 +5,7 @@ import { CreateProductDto, CustomError, PaginationDto, ProductEntity } from "../
 import { ImageService } from "./image.service";
 import { UploadedFile } from "express-fileupload";
 import { ProductImageEntity } from "../../domain/entities/product-image.entity";
+import { ModifyProductDto } from "../../domain/dtos/product/modify-product.dto";
 
 
 export interface ProductOptions {
@@ -44,7 +45,7 @@ export class ProductService {
 
                 for (const uploadResult of uploadImagesResult!) {
                     const urls = this.imageService.transformImagesUrl(uploadResult.public_id);
-                    
+
                     for (const [size, url] of Object.entries(urls)) {
                         const productImage = await prisma.productImage.create({
                             data: {
@@ -89,7 +90,7 @@ export class ProductService {
             const productsEntities = products.map(product => ProductEntity.fromObject(product));
 
             let productsWithImages = productsEntities;
-            
+
             if (secImg === "true") {
                 productsWithImages = await Promise.all(productsEntities.map(async product => {
                     const productImages = await prisma.productImage.findMany({
@@ -114,6 +115,29 @@ export class ProductService {
         } catch (error) {
             throw new Error("Internal server error");
         }
+    }
+
+    async modifyProduct(modifyProductDto: ModifyProductDto) {
+
+        const product = await prisma.product.findUnique({
+            where: { id: modifyProductDto.productId }
+        });
+
+        if (!product) throw CustomError.notFound(`Product with id : ${modifyProductDto.productId} not found.`);
+
+        try {
+
+            const modifiedProduct = await prisma.product.update({
+                where: { id: modifyProductDto.productId },
+                data: modifyProductDto
+            });
+
+            return ProductEntity.fromObject(modifiedProduct);
+
+        } catch (error) {
+            throw new Error("Internal server error");
+        }
+
     }
 
 }

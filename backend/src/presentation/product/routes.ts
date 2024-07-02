@@ -20,12 +20,14 @@ export class ProductRoutes {
         const controller = new ProductController(productService);
 
         // Definir las rutas
-        router.post('/', [FileTypeMiddleware.validateExtension], controller.createProduct);
+        router.post('/', [FileTypeMiddleware.validateExtension], controller.createProduct);  //todo: Corregir el descuento para los pedidos / Token de admin
         router.get('/', controller.getProducts);
         router.get('/category/:categoryId', controller.getProductsByCategory);
         router.get('/word/:word', controller.getProductsByWord);
         router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory);
-        // todo: update and delete routes / FOR THE ADMIN ROLE
+        // todo: delete routes / FOR THE ADMIN ROLE
+
+        router.put('/', controller.modifyProduct); //todo: Token de admin
 
         return router;
     }

@@ -1,5 +1,7 @@
 import { prisma } from "../../data/postgres";
 import { CategoryEntity, CreateCategoryDto, CustomError } from "../../domain";
+import { DeleteCategoryDto } from "../../domain/dtos/category/delete-category.dto";
+import { ModifyCategoryDto } from "../../domain/dtos/category/modify-category.dto";
 
 
 
@@ -18,15 +20,13 @@ export class CategoryService {
 
         try {
 
-            const category = await prisma.category.create({ 
+            const category = await prisma.category.create({
                 data: {
                     name: createCategoryDto.name,
-                } 
+                }
             });
 
-            const categoryEntity = CategoryEntity.fromObject(category);
-
-            return categoryEntity;
+            return CategoryEntity.fromObject(category);
 
         } catch (error) {
             throw CustomError.internalServer(`${error}`);
@@ -38,16 +38,56 @@ export class CategoryService {
 
         try {
 
-          const categories = await prisma.category.findMany({
-            include: {
-                SubCategory: true,
-            }
-          });
+            const categories = await prisma.category.findMany({
+                include: {
+                    SubCategory: true,
+                }
+            });
 
-          const categoriesEntity = categories.map(category => CategoryEntity.fromObject(category));
+            return categories.map(category => CategoryEntity.fromObject(category)); // Se retornan las entidades de las categorias.
 
-          return categoriesEntity;
+        } catch (error) {
+            throw CustomError.internalServer("Internal server error");
+        }
 
+    }
+
+    async modifyCategory(modifyCategoryDto: ModifyCategoryDto) {
+
+        const category = await prisma.category.findFirst({
+            where: { id: modifyCategoryDto.categoryId }
+        });
+
+        if (!category) throw CustomError.notFound(`Category with id : ${modifyCategoryDto.categoryId} not found.`);
+
+        try {
+
+            const modifiedCategory = await prisma.category.update({
+                where: { id: modifyCategoryDto.categoryId },
+                data: modifyCategoryDto
+            });
+
+            return CategoryEntity.fromObject(modifiedCategory);
+
+        } catch (error) {
+            throw CustomError.internalServer("Internal server error");
+        }
+
+    }
+
+    async deleteCategory(deleteCategoryDto: DeleteCategoryDto) {
+
+        const category = await prisma.category.findUnique({ where: { id: deleteCategoryDto.categoryId } });
+
+        if (!category) {
+            throw CustomError.notFound(`Category with id: ${deleteCategoryDto.categoryId} not found.`);
+        }
+
+        try {
+            await prisma.$transaction(async (prisma) => {
+                await prisma.subCategory.deleteMany({ where: { id: deleteCategoryDto.categoryId } });
+                await prisma.category.delete({ where: { id: deleteCategoryDto.categoryId } });
+            });
         } catch (error) {
             throw CustomError.internalServer("Internal server error");
         }

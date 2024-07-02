@@ -3,6 +3,7 @@ import { CreateProductDto, PaginationDto } from "../../domain";
 import { ProductService } from "../services";
 import { Prisma } from "@prisma/client";
 import { handleError } from "../../config";
+import { ModifyProductDto } from "../../domain/dtos/product/modify-product.dto";
 
 type QueryParams = {
     page: string;
@@ -68,7 +69,7 @@ export class ProductController {
             .then(products => res.status(200).json({ products }))
             .catch(error => handleError(res, error));
     }
-    
+
     createProduct = (req: Request, res: Response) => {
 
         const [error, createProductDto] = CreateProductDto.create(req.body);
@@ -97,6 +98,17 @@ export class ProductController {
     getProductsBySubCategory = (req: Request, res: Response) => {
         const { subCategoryId } = req.params;
         this.handleGetProducts(req, res, { subCategoryId: subCategoryId }, `/sub-category/${subCategoryId}`);
+    }
+
+    modifyProduct = (req: Request, res: Response) => { //todo: Modificar imagen principal en base a una nueva url o una imagen nueva?
+
+        const [error, modifyProductDto] = ModifyProductDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+
+        this.productService.modifyProduct(modifyProductDto!)
+            .then(product => res.status(201).json(product))
+            .catch(error => handleError(res, error));
+
     }
 
 }
