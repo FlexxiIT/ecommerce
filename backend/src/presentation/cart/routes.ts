@@ -17,7 +17,7 @@ export class CartRouter {
         const cartService = new CartService();
 
         const controller = new CartController(cartService);
-        //todo: Modularizar la busqueda del carrito ya sea en una función dentro del controlador o en un middleware
+        
         router.get('/', [AuthMiddleware.validateJWT], controller.getCart);
 
         router.post('/item', [AuthMiddleware.validateJWT], controller.addItemToCart);

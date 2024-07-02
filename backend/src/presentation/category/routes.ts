@@ -20,7 +20,10 @@ export class CategoryRoutes {
         // Definir las rutas
         router.post('/', controller.createCategory);
         router.get('/', controller.getCategories);
-        // todo: update and delete routes / FOR THE ADMIN ROLE
+        // todo: Make it only usable with an admin token
+        router.put('/', controller.modifyCategory);
+        router.delete('/', controller.deleteCategory);
+        
 
         return router;
     }
