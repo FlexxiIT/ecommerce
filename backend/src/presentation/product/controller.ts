@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
-import { CustomError, CreateProductDto, PaginationDto } from "../../domain";
+import { CreateProductDto, PaginationDto } from "../../domain";
 import { ProductService } from "../services";
 import { Prisma } from "@prisma/client";
 import { handleError } from "../../config";
-import { UploadedFile } from 'express-fileupload'
 
-
+type QueryParams = {
+    page: string;
+    limit: string;
+    orderBy?: string;
+    secImg: string;
+    minPrice?: string;
+    maxPrice?: string;
+};
 
 export class ProductController {
 
@@ -21,6 +27,48 @@ export class ProductController {
         });
     }
 
+    // Función para modularizar los parametros de los controladores
+    private getQueryParams(req: Request): [null | string, PaginationDto | null, Prisma.ProductOrderByWithRelationInput[], string, Prisma.ProductWhereInput] {
+        const { page = 1, limit = 10, orderBy, secImg, minPrice, maxPrice } = req.query as QueryParams;
+        const [error, paginationDto] = PaginationDto.create(+page, +limit);
+        if (error) return [error, null, [], secImg, {}];
+    
+        let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
+        if (orderBy) {
+            orderByParams = this.parseOrderBy(orderBy);
+        }
+    
+        let where: Prisma.ProductWhereInput = {};
+        if (minPrice || maxPrice) {
+            where.price = {};
+            if (minPrice) where.price.gte = +minPrice;
+            if (maxPrice) where.price.lte = +maxPrice;
+        }
+
+        return [null, paginationDto!, orderByParams, secImg, where];
+    }
+
+    // Función para manejar el servicio de productos con los parametros de la req
+    private handleGetProducts(req: Request, res: Response, additionalWhere: Prisma.ProductWhereInput, urlParameter: string) {
+        const [error, paginationDto, orderByParams, secImg, priceWhere] = this.getQueryParams(req);
+        if (error) return res.status(400).json({ error });
+
+        const where = {
+            ...priceWhere,
+            ...additionalWhere
+        };
+
+        this.productService.getProductsCommon({
+            paginationDto: paginationDto!,
+            urlParameter: urlParameter,
+            where: where,
+            orderBy: orderByParams,
+            secImg: secImg,
+        })
+            .then(products => res.status(200).json({ products }))
+            .catch(error => handleError(res, error));
+    }
+    
     createProduct = (req: Request, res: Response) => {
 
         const [error, createProductDto] = CreateProductDto.create(req.body);
@@ -33,103 +81,22 @@ export class ProductController {
     };
 
     getProducts = (req: Request, res: Response) => {
-
-        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
-        const [error, paginationDto] = PaginationDto.create(+page, +limit);
-        if (error) return res.status(400).json({ error });
-
-        let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
-        if (orderBy) {
-            orderByParams = this.parseOrderBy(orderBy);
-        }
-
-        this.productService.getProductsCommon({
-            paginationDto: paginationDto!,
-            orderBy: orderByParams,
-            secImg: secImg,
-        })
-            .then(products => res.status(200).json({ products }))
-            .catch(error => handleError(res, error));
+        this.handleGetProducts(req, res, {}, '/');
     }
-
+    
     getProductsByCategory = (req: Request, res: Response) => {
-
-        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
-        const [error, paginationDto] = PaginationDto.create(+page, +limit);
-        if (error) return res.status(400).json({ error });
-
         const { categoryId } = req.params;
-        const where: Prisma.ProductWhereInput = { categoryId: categoryId };
-
-        let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
-        if (orderBy) {
-            orderByParams = this.parseOrderBy(orderBy);
-        }
-
-        this.productService.getProductsCommon({
-            paginationDto: paginationDto!,
-            urlParameter: `/category/${categoryId}`,
-            where: where,
-            orderBy: orderByParams,
-            secImg: secImg,
-        })
-            .then(products => res.status(200).json({ products }))
-            .catch(error => handleError(res, error));
-
+        this.handleGetProducts(req, res, { categoryId: categoryId }, `/category/${categoryId}`);
     }
-
+    
     getProductsByWord = (req: Request, res: Response) => {
-
-        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
-        const [error, paginationDto] = PaginationDto.create(+page, +limit);
-        if (error) return res.status(400).json({ error });
-
         const { word } = req.params;
-        const where: Prisma.ProductWhereInput = { name: { contains: word, mode: 'insensitive' } };
-
-        let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
-        if (orderBy) {
-            orderByParams = this.parseOrderBy(orderBy);
-        }
-
-        this.productService.getProductsCommon({
-            paginationDto: paginationDto!,
-            urlParameter: `/word/${word}`,
-            where: where,
-            orderBy: orderByParams,
-            secImg: secImg,
-        })
-            .then(products => res.status(200).json({ products }))
-            .catch(error => handleError(res, error));
-
+        this.handleGetProducts(req, res, { name: { contains: word, mode: 'insensitive' } }, `/word/${word}`);
     }
-
+    
     getProductsBySubCategory = (req: Request, res: Response) => {
-
-        const { page = 1, limit = 10, orderBy, secImg } = req.query as { page: string; limit: string; orderBy?: string, secImg: string };
-        const [error, paginationDto] = PaginationDto.create(+page, +limit);
-        if (error) return res.status(400).json({ error });
-
         const { subCategoryId } = req.params;
-        const where: Prisma.ProductWhereInput = { subCategoryId: subCategoryId };
-
-        let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
-        if (orderBy) {
-            orderByParams = this.parseOrderBy(orderBy);
-        }
-
-        this.productService.getProductsCommon({
-            paginationDto: paginationDto!,
-            urlParameter: `/sub-category/${subCategoryId}`,
-            where: where,
-            orderBy: orderByParams,
-            secImg: secImg
-        })
-            .then(products => res.status(200).json({ products }))
-            .catch(error => handleError(res, error));
-
+        this.handleGetProducts(req, res, { subCategoryId: subCategoryId }, `/sub-category/${subCategoryId}`);
     }
-
-
 
 }

@@ -24,7 +24,7 @@ export class ProductRoutes {
         router.get('/', controller.getProducts);
         router.get('/category/:categoryId', controller.getProductsByCategory);
         router.get('/word/:word', controller.getProductsByWord);
-        router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory); // todo: Check if subcategory exist in the category table before create a product
+        router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory);
         // todo: update and delete routes / FOR THE ADMIN ROLE
 
         return router;
