@@ -54,12 +54,4 @@ export class OrderController {
             .catch(error => handleError(res, error));
     }
 
-    modifyOrder = (req: Request, res: Response) => { //todo
-
-        const [error, modifyOrderDto] = ModifyOrderDto.create({ clientId: req.body.user.id });
-        if (error) res.status(400).json({ error });
-
-    }
-
-
 }
