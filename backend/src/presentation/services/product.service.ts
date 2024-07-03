@@ -6,6 +6,7 @@ import { ImageService } from "./image.service";
 import { UploadedFile } from "express-fileupload";
 import { ProductImageEntity } from "../../domain/entities/product-image.entity";
 import { ModifyProductDto } from "../../domain/dtos/product/modify-product.dto";
+import { ChangeProductAvailabilityDto } from "../../domain/dtos/product/change-product-availability.dto";
 
 
 export interface ProductOptions {
@@ -127,9 +128,34 @@ export class ProductService {
 
         try {
 
+            const { productId, ...dataToModify } = modifyProductDto;
+
             const modifiedProduct = await prisma.product.update({
                 where: { id: modifyProductDto.productId },
-                data: modifyProductDto
+                data: dataToModify
+            });
+
+            return ProductEntity.fromObject(modifiedProduct);
+
+        } catch (error) {
+            throw new Error("Internal server error" + error);
+        }
+
+    }
+
+    async changeProductAvailability(changeProductAvailabilityDto: ChangeProductAvailabilityDto) {
+
+        const product = await prisma.product.findUnique({
+            where: { id: changeProductAvailabilityDto.productId }
+        });
+
+        if (!product) throw CustomError.notFound(`Product with id : ${changeProductAvailabilityDto.productId} not found.`);
+
+        try {
+
+            const modifiedProduct = await prisma.product.update({
+                where: { id: changeProductAvailabilityDto.productId },
+                data: { available: !product.available }
             });
 
             return ProductEntity.fromObject(modifiedProduct);

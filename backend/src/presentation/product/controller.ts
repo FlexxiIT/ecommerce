@@ -4,6 +4,7 @@ import { ProductService } from "../services";
 import { Prisma } from "@prisma/client";
 import { handleError } from "../../config";
 import { ModifyProductDto } from "../../domain/dtos/product/modify-product.dto";
+import { ChangeProductAvailabilityDto } from "../../domain/dtos/product/change-product-availability.dto";
 
 type QueryParams = {
     page: string;
@@ -33,12 +34,12 @@ export class ProductController {
         const { page = 1, limit = 10, orderBy, secImg, minPrice, maxPrice } = req.query as QueryParams;
         const [error, paginationDto] = PaginationDto.create(+page, +limit);
         if (error) return [error, null, [], secImg, {}];
-    
+
         let orderByParams: Prisma.ProductOrderByWithRelationInput[] = [];
         if (orderBy) {
             orderByParams = this.parseOrderBy(orderBy);
         }
-    
+
         let where: Prisma.ProductWhereInput = {};
         if (minPrice || maxPrice) {
             where.price = {};
@@ -84,17 +85,17 @@ export class ProductController {
     getProducts = (req: Request, res: Response) => {
         this.handleGetProducts(req, res, {}, '/');
     }
-    
+
     getProductsByCategory = (req: Request, res: Response) => {
         const { categoryId } = req.params;
         this.handleGetProducts(req, res, { categoryId: categoryId }, `/category/${categoryId}`);
     }
-    
+
     getProductsByWord = (req: Request, res: Response) => {
         const { word } = req.params;
         this.handleGetProducts(req, res, { name: { contains: word, mode: 'insensitive' } }, `/word/${word}`);
     }
-    
+
     getProductsBySubCategory = (req: Request, res: Response) => {
         const { subCategoryId } = req.params;
         this.handleGetProducts(req, res, { subCategoryId: subCategoryId }, `/sub-category/${subCategoryId}`);
@@ -106,6 +107,17 @@ export class ProductController {
         if (error) return res.status(400).json({ error });
 
         this.productService.modifyProduct(modifyProductDto!)
+            .then(product => res.status(201).json(product))
+            .catch(error => handleError(res, error));
+
+    }
+
+    changeProductAvailability = (req: Request, res: Response) => {
+
+        const [error, changeProductAvailabilityDto] = ChangeProductAvailabilityDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+
+        this.productService.changeProductAvailability(changeProductAvailabilityDto!)
             .then(product => res.status(201).json(product))
             .catch(error => handleError(res, error));
 

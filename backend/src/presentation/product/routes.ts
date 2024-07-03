@@ -25,9 +25,9 @@ export class ProductRoutes {
         router.get('/category/:categoryId', controller.getProductsByCategory);
         router.get('/word/:word', controller.getProductsByWord);
         router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory);
-        // todo: delete routes / FOR THE ADMIN ROLE
 
         router.put('/', controller.modifyProduct); //todo: Token de admin
+        router.put('/change-availability', controller.changeProductAvailability); //todo: Es necesario mostrar los productos disponibles a los usuarios y solo los no disponibles en el apartado del admin
 
         return router;
     }
