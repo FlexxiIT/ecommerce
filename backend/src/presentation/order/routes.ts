@@ -28,8 +28,6 @@ export class OrderRoutes {
 
         router.post('/', [AuthMiddleware.validateJWT], controller.createOrder);
         
-        router.put('/modify-order', [AuthMiddleware.validateJWT], controller.modifyOrder);
-        
         return router;
 
     }

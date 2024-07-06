@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { CreateCategoryDto } from "../../domain";
 import { CategoryService } from "../services";
 import { handleError } from "../../config";
+import { ModifyCategoryDto } from "../../domain/dtos/category/modify-category.dto";
+import { DeleteCategoryDto } from "../../domain/dtos/category/delete-category.dto";
 
 
 
@@ -28,5 +30,26 @@ export class CategoryController {
             .catch(error => handleError(res, error));
 
     };
+    
+    modifyCategory = (req: Request, res: Response) => {
 
+        const [error, modifyCategoryDto] = ModifyCategoryDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+
+        this.categoryService.modifyCategory(modifyCategoryDto!)
+            .then(categories => res.json({ categories }))
+            .catch(error => handleError(res, error));
+
+    };
+
+    deleteCategory = (req: Request, res: Response) => {
+
+        const [error, deleteCategoryDto] = DeleteCategoryDto.create(req.body);
+        if (error) return res.status(400).json({ error });
+
+        this.categoryService.deleteCategory(deleteCategoryDto!)
+            .then(categories => res.json({ categories }))
+            .catch(error => handleError(res, error));
+
+    };
 }

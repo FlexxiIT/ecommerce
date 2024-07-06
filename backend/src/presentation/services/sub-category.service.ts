@@ -18,14 +18,20 @@ export class SubCategoryService {
 
         try {
 
-            const category = await prisma.subCategory.create({ 
+            const category = await prisma.category.findFirst({
+                where: { id: createSubCategoryDto.categoryId }
+            });
+
+            if(!category) throw CustomError.notFound(`Category not found, can't create sub category`); 
+
+            const subCategory = await prisma.subCategory.create({
                 data: {
                     name: createSubCategoryDto.name,
                     categoryId: createSubCategoryDto.categoryId,
-                } 
+                }
             });
 
-            const subCategoryEntity = SubCategoryEntity.fromObject(category);
+            const subCategoryEntity = SubCategoryEntity.fromObject(subCategory);
 
             return subCategoryEntity;
 
@@ -39,11 +45,11 @@ export class SubCategoryService {
 
         try {
 
-          const subCategories = await prisma.subCategory.findMany();
+            const subCategories = await prisma.subCategory.findMany();
 
-          const subCategoriesEntity = subCategories.map(category => SubCategoryEntity.fromObject(category));
+            const subCategoriesEntity = subCategories.map(category => SubCategoryEntity.fromObject(category));
 
-          return subCategoriesEntity;
+            return subCategoriesEntity;
 
         } catch (error) {
             throw CustomError.internalServer("Internal server error");

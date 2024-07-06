@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { ProductController } from './controller';
 import { ProductService } from '../services';
+import { FileTypeMiddleware } from '../middlewares/file-upload.middleware';
+import { ImageService } from '../services/image.service';
 
 
 
@@ -12,17 +14,20 @@ export class ProductRoutes {
 
         const router = Router();
 
-        const productService = new ProductService();
+        const imageService = new ImageService();
+        const productService = new ProductService(imageService);
 
         const controller = new ProductController(productService);
 
         // Definir las rutas
-        router.post('/', controller.createProduct);
+        router.post('/', [FileTypeMiddleware.validateExtension], controller.createProduct);  //todo: Corregir el descuento para los pedidos / Token de admin
         router.get('/', controller.getProducts);
         router.get('/category/:categoryId', controller.getProductsByCategory);
         router.get('/word/:word', controller.getProductsByWord);
-        router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory); // todo: Check if subcategory exist in the category table before create a product
-        // todo: update and delete routes / FOR THE ADMIN ROLE
+        router.get('/sub-category/:subCategoryId', controller.getProductsBySubCategory);
+
+        router.put('/', controller.modifyProduct); //todo: Token de admin
+        router.put('/change-availability', controller.changeProductAvailability); //todo: Es necesario mostrar los productos disponibles a los usuarios y solo los no disponibles en el apartado del admin
 
         return router;
     }
