@@ -11,7 +11,7 @@ export class PaymentController {
         private readonly paymentService: PaymentService,
     ) { }
 
-    successCase = (req: Request, res: Response) => { //todo: Hacer que desde el frontend se maneje cada caso
+    successCase = (req: Request, res: Response) => {
         console.log({ query_success: req.query });
         res.redirect(`${envs.WEB_URL}payment/success`);
     };

@@ -7,6 +7,7 @@ import { CartRouter } from './cart/routes';
 import { ClientAddressRouter } from './client-address/routes';
 import { OrderRoutes } from './order/routes';
 import { PaymentRoutes } from './payment/routes';
+import { ShippingRoutes } from './shipping/routes';
 
 
 export class AppRoutes {
@@ -25,6 +26,7 @@ export class AppRoutes {
     router.use('/api/address', ClientAddressRouter.routes);
     router.use('/api/order', OrderRoutes.routes);
     router.use('/api/payment', PaymentRoutes.routes);
+    router.use('/api/shipping', ShippingRoutes.routes);
 
     return router;
   }

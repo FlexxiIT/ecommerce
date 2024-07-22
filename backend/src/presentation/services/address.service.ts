@@ -53,7 +53,7 @@ export class AdressService {
     async modifyClientAddress(modifyAddressDto: ModifyAddressDto) {
 
         try {
-            const { addressId, clientId, city, state, street, zipCode } = modifyAddressDto;
+            const { addressId, clientId, streetName, streetNumber, floor, apartment, locality, city, state, provinceCode, postalCode } = modifyAddressDto;
 
             const existingAddress = await prisma.address.findFirst({
                 where: { id: addressId, clientId: clientId }
@@ -65,7 +65,7 @@ export class AdressService {
 
             const updatedAddress = await prisma.address.update({
                 where: { id: addressId },
-                data: { city, state, street, zipCode }
+                data: { streetName, streetNumber, floor, apartment, locality, city, state, provinceCode, postalCode }
             });
 
             return AddressEntity.fromObject(updatedAddress);

@@ -106,7 +106,7 @@ export class OrderService {
 
     async createOrder(createOrderDto: ShowCreateOrderDto) {
         const { clientId } = createOrderDto;
-
+    
         try {
             // Iniciar transacción
             const result = await prisma.$transaction(async (prisma) => {
@@ -119,25 +119,25 @@ export class OrderService {
                         }
                     }
                 });
-
+    
                 if (!cart || cart.items.length === 0) {
                     throw CustomError.badRequest(`The cart is empty`);
                 }
-
+    
                 const address = await prisma.address.findFirst({
                     where: { clientId: clientId },
                 });
-
+    
                 if (!address) {
                     throw CustomError.notFound(`There is not an address linked to the client with id: ${clientId}`);
                 }
-
+    
                 // Verificar el stock y restarlo
                 for (const item of cart.items) {
                     if (item.product.stock < item.quantity) {
                         throw CustomError.badRequest(`Insufficient stock for product with id: ${item.productId}`);
                     }
-
+    
                     await prisma.product.update({
                         where: { id: item.productId },
                         data: {
@@ -146,7 +146,7 @@ export class OrderService {
                         }
                     });
                 }
-
+    
                 // Crear la orden
                 const order = await prisma.order.create({
                     data: {
@@ -162,45 +162,46 @@ export class OrderService {
                     },
                     include: {
                         items: {
-                            include: { product: true } // Incluir detalles del producto en los OrderItems
+                            include: { product: true } // Incluir detalles del producto en los items
                         }
                     }
                 });
-
-                // Create the address for the order
+    
+                // Excluir clientId del address para que no haya conflictos a la hora de crear el orderaddress
+                const { clientId: addressClientId, ...addressWithoutClientId } = address;
+    
+                // Crear la address para la order
                 await prisma.orderAddress.create({
                     data: {
                         orderId: order.id,
-                        street: address.street,
-                        city: address.city,
-                        state: address.state,
-                        zipCode: address.zipCode,
+                        ...addressWithoutClientId
                     }
                 });
-
+    
                 // Eliminar los ítems del carrito
                 await prisma.cartItem.deleteMany({
                     where: { cartId: cart.id }
                 });
-
+    
                 return order;
             });
-
+    
             if (result) {
                 // Crear ítems de Mercado Pago usando la información del carrito
                 const mpItems = this.mapMercadoPagoItems(result.items);
-
+    
                 const paymentResult = await this.paymentService.createOrder(mpItems, result.id);
-
+    
                 return { order: result, init_point: paymentResult.init_point };
             } else {
-                throw CustomError.internalServer('An error was ocurred in the result');
+                throw CustomError.internalServer('An error was occurred in the result');
             }
-
+    
         } catch (error) {
             throw CustomError.internalServer(`${error}`);
         }
     }
+    
 
     mapMercadoPagoItems(items: OrderItem[]) {
 

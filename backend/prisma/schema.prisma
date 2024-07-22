@@ -27,14 +27,19 @@ model Client {
 }
 
 model Address {
-  id       String  @id @default(uuid())
-  street   String
-  city     String
-  state    String
-  zipCode  String
-  client   Client  @relation(fields: [clientId], references: [id])
-  clientId String
-  Order    Order[]
+  id           String  @id @default(uuid())
+  streetName   String
+  streetNumber String
+  floor        String
+  apartment    String
+  locality     String
+  city         String
+  state        String
+  provinceCode String
+  postalCode   String
+  client       Client  @relation(fields: [clientId], references: [id])
+  clientId     String
+  Order        Order[]
 }
 
 model Category {
@@ -129,14 +134,19 @@ model OrderItem {
 }
 
 model OrderAddress {
-  id        String   @id @default(uuid())
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   String
-  street    String
-  city      String
-  state     String
-  zipCode   String
-  createdAt DateTime @default(now())
+  id           String   @id @default(uuid())
+  order        Order    @relation(fields: [orderId], references: [id])
+  orderId      String
+  streetName   String
+  streetNumber String
+  floor        String
+  apartment    String
+  locality     String
+  city         String
+  state        String
+  provinceCode String
+  postalCode   String
+  createdAt    DateTime @default(now())
 }
 
 enum CartStatus {
