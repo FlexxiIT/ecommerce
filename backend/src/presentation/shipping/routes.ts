@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { ShippingController } from "./controller";
 import { ShippingService } from "../services/shipping.service";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
 
 
 
@@ -17,7 +18,7 @@ export class ShippingRoutes {
 
         const controller = new ShippingController(shippingService);
 
-        router.post('/register-sender', controller.registerSender);
+        router.post('/register-sender', [AuthMiddleware.validateJWT], controller.registerSender);
 
         return router;
 
