@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ShippingController } from "./controller";
 import { ShippingService } from "../services/shipping.service";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
+import { ShippingAuthService } from "../services/shipping-auth.service";
 
 
 
@@ -14,7 +15,7 @@ export class ShippingRoutes {
 
         const router = Router();
 
-        const shippingService = new ShippingService();
+        const shippingService = new ShippingService(new ShippingAuthService());
 
         const controller = new ShippingController(shippingService);
 

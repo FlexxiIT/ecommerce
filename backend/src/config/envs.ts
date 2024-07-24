@@ -23,6 +23,8 @@ export const envs = {
   MERCADOPAGO_API_KEY: get('MERCADOPAGO_API_KEY').required().asString(),
 
   BASE_URL_SHIPPING: get('BASE_URL_SHIPPING').required().asUrlString(),
+  SHIPPING_API_USER: get('SHIPPING_API_USER').required().asString(),
+  SHIPPING_API_PASSWORD: get('SHIPPING_API_PASSWORD').required().asString(),
 
   DATABASE_URL: get('DATABASE_URL').required().asUrlString(),
 }
