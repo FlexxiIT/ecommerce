@@ -5,7 +5,7 @@ import { CustomError } from "../errors/custom-error";
 export class OrderAddress {
 
     constructor(
-        public id: string,
+        public id: string,//todo
         public orderId: string,
         public street: string,
         public city: string,

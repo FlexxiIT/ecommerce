@@ -11,14 +11,13 @@ export class ModifyAddressDto {
         public readonly apartment?: string,
         public readonly locality?: string,
         public readonly city?: string,
-        public readonly state?: string,
         public readonly provinceCode?: string,
         public readonly postalCode?: string,
     ) { }
 
     static create(object: { [key: string]: any }): [string?, ModifyAddressDto?] {
 
-        const { addressId, clientId, streetName, streetNumber, floor, apartment, locality, city, state, provinceCode, postalCode } = object;
+        const { addressId, clientId, streetName, streetNumber, floor, apartment, locality, city, provinceCode, postalCode } = object;
 
         if (!addressId) return ['Missing addressId'];
         if (!isUUID(addressId)) return ['The addressId is not valid'];
@@ -34,7 +33,6 @@ export class ModifyAddressDto {
             apartment,
             locality,
             city,
-            state,
             provinceCode,
             postalCode)];
     }
