@@ -19,7 +19,8 @@ export class ShippingRoutes {
 
         const controller = new ShippingController(shippingService);
 
-        router.post('/register-sender', [AuthMiddleware.validateJWT], controller.registerSender);
+        router.post('/register-sender', [AuthMiddleware.validateJWT], controller.registerSender);//todo: hacer que solo el admin pueda acceder al los endpoint
+        router.post('/validate-sender', [AuthMiddleware.validateJWT], controller.validateSender);
 
         return router;
 

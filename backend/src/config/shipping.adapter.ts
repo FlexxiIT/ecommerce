@@ -2,6 +2,7 @@ import axios from "axios";
 import { RegisterSenderDto } from "../domain/dtos/shipping/register-sender.dto";
 import { envs } from "./envs";
 import { CustomError } from "../domain";
+import { ValidateSenderDto } from "../domain/dtos/shipping/validate-sender.dto";
 
 interface completeRegisterBody {
     firstName: string,
@@ -38,7 +39,7 @@ export class ShippingAdapter {
         const response = await axios.post(
             `${envs.BASE_URL_SHIPPING}/register`,
             registerInfo,
-            { 
+            {
                 headers: { Authorization: `Bearer ${token}` },
                 validateStatus: (status) => {
                     return status < 300 || status === 402;
@@ -49,11 +50,31 @@ export class ShippingAdapter {
         if (response.status === 402) {
             return response.data
         }
-        
+
         return response.data;
     }
 
-    static validateSender() {
+    static async validateSender(validateSenderDto: ValidateSenderDto, token: string) {
+
+        const response = await axios.post(
+            `${envs.BASE_URL_SHIPPING}/users/validate`,
+            { 
+                email: validateSenderDto.email, 
+                password: validateSenderDto.password 
+            },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+                validateStatus: (status) => {
+                    return status < 300 || status === 406;
+                }
+            }
+        )
+        
+        if (response.status === 406) {
+            return response.data
+        }
+
+        return response.data;
 
     }
 
