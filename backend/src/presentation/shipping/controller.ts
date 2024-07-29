@@ -3,6 +3,7 @@ import { ShippingService } from "../services/shipping.service";
 import { RegisterSenderDto } from "../../domain/dtos/shipping/register-sender.dto";
 import { handleError } from "../../config";
 import { ValidateSenderDto } from "../../domain/dtos/shipping/validate-sender.dto";
+import { GetRatesDto } from "../../domain/dtos/shipping/get-rates.dto";
 
 
 
@@ -15,7 +16,7 @@ export class ShippingController {
 
     registerSender = (req: Request, res: Response) => {
 
-        const [error, registerSenderDto] = RegisterSenderDto.create({...req.body, clientId: req.body.user.id});
+        const [error, registerSenderDto] = RegisterSenderDto.create({ ...req.body, clientId: req.body.user.id });
         if (error) res.status(400).json({ error });
 
         this.shippingService.registerShippingSender(registerSenderDto!)
@@ -34,6 +35,16 @@ export class ShippingController {
 
     }
 
-    
+    getRates = (req: Request, res: Response) => { //todo: hacer un middleware que obtenga el customer id desde un token.
+
+        const [error, getRatesDto] = GetRatesDto.create(req.body);
+        if (error) res.status(400).json({ error });
+
+        this.shippingService.getShippingRates(getRatesDto!)
+            .then(resp => res.status(200).json(resp))
+            .catch(error => handleError(res, error));
+
+    }
+
 
 }

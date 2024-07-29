@@ -3,6 +3,8 @@ import { RegisterSenderDto } from "../domain/dtos/shipping/register-sender.dto";
 import { envs } from "./envs";
 import { CustomError } from "../domain";
 import { ValidateSenderDto } from "../domain/dtos/shipping/validate-sender.dto";
+import { JwtAdapter } from "./jwt.adapter";
+import { GetRatesDto } from "../domain/dtos/shipping/get-rates.dto";
 
 interface completeRegisterBody {
     firstName: string,
@@ -32,7 +34,7 @@ export class ShippingAdapter {
 
     constructor() { }
 
-    static async registerSender(registerSenderDto: RegisterSenderDto, addressInfo: AddressInfo, token: string) {
+    static async registerSender(registerSenderDto: RegisterSenderDto, addressInfo: AddressInfo, token: string) { //todo: hacer todo con fetch
         const { clientId, ...registerInfoFromDto } = registerSenderDto;
         const registerInfo: completeRegisterBody = { ...registerInfoFromDto, address: addressInfo };
 
@@ -74,11 +76,24 @@ export class ShippingAdapter {
             return response.data
         }
 
-        return response.data;
+        const senderToken = await JwtAdapter.generateToken(response.data);
+        if(!senderToken) throw CustomError.internalServer(`Error while creating token for the sender`);
+
+        return senderToken;
 
     }
 
-    static getRates() {
+    static async getRates(getRatesDto: GetRatesDto, token: string) {
+
+        const response = await axios.post(
+            `${envs.BASE_URL_SHIPPING}/rates`,
+            getRatesDto,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
+
+        return response.data;
 
     }
 
