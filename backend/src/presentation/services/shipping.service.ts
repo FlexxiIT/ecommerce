@@ -2,6 +2,7 @@ import { AddressInfo, ShippingAdapter } from "../../config/shipping.adapter";
 import { prisma } from "../../data/postgres";
 import { CustomError } from "../../domain";
 import { GetRatesDto } from "../../domain/dtos/shipping/get-rates.dto";
+import { ImportShippingDto } from "../../domain/dtos/shipping/import-shipping.dto";
 import { RegisterSenderDto } from "../../domain/dtos/shipping/register-sender.dto";
 import { ValidateSenderDto } from "../../domain/dtos/shipping/validate-sender.dto";
 import { ShippingAuthService } from "./shipping-auth.service";
@@ -68,6 +69,22 @@ export class ShippingService {
             const token = await this.shippingAuthService.getToken();
 
             const response = await ShippingAdapter.getRates(getRatesDto, token);
+
+            return response;
+
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`);
+        }
+
+    }
+
+    async importShipping(importShippingDto: ImportShippingDto) {
+
+        try {
+            
+            const token = await this.shippingAuthService.getToken();
+
+            const response = await ShippingAdapter.importShipping(importShippingDto, token);
 
             return response;
 

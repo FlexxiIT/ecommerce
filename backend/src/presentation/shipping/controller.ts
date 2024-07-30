@@ -4,6 +4,7 @@ import { RegisterSenderDto } from "../../domain/dtos/shipping/register-sender.dt
 import { handleError } from "../../config";
 import { ValidateSenderDto } from "../../domain/dtos/shipping/validate-sender.dto";
 import { GetRatesDto } from "../../domain/dtos/shipping/get-rates.dto";
+import { ImportShippingDto } from "../../domain/dtos/shipping/import-shipping.dto";
 
 
 
@@ -41,6 +42,17 @@ export class ShippingController {
         if (error) res.status(400).json({ error });
 
         this.shippingService.getShippingRates(getRatesDto!)
+            .then(resp => res.status(200).json(resp))
+            .catch(error => handleError(res, error));
+
+    }
+
+    importShipping = (req: Request, res: Response) => {
+
+        const [error, importShippingDto] = ImportShippingDto.create(req.body);
+        if (error) res.status(400).json({ error });
+
+        this.shippingService.importShipping(importShippingDto!)
             .then(resp => res.status(200).json(resp))
             .catch(error => handleError(res, error));
 

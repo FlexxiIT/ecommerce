@@ -22,6 +22,7 @@ export class ShippingRoutes {
         router.post('/register-sender', [AuthMiddleware.validateJWT], controller.registerSender);//todo: hacer que solo el admin pueda acceder al los endpoint
         router.post('/validate-sender', [AuthMiddleware.validateJWT], controller.validateSender);
         router.post('/get-rates', [AuthMiddleware.validateJWT], controller.getRates);
+        router.post('/import-shipping', [AuthMiddleware.validateJWT], controller.importShipping);
 
         return router;
 

@@ -5,6 +5,7 @@ import { CustomError } from "../domain";
 import { ValidateSenderDto } from "../domain/dtos/shipping/validate-sender.dto";
 import { JwtAdapter } from "./jwt.adapter";
 import { GetRatesDto } from "../domain/dtos/shipping/get-rates.dto";
+import { ImportShippingDto } from "../domain/dtos/shipping/import-shipping.dto";
 
 interface completeRegisterBody {
     firstName: string,
@@ -97,7 +98,24 @@ export class ShippingAdapter {
 
     }
 
-    static importShipping() {
+    static async importShipping(importShippingDto: ImportShippingDto, token: string) {
+
+        const response = await axios.post(
+            `${envs.BASE_URL_SHIPPING}/shipping/import`,
+            importShippingDto,
+            {
+                headers: { Authorization: `Bearer ${token}` },
+                validateStatus: (status) => {
+                    return status < 300 || status === 400;
+                }
+            }
+        );
+
+        if (response.status === 400) {
+            return response.data
+        }
+
+        return response.data;
 
     }
 
