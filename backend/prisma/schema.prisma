@@ -21,6 +21,7 @@ model Client {
   name           String
   surname        String
   phoneNumber    String
+  role           Role      @default(USER)
   Cart           Cart[]
   Order          Order[]
   Address        Address[]
@@ -145,6 +146,11 @@ model OrderAddress {
   provinceCode String
   postalCode   String
   createdAt    DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum CartStatus {

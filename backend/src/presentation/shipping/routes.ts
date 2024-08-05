@@ -19,10 +19,10 @@ export class ShippingRoutes {
 
         const controller = new ShippingController(shippingService);
 
-        router.post('/register-sender', [AuthMiddleware.validateJWT], controller.registerSender);//todo: hacer que solo el admin pueda acceder al los endpoint
-        router.post('/validate-sender', [AuthMiddleware.validateJWT], controller.validateSender);
-        router.post('/get-rates', [AuthMiddleware.validateJWT], controller.getRates);
-        router.post('/import-shipping', [AuthMiddleware.validateJWT], controller.importShipping);
+        router.post('/register-sender', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin], controller.registerSender);
+        router.post('/validate-sender', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin], controller.validateSender);
+        router.post('/get-rates', [AuthMiddleware.validateJWT], controller.getRates); //No es necesario que sea admin ya que los precios los tiene que poder ver el cliente
+        router.post('/import-shipping', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin], controller.importShipping);
 
         return router;
 

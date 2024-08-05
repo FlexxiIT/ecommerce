@@ -38,4 +38,13 @@ export class AuthMiddleware {
 
     }
 
+    static async isAdmin(req: Request, res: Response, next: NextFunction) {
+        const user = req.body.user;
+        if (user.role !== 'ADMIN') {
+            return res.status(403).json({ error: 'Access denied' });
+        }
+
+        next();
+    }
+
 }

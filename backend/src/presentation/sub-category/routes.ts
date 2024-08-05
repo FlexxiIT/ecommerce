@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { SubCategoryService } from '../services';
 import { SubCategoryController } from './controller';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
 
 
@@ -18,7 +19,7 @@ export class SubCategoryRoutes {
         const controller = new SubCategoryController(subCategoryService);
 
         // Definir las rutas
-        router.post('/', controller.createSubCategory);
+        router.post('/', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin] , controller.createSubCategory);
         router.get('/', controller.getSubCategories);
         // todo: update and delete routes / FOR THE ADMIN ROLE
 

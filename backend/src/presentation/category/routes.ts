@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { CategoryController } from './controller';
 import { CategoryService } from '../services';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
 
 
@@ -18,11 +19,10 @@ export class CategoryRoutes {
         const controller = new CategoryController(categoryService);
 
         // Definir las rutas
-        router.post('/', controller.createCategory);
+        router.post('/', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin] ,controller.createCategory);
         router.get('/', controller.getCategories);
-        // todo: Make it only usable with an admin token
-        router.put('/', controller.modifyCategory);
-        router.delete('/', controller.deleteCategory);
+        router.put('/', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin] ,controller.modifyCategory);
+        router.delete('/', [AuthMiddleware.validateJWT, AuthMiddleware.isAdmin] ,controller.deleteCategory);
         
 
         return router;
